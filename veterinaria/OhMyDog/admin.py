@@ -1,5 +1,6 @@
 from django.contrib import admin
-from modelos.cliente import Clientes
+from OhMyDog.modelos.clientes.clientes import Cliente
 
 # Register your models here.
-adimin.site.register(Clientes)
+
+admin.site.register(Cliente)
