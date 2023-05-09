@@ -17,8 +17,8 @@ def home(request):
 def register(request):
     if request.method == 'POST':
         email = request.POST['email']
-        cliente = authenticate(request, email=email)
-        if cliente is not None:            
+        cliente = comprobar_que_no_exista(email)
+        if cliente is None:            
             nombre = request.POST['nombre']
             telefono = request.POST['telefono']
             contraseña = "contraseña"

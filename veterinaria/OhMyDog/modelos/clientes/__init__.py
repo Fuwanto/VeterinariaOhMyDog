@@ -10,7 +10,10 @@ def agregar_cliente(nombre, email, telefono, contraseña):
     return cliente
 
 def comprobar_que_no_exista(email):
-    return Cliente.objects.get(email=email)# si no existe retorna None
+    try:
+        return Cliente.objects.get(email=email)
+    except:
+        return None 
 
 def borrar_cliente():
     pass
