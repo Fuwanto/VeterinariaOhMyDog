@@ -47,10 +47,11 @@ def login_cliente(request):
         email = request.POST['email']
         contraseña = request.POST['contraseña']
         cliente = comprobar_que_no_exista(email)
+        # despues habria que chequear la constraseña y eso. Igual creo que se puede hacer mejor
         # no se como hacer para que ande esto, creo que hace el login pero no se es raro
         # faltaria el logout tambien
         if cliente is not None:
-            #login(request, cliente)
+            #login(request, cliente) # esto es algo de django pero no lo pude usar
 
             return redirect('home') # redirige a la página principal del sitio
         else:
