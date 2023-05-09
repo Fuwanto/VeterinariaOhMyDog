@@ -9,6 +9,7 @@ python manage.py runserver
 ## Actualizar tablas de la base
 
 python manage.py makemigrations
+
 python manage.py migrate
 
 ## Activar entorno virtual
