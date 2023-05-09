@@ -5,8 +5,8 @@ from django.db import models
 
 class Cliente(models.Model):
     id = models.BigAutoField(primary_key=True)  # autoincremental
-    nombre = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
+    nombre = models.CharField(max_length=30, blank=False)
+    email = models.EmailField(max_length=30, blank=False)
     telefono = models.CharField(max_length=20)
     contraseña = models.CharField(max_length=255)
 

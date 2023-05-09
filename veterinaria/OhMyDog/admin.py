@@ -1,5 +1,6 @@
 from django.contrib import admin
 from OhMyDog.modelos.clientes.clientes import Cliente
+from OhMyDog.modelos.perros.perros import Perro
 from OhMyDog.modelos.estadosDelTurno.estadosDelTurno import EstadoDelTurno
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
@@ -12,3 +13,4 @@ admin.site.register(EstadoDelTurno)
 admin.site.register(FranjaHoraria)
 admin.site.register(TipoDeAtencion)
 admin.site.register(Turno)
+admin.site.register(Perro)
