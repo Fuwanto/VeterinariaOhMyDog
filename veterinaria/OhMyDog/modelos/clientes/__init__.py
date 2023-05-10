@@ -29,3 +29,9 @@ def buscar_cliente_por():
 
 def listar_clientes():
     return Cliente.objects.all()
+
+def alternar_primer_acceso(id):
+    cliente = Cliente.objects.get(id = id)
+    cliente.primerInicio = False
+    cliente.save()
+
