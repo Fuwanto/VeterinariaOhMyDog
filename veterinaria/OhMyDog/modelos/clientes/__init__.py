@@ -2,14 +2,14 @@ from OhMyDog.modelos.clientes.clientes import Cliente
 from django.db.models.query_utils import * #  incluye funciones útiles para consultas de bases de datos en Django.
 
 
-def agregar_cliente(nombre, email, telefono, contraseña):
+def agregar_cliente(nombre, email, telefono):
     cliente = Cliente(
-        nombre=nombre, email=email, telefono=telefono, contraseña=contraseña
+        nombre=nombre, email=email, telefono=telefono
     )
     cliente.save()
     return cliente
 
-def comprobar_que_no_exista(email):
+def buscar_cliente_por_mail(email):
     try:
         return Cliente.objects.get(email=email)
     except:
@@ -30,8 +30,4 @@ def buscar_cliente_por():
 def listar_clientes():
     return Cliente.objects.all()
 
-def alternar_primer_acceso(id):
-    cliente = Cliente.objects.get(id = id)
-    cliente.primerInicio = False
-    cliente.save()
 
