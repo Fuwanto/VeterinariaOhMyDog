@@ -18,10 +18,12 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Mis datos</a>
           <a class="nav-link" href="login">Login</a>
-          <a class="nav-link" href="logout">logout</a>
+          {% if user.is_authenticated %}
+            <a class="nav-link" href="logout">logout</a>
+          {% endif %}
           {% if is_staff%}
       <!-- Aquí va el contenido exclusivo para administradores -->
-          <a class="nav-link" href="register">Registrar Cliente</a>
+            <a class="nav-link" href="register">Registrar Cliente</a>
           {% endif %}
         </li>
       <!-- Aquí va el contenido exclusivo para administradores -->
