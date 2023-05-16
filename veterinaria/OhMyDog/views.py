@@ -7,7 +7,6 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import send_mail
 from .models import Usuario
-from. models import UsuarioManager
 from .modelos.clientes import agregar_cliente, buscar_cliente_por_mail, listar_clientes
 from django.contrib.auth import logout
 
@@ -25,7 +24,7 @@ def register(request):
             telefono = request.POST['telefono']    
             contraseña = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=8))
             cliente = agregar_cliente(nombre, email, telefono, )
-            usuario = Usuario.objects.create_user(email, contraseña, cliente)
+            Usuario.objects.create_user(email, contraseña, cliente)
             send_mail(
                    "Constraseña de su cuenta de OhMyDog",
                    f"La contraseña autogenerada es: {contraseña}",
@@ -54,12 +53,8 @@ def login_usuario(request):
                    fail_silently=False,
                     )
         usuario = authenticate(request, mail=mail, password=password)    
-        # despues habria que chequear la constraseña y eso. Igual creo que se puede hacer mejor
-        # no se como hacer para que ande esto, creo que hace el login pero no se es raro
-        # faltaria el logout tambien
         if usuario is not None:
-
-            login(request, usuario) # esto es algo de django pero no lo pude usar
+            login(request, usuario)
             if usuario.primer_inicio:
                 #Mostrar cambiar contraseña
                 alternar_primer_acceso(usuario.id)
@@ -80,6 +75,8 @@ def alternar_primer_acceso(id):
     usuario = Usuario.objects.get(id = id)
     usuario.primer_inicio = False
     usuario.save()
+    
+
 #def test_view(request):
 #    clientes = listar_clientes()
 #    return render(request, "test.html", {"clientes": clientes})
