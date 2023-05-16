@@ -9,12 +9,16 @@ from django.core.mail import send_mail
 from .models import Usuario
 from .modelos.clientes import agregar_cliente, buscar_cliente_por_mail, listar_clientes
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import user_passes_test
 
 
 def home(request):
-    return render(request, "home.html")
+    return render(request, "home.html", {'is_staff': request.user.is_staff})
 
+def superuser_check(user):
+    return user.is_staff
 
+@user_passes_test(superuser_check)
 def register(request):
     if request.method == "POST":
         email = request.POST["email"]
