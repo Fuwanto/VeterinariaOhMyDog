@@ -68,6 +68,7 @@ def login_usuario(request):
             if usuario.primer_inicio:
                 # Llamar funcion para mostrar cambiar contraseña
                 alternar_primer_acceso(usuario.id)
+                return redirect("home")
             else:
                 # Si no es el primer inicio se lo redirecciona al home
                 return redirect("home")
