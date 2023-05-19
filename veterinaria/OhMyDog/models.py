@@ -10,9 +10,9 @@ class UsuarioManager(BaseUserManager):
 
         usuario = self.model(
             mail=self.normalize_email(mail),
+            cliente=cliente  # Asignar el objeto cliente directamente
         )
         usuario.set_password(password)
-        usuario.cliente_id = cliente
         usuario.save(using=self._db)
         return usuario
 
@@ -27,7 +27,7 @@ class UsuarioManager(BaseUserManager):
 class Usuario(AbstractBaseUser, PermissionsMixin):
     mail = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
-    cliente_id = models.ForeignKey(Cliente, null=True, on_delete=models.CASCADE)
+    cliente = models.OneToOneField(Cliente, null=True, on_delete=models.CASCADE)
     habilitado = models.BooleanField(default=True)
     primer_inicio = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
