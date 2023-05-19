@@ -15,3 +15,8 @@ python manage.py migrate
 ## Activar entorno virtual
 
 vet/Scripts/activate
+
+## Cuenta SUPERUSER
+
+-   denisseanto11@hotmail.com
+-   anto123
