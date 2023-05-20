@@ -9,3 +9,5 @@
 1. imports de python como "import string" o "import random"
 2. imports de django
 3. imports de archivos de nuestro propio proyecto
+
+Nota: 1 2 y 3 se separan con un espacio en blanco, pero imports de un mismo "tipo" no.
