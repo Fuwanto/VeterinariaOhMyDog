@@ -1,6 +1,5 @@
 from django.urls import path
 
-# from . import views_a_borrar
 from OhMyDog.views.home import home
 from OhMyDog.views.auth import login_usuario, logout_usuario, register
 

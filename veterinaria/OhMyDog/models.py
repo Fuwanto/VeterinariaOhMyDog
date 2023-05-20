@@ -1,6 +1,7 @@
 from django.db import models
-from OhMyDog.modelos.clientes.clientes import Cliente
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
+from OhMyDog.modelos.clientes.clientes import Cliente
 
 
 class UsuarioManager(BaseUserManager):
