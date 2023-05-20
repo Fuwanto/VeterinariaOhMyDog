@@ -17,41 +17,41 @@ def superuser_check(user):
 
 @user_passes_test(superuser_check)
 def register(request):
-    if request.method == "POST":
-        email = request.POST["email"]
-        cliente = buscar_cliente_por_mail(email)
-        if cliente is None:
-            nombre = request.POST["nombre"]
-            telefono = request.POST["telefono"]
-            contraseña = "".join(
-                random.choices(
-                    string.ascii_uppercase + string.ascii_lowercase + string.digits, k=8
-                )
-            )
-            cliente = agregar_cliente(
-                nombre,
-                email,
-                telefono,
-            )
-            Usuario.objects.create_user(email, contraseña, cliente)
-            send_mail(
-                "Constraseña de su cuenta de OhMyDog",
-                f"La contraseña autogenerada es: {contraseña}",
-                settings.EMAIL_HOST_USER,
-                [email],
-                fail_silently=False,
-            )
-            messages.success(
-                request,
-                "Tu cuenta ha sido creada exitosamente. Revisa tu correo para obtener tu contraseña.",
-            )
-        else:
-            messages.error(request, f"Cliente {email} ya existente.")
-
-        return redirect("login")
-
-    else:
+    if request.method == "GET":
         return render(request, "register.html")
+
+    email = request.POST["email"]
+    cliente = buscar_cliente_por_mail(email)
+    if cliente is None:
+        nombre = request.POST["nombre"]
+        telefono = request.POST["telefono"]
+        contraseña = "".join(
+            random.choices(
+                string.ascii_uppercase + string.ascii_lowercase + string.digits, k=8
+            )
+        )
+        cliente = agregar_cliente(
+            nombre,
+            email,
+            telefono,
+        )
+        Usuario.objects.create_user(email, contraseña, cliente)
+        send_mail(
+            "Constraseña de su cuenta de OhMyDog",
+            f"La contraseña autogenerada es: {contraseña}",
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+        messages.success(
+            request,
+            "Tu cuenta ha sido creada exitosamente. Revisa tu correo para obtener tu contraseña.",
+        )
+    else:
+        messages.error(request, f"Cliente {email} ya existente.")
+        return redirect("register")
+
+    return redirect("home")
 
 
 def login_usuario(request):
