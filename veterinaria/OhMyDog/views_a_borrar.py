@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import send_mail
-from .models import Usuario
-from .modelos.clientes import agregar_cliente, buscar_cliente_por_mail, listar_clientes
+from .models import Usuario, alternar_primer_acceso
+from .modelos.clientes import agregar_cliente, buscar_cliente_por_mail
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import user_passes_test
 
@@ -81,14 +81,3 @@ def login_usuario(request):
 def logout_usuario(request):
     logout(request)
     return redirect("home")
-
-
-def alternar_primer_acceso(id):
-    usuario = Usuario.objects.get(id=id)
-    usuario.primer_inicio = False
-    usuario.save()
-
-
-# def test_view(request):
-#    clientes = listar_clientes()
-#    return render(request, "test.html", {"clientes": clientes})
