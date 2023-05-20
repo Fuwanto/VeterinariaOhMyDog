@@ -10,7 +10,7 @@ class UsuarioManager(BaseUserManager):
 
         usuario = self.model(
             mail=self.normalize_email(mail),
-            cliente=cliente  # Asignar el objeto cliente directamente
+            cliente=cliente,  # Asignar el objeto cliente directamente
         )
         usuario.set_password(password)
         usuario.save(using=self._db)
@@ -38,3 +38,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.mail
+
+
+def alternar_primer_acceso(id):
+    usuario = Usuario.objects.get(id=id)
+    usuario.primer_inicio = False
+    usuario.save()
