@@ -37,7 +37,7 @@ def register(request):
         )
         Usuario.objects.create_user(email, contraseña, cliente)
         send_mail(
-            "Constraseña de su cuenta de OhMyDog",
+            "Contraseña de su cuenta de OhMyDog",
             f"La contraseña autogenerada es: {contraseña}",
             settings.EMAIL_HOST_USER,
             [email],
