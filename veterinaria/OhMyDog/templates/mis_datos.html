@@ -1,1 +1,132 @@
-<h1>Nombre: {{cliente.nombre}}, Telefono: {{cliente.telefono}}, Mail:{{cliente.email}}</h1>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Mis Datos</title>
+  </head>
+  <body>
+
+    <!-- encabezado -->
+              
+    <div class="container" style="float: none; text-align: center; display: block; width: 1510px; max-width: 1980px; height: 1080px;">
+        <div class="header clearfix" style="text-decoration-color: rgb(255, 255, 255); text-align: justify; float: none; display: block; background-color: rgb(255, 255, 255); color: rgb(255, 255, 255); opacity: 1;">
+          <img src="http://imgfz.com/i/eq02Nh8.png" alt="ohmydog" height="40" width="200" style="text-align: left; width: 200px; height: 40px; float: left; text-decoration-line: none; line-height: 27px;">
+          {% if user.is_authenticated%}
+          <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left; background-color: rgb(157, 209, 59);";>
+              {{user.mail}}
+            </a>
+            {% if user.is_staff%}
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="clientes">Clientes</a>
+              <a class="dropdown-item" href="solicitudes_de_turnos">Solicitudes de turnos</a>
+            </div>
+            {% else %}
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="mis_datos">Mis Datos</a>
+              <a class="dropdown-item" href="mis_perros">Mis Perros</a>
+              <a class="dropdown-item" href="mis_turnos">Mis Turnos</a>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+          <h3 class="text-muted"></h3>
+        <div class="form-group" style="">
+          <div class="dropdown show">
+    
+  </div>
+          </div><div class="btn-group" role="group" aria-label="Basic example" style=""> </div><div class="header clearfix" style="text-decoration-color: rgb(255, 255, 255); text-align: right; float: right; display: block;">
+          
+          <nav>
+            <ul class="nav nav-pills float-right">
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'home' %}" style="float: right; background-color: rgb(255, 189, 89);">Home</a>
+              </li>
+              {% if not user.is_authenticated %}
+              <li class="nav-item" style="width: 131px; height: 40px;">
+                
+                <a class="nav-link" href="login" style="float: right; color: rgb(56, 182, 255); font-weight: 700; line-height: 24px; height: 40px; width: 132px;">Iniciar Sesión</a>
+                                            
+                
+              </li>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <li class="nav-item" style="height: 40px; width: 132px;"><a class="nav-link" href="logout" style="float: right; font-weight: 700; color: rgb(56, 182, 255);">Cerrar Sesión</a>
+                                            
+              {% endif %}
+              </li>
+            </ul>
+          </nav>
+          <h3 class="text-muted"></h3>
+        <div class="form-group" style=""><label style="font-weight: 400; text-align: center; float: left;"></label>
+          </div><div class="btn-group" role="group" aria-label="Basic example" style=""> 
+            
+          </div>
+          
+          {% if user.is_staff%}
+          <a class="btn btn-lg btn-success" href="register" role="button" style="text-align: left; float: right; background-color: rgb(96, 219, 87); color: rgb(255, 255, 255); text-decoration-color: rgb(56, 221, 44); font-weight: 600;">Registrar Cliente</a>
+          {% endif %}
+        </div>
+        </div>
+
+<!-- encabezado -->
+
+
+    <h1 style="float: none; text-align: center;">Mis Datos</h1>
+    
+    <div class="container" id="mis_datos" style="float: none;  width: 400px; text-align: center">
+    <table class="table" style="float: none; width: 400px;">
+        <tbody>
+            <tr><th scope="row">Correo Electrónico</th><td>{{ cliente.email }}</td></tr>
+            <tr><th scope="row">Nombre</th><td>{{ cliente.nombre }}</td></tr>
+            <tr><th scope="row">Teléfono</th><td>{{ cliente.telefono }}</td></tr>	
+        </tbody>		
+    </table>
+    <button type="button" id="modificar_datos" class="btn btn-primary">Modificar Datos</button>
+    </div>
+
+    
+    <div class="container" style="float: none;  width: 400px;">
+    <form method="post" id="formulario_modificard_datos" style="float: none; text-align: center; display: none;">
+    {% csrf_token %}
+    <table class="table" style="float: none; width: 400px;">
+        <tbody>
+
+            <tr><th scope="row">Correo Electrónico</th><td>{{ cliente.email }}</td></tr>
+
+            <tr><th scope="row">Nombre</th><td>
+                <input type="text" id="nombre" name="nombre" value="{{ cliente.nombre }}" required><br>
+            </td></tr>
+            
+            <tr><th scope="row">Teléfono</th><td>
+                <input type="text" id="telfono" name="telefono" value="{{ cliente.telefono }}" required><br>
+            </td></tr>	
+        </tbody>		
+    </table>
+    <button class="btn btn-primary" type="submit" style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255)">
+        Guardar Cambios</button>
+    </form>
+    </div>
+  
+    <script>
+      document.getElementById("modificar_datos").addEventListener("click", function() {
+          var modificar = document.getElementById("formulario_modificard_datos");
+          var datos = document.getElementById("mis_datos");
+          if (modificar.style.display === "none") {
+              datos.style.display = "none"
+              modificar.style.display = "block";
+          } else {
+              modificar.style.display = "none";
+              datos.style.display = "block"
+          }
+      });
+  </script>
+
+  
+  </body>
+  </html>
