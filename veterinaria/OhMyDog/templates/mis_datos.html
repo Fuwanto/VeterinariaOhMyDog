@@ -79,7 +79,7 @@
 
     <h1 style="float: none; text-align: center;">Mis Datos</h1>
     
-    <div class="container" id="mis_datos" style="float: none;  width: 400px; text-align: center">
+    <div class="card" id="mis_datos" style="float: none;  width: 400px; text-align: center">
     <table class="table" style="float: none; width: 400px;">
         <tbody>
             <tr><th scope="row">Correo Electrónico</th><td>{{ cliente.email }}</td></tr>
@@ -91,7 +91,7 @@
     </div>
 
     
-    <div class="container" style="float: none;  width: 400px;">
+    <div class="card" style="float: none;  width: 400px;">
     <form method="post" id="formulario_modificard_datos" style="float: none; text-align: center; display: none;">
     {% csrf_token %}
     <table class="table" style="float: none; width: 400px;">

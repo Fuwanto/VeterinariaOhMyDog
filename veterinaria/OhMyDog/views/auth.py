@@ -1,6 +1,7 @@
 import string, random
 
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import logout, login, authenticate
 from django.core.mail import send_mail
 from django.contrib import messages
@@ -54,22 +55,33 @@ def register(request):
     return redirect("home")
 
 
+
+def buscar_usuario_por_mail(email):
+    try:
+        return Usuario.objects.get(mail=email)
+    except:
+        return None
+
+
 def login_usuario(request):
     if request.method == "POST":
         mail = request.POST["email"]
         password = request.POST["contraseña"]
-
+        usuario_solo_por_mail = buscar_usuario_por_mail(mail)
         usuario = authenticate(request, mail=mail, password=password)
-        if usuario is None:
-            messages.error(request, "Datos incorrectos o usuario no existente")
+        if usuario_solo_por_mail is None:
+            messages.error(request, "Usuario no registrado")
             return redirect("login")  # redirecciona al login de nuevo
-
+        
+        elif usuario_solo_por_mail and (usuario is None): # quiere decir que la contraseña no coincide
+            messages.error(request, "Contraseña incorrecta")
+            return redirect("login")  # redirecciona al login de nuevo
         else:
             login(request, usuario)
             if usuario.primer_inicio:
                 # Llamar funcion para mostrar cambiar contraseña
                 alternar_primer_acceso(usuario.id)
-                return redirect("home")
+                return redirect("primer_inicio")
             else:
                 # Si no es el primer inicio se lo redirecciona al home
                 return redirect("home")
@@ -77,6 +89,23 @@ def login_usuario(request):
     return render(request, "login.html")
 
 
+@login_required
+def primer_inicio(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, 'Tu contraseña ha sido cambiada exitosamente.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Por favor corrige los errores.')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    context = {'form': form}
+    return render(request, 'primer_inicio.html', context)
+
+@login_required
 def logout_usuario(request):
     logout(request)
     return redirect("home")
