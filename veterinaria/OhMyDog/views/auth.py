@@ -46,8 +46,9 @@ def register(request):
         )
         messages.success(
             request,
-            "Tu cuenta ha sido creada exitosamente. Revisa tu correo para obtener tu contraseña.",
+            "Cliente registrado correctamente. Contraseña autogenerada enviada.",
         )
+        redirect("register")
     else:
         messages.error(request, f"Cliente {email} ya existente.")
         return redirect("register")
