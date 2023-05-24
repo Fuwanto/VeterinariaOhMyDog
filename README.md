@@ -20,3 +20,8 @@ vet/Scripts/activate
 
 -   denisseanto11@hotmail.com
 -   anto123
+
+## Cuenta Cliente
+
+-   cuencadenisse10@hotmail.com
+-   messiMejorDelMundo10
