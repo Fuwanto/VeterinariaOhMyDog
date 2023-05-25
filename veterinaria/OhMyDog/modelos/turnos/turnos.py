@@ -8,7 +8,9 @@ from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 
 class Turno(models.Model):
     id = models.BigAutoField(primary_key=True)
-    cliente_id = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
+    cliente_id = models.ForeignKey(
+        Cliente, null=False, on_delete=models.CASCADE
+    )
     fecha_del_turno = models.DateField()
     fecha_de_solicitud = models.DateTimeField()
     franja_horaria_id = models.ForeignKey(

@@ -2,123 +2,182 @@
   integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <!DOCTYPE html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <link rel="icon" href="../../../../favicon.ico">
-  
-      <title>OhMyDog</title>
-  
-      <!-- Bootstrap core CSS -->
-      <link href="../../css/editor.css" rel="stylesheet">
-  
-      <!-- Custom styles for this template -->
-      <link href="narrow-jumbotron.css" rel="stylesheet">
-    </head>
-  
-    <body>
-              <!-- encabezado -->
-                  <div class="container" style="float: none; text-align: center; display: block; width: 1510px; max-width: 1980px; height: 1080px;">
-                    <div class="header clearfix" style="text-decoration-color: rgb(255, 255, 255); text-align: justify; float: none; display: block; background-color: rgb(255, 255, 255); color: rgb(255, 255, 255); opacity: 1;">
-                      <img src="http://imgfz.com/i/eq02Nh8.png" alt="ohmydog" height="40" width="200" style="text-align: left; width: 200px; height: 40px; float: left; text-decoration-line: none; line-height: 27px;">
-                      {% if user.is_authenticated%}
-                      <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left; background-color: rgb(157, 209, 59);";>
-                          {{user.mail}}
-                        </a>
-                        {% if user.is_staff%}
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="clientes">Clientes</a>
-                          <a class="dropdown-item" href="solicitudes_de_turnos">Solicitudes de turnos</a>
-                        </div>
-                        {% else %}
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="mis_datos">Mis Datos</a>
-                          <a class="dropdown-item" href="mis_perros">Mis Perros</a>
-                          <a class="dropdown-item" href="mis_turnos">Mis Turnos</a>
-                        </div>
-                        {% endif %}
-                      </div>
-                      {% endif %}
-                      <h3 class="text-muted"></h3>
-                    <div class="form-group" style="">
-                      <div class="dropdown show">
-                
-              </div>
-                      </div><div class="btn-group" role="group" aria-label="Basic example" style=""> </div><div class="header clearfix" style="text-decoration-color: rgb(255, 255, 255); text-align: right; float: right; display: block;">
-                      
-                      <nav>
-                        <ul class="nav nav-pills float-right">
-                          <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'home' %}" style="float: right; background-color: rgb(255, 189, 89);">Home</a>
-                          </li>
-                          {% if not user.is_authenticated %}
-                          <li class="nav-item" style="width: 131px; height: 40px;">
-                            
-                            <a class="nav-link" href="login" style="float: right; color: rgb(56, 182, 255); font-weight: 700; line-height: 24px; height: 40px; width: 132px;">Iniciar Sesión</a>
-                                                        
-                            
-                          </li>
-                          {% endif %}
-                          {% if user.is_authenticated %}
-                          <li class="nav-item" style="height: 40px; width: 132px;"><a class="nav-link" href="logout" style="float: right; font-weight: 700; color: rgb(56, 182, 255);">Cerrar Sesión</a>
-                                                        
-                          {% endif %}
-                          </li>
-                        </ul>
-                      </nav>
-                      <h3 class="text-muted"></h3>
-                    <div class="form-group" style=""><label style="font-weight: 400; text-align: center; float: left;"></label>
-                      </div><div class="btn-group" role="group" aria-label="Basic example" style=""> 
-                        
-                      </div>
-                      
-                      {% if user.is_staff%}
-                      <a class="btn btn-lg btn-success" href="register" role="button" style="text-align: left; float: right; background-color: rgb(96, 219, 87); color: rgb(255, 255, 255); text-decoration-color: rgb(56, 221, 44); font-weight: 600;">Registrar Cliente</a>
-                      {% endif %}
-                    </div>
-                    </div>
-              <!-- /encabezado -->
-                    <div class="jumbotron" style="float: none; display: block; background-color: rgb(255, 255, 255);"><img src="http://imgfz.com/i/RWx6eN8.png" height="544" width="1980" style="width: 1420px; height: 544px; background-color: rgb(255, 255, 255); margin-top: 0px; text-decoration-color: rgb(35, 36, 36);">
-                      
-                      
-                      <p></p>
-                    </div>
-              
-                    <div class="row marketing">
-                      <div class="col-lg-6">
-                        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);" href="adopciones">Adopciones</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128" style="width: 50px; height: 50px;"></h4>
-                        <p style="color: rgb(35, 47, 61);">Descubre a los paseadores de perros cerca de ti y conecta con ellos en un instante: encuentra la persona perfecta para pasear a tu mejor amigo.</p>
-              
-                        
-                        <p></p><h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);" href="cuidadores">Busquedas</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128" style="width: 50px; height: 50px;"></h4><p><span style="color: rgb(33, 37, 41); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; text-align: start; white-space: pre-wrap; background-color: rgb(255, 255, 255);">¡Encuentra esperanza en cada rincón! Descubre nuestra lista de búsquedas de perros perdidos y únete a la misión de reunir a estas adorables mascotas con sus amados dueños.</span><br></p><h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);" href="cruzas">Perdidos</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128" style="width: 50px; height: 50px;"></h4><p></p>
-              
-                        
-                        <p style="background-color: rgb(255, 255, 255);"><span style="color: rgb(35, 47, 61); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; text-align: start; white-space: pre-wrap; background-color: rgb(255, 255, 255);">¡Descubre perros perdidos y ayúdalos a encontrar su hogar! Explora nuestra lista de publicaciones y sé parte de la búsqueda de sus dueños.</span></p>
-                      </div>
-              
-                      
-                    <div class="col-lg-6">
-                        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);" href="paseadores">Paseadores</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128" style="width: 50px; height: 50px;"></h4>
-                        <p contenteditable="true" spellcheckker="false" style="color: rgb(33, 37, 41);">Descubre a los paseadores de perros cerca de ti y conecta con ellos en un instante: encuentra la persona perfecta para pasear a tu mejor amigo.</p>
-              
-                        
-                        <p></p><h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);" href="cuidadores">Cuidadores</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128" style="width: 50px; height: 50px;"></h4><p></p><p><span style="color: rgb(35, 47, 61); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; text-align: start; white-space: pre-wrap; background-color: rgb(255, 255, 255);">¡Conéctate con los mejores cuidadores y garantiza la felicidad y el bienestar de tu amigo peludo!</span></p><p></p><h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);" href="cruzas">Cruzas</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128" style="width: 50px; height: 50px;"></h4><p></p>
-              
-                        
-                        <p style="color: rgb(33, 37, 41);">Explora nuestra lista de candidatos perfectos para cruzar y encuentra la pareja perfecta para tu perro.</p>
-                      </div></div>
-              
-                    <footer class="footer">
-                      <p>© OhMyDog 2023</p>
-                    </footer>
-              
-                  </div> <!-- /container -->
-                
-              
-              </body>
-  </html>
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>OhMyDog</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../css/editor.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="narrow-jumbotron.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- encabezado -->
+  <div class="container"
+    style="float: none; text-align: center; display: block; width: 1510px; max-width: 1980px; height: 1080px;">
+    <div class="header clearfix"
+      style="text-decoration-color: rgb(255, 255, 255); text-align: justify; float: none; display: block; background-color: rgb(255, 255, 255); color: rgb(255, 255, 255); opacity: 1;">
+      <img src="http://imgfz.com/i/eq02Nh8.png" alt="ohmydog" height="40" width="200"
+        style="text-align: left; width: 200px; height: 40px; float: left; text-decoration-line: none; line-height: 27px;">
+      {% if user.is_authenticated%}
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          style="float: left; background-color: rgb(157, 209, 59);" ;>
+          {{user.mail}}
+        </a>
+        {% if user.is_staff%}
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="clientes">Clientes</a>
+          <a class="dropdown-item" href="solicitudes_de_turnos">Solicitudes de turnos</a>
+        </div>
+        {% else %}
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="mis_datos">Mis Datos</a>
+          <a class="dropdown-item" href="mis_perros">Mis Perros</a>
+          <a class="dropdown-item" href="mis_turnos">Mis Turnos</a>
+          <a class="dropdown-item" href="solicitar_turno">Solicitar Turno</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+      <h3 class="text-muted"></h3>
+      <div class="form-group" style="">
+        <div class="dropdown show">
+
+        </div>
+      </div>
+      <div class="btn-group" role="group" aria-label="Basic example" style=""> </div>
+      <div class="header clearfix"
+        style="text-decoration-color: rgb(255, 255, 255); text-align: right; float: right; display: block;">
+
+        <nav>
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'home' %}"
+                style="float: right; background-color: rgb(255, 189, 89);">Home</a>
+            </li>
+            {% if not user.is_authenticated %}
+            <li class="nav-item" style="width: 131px; height: 40px;">
+
+              <a class="nav-link" href="login"
+                style="float: right; color: rgb(56, 182, 255); font-weight: 700; line-height: 24px; height: 40px; width: 132px;">Iniciar
+                Sesión</a>
+
+
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item" style="height: 40px; width: 132px;"><a class="nav-link" href="logout"
+                style="float: right; font-weight: 700; color: rgb(56, 182, 255);">Cerrar Sesión</a>
+
+              {% endif %}
+            </li>
+          </ul>
+        </nav>
+        <h3 class="text-muted"></h3>
+        <div class="form-group" style=""><label style="font-weight: 400; text-align: center; float: left;"></label>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example" style="">
+
+        </div>
+
+        {% if user.is_staff%}
+        <a class="btn btn-lg btn-success" href="register" role="button"
+          style="text-align: left; float: right; background-color: rgb(96, 219, 87); color: rgb(255, 255, 255); text-decoration-color: rgb(56, 221, 44); font-weight: 600;">Registrar
+          Cliente</a>
+        {% endif %}
+      </div>
+    </div>
+    <!-- /encabezado -->
+    <div class="jumbotron" style="float: none; display: block; background-color: rgb(255, 255, 255);"><img
+        src="http://imgfz.com/i/RWx6eN8.png" height="544" width="1980"
+        style="width: 1420px; height: 544px; background-color: rgb(255, 255, 255); margin-top: 0px; text-decoration-color: rgb(35, 36, 36);">
+
+
+      <p></p>
+    </div>
+
+    <div class="row marketing">
+      <div class="col-lg-6">
+        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);"
+            href="adopciones">Adopciones</button><img
+            src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128"
+            style="width: 50px; height: 50px;"></h4>
+        <p style="color: rgb(35, 47, 61);">Descubre a los paseadores de perros cerca de ti y conecta con ellos en un
+          instante: encuentra la persona perfecta para pasear a tu mejor amigo.</p>
+
+
+        <p></p>
+        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);"
+            href="cuidadores">Busquedas</button><img
+            src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128"
+            style="width: 50px; height: 50px;"></h4>
+        <p><span
+            style="color: rgb(33, 37, 41); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; text-align: start; white-space: pre-wrap; background-color: rgb(255, 255, 255);">¡Encuentra
+            esperanza en cada rincón! Descubre nuestra lista de búsquedas de perros perdidos y únete a la misión de
+            reunir a estas adorables mascotas con sus amados dueños.</span><br></p>
+        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);"
+            href="cruzas">Perdidos</button><img
+            src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128"
+            style="width: 50px; height: 50px;"></h4>
+        <p></p>
+
+
+        <p style="background-color: rgb(255, 255, 255);"><span
+            style="color: rgb(35, 47, 61); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; text-align: start; white-space: pre-wrap; background-color: rgb(255, 255, 255);">¡Descubre
+            perros perdidos y ayúdalos a encontrar su hogar! Explora nuestra lista de publicaciones y sé parte de la
+            búsqueda de sus dueños.</span></p>
+      </div>
+
+
+      <div class="col-lg-6">
+        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);"
+            href="paseadores">Paseadores</button><img
+            src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128"
+            style="width: 50px; height: 50px;"></h4>
+        <p contenteditable="true" spellcheckker="false" style="color: rgb(33, 37, 41);">Descubre a los paseadores de
+          perros cerca de ti y conecta con ellos en un instante: encuentra la persona perfecta para pasear a tu mejor
+          amigo.</p>
+
+
+        <p></p>
+        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);"
+            href="cuidadores">Cuidadores</button><img
+            src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg" height="128" width="128"
+            style="width: 50px; height: 50px;"></h4>
+        <p></p>
+        <p><span
+            style="color: rgb(35, 47, 61); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, &quot;Helvetica Neue&quot;, Arial, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;, &quot;Noto Color Emoji&quot;; text-align: start; white-space: pre-wrap; background-color: rgb(255, 255, 255);">¡Conéctate
+            con los mejores cuidadores y garantiza la felicidad y el bienestar de tu amigo peludo!</span></p>
+        <p></p>
+        <h4><button type="button" class="btn btn-primary disabled" style="background-color: rgb(255, 189, 89);"
+            href="cruzas">Cruzas</button><img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
+            height="128" width="128" style="width: 50px; height: 50px;"></h4>
+        <p></p>
+
+
+        <p style="color: rgb(33, 37, 41);">Explora nuestra lista de candidatos perfectos para cruzar y encuentra la
+          pareja perfecta para tu perro.</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>© OhMyDog 2023</p>
+    </footer>
+
+  </div> <!-- /container -->
+
+
+</body>
+
+</html>
