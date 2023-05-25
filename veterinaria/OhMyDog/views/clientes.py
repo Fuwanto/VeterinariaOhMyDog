@@ -47,7 +47,8 @@ def agregar_perro(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     if request.method == "POST":
         nombre = request.POST.get("nombre_perro")
-        if nombre:
+        perro = buscar_perro_por_nombre(nombre, cliente)
+        if nombre and perro is None:
             raza = request.POST.get("raza")
             peso = request.POST.get("peso")
             sexo = request.POST.get("sexo")
@@ -56,6 +57,8 @@ def agregar_perro(request, cliente_id):
             print(nombre, raza, peso, sexo, fecha_de_nacimiento, descripcion)
             registrar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
             messages.success(request, "Perro registrado con exito.")
+        else:
+            messages.error(request, f"Perro ya {nombre} registrado.")
     else:
         messages.error(request, f"Perro  ya existente.")
     return render(request, 'agregar_perro.html', {"cliente_id": cliente_id})

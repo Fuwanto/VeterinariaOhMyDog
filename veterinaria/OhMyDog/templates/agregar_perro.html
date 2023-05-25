@@ -85,8 +85,12 @@
 
 <div class="card" style="border-radius: 1rem;">
 	{% for message in messages %}
-	{% if message.tags == 'success' %}
+	{% if message.tags == 'success'%}
 	  <div class="alert alert-success" role="alert">
+		{{ message }}
+	  </div>
+	{%elif message.tags == 'error'%}
+	<div class="alert alert-error" role="alert">
 		{{ message }}
 	  </div>
 	{% endif %}
@@ -155,6 +159,7 @@
 								class="form-control"
 								id="fecha_de_nacimiento"
 								name="fecha_de_nacimiento"
+								required
 							/>
 						</div>
                         <div class="mb-3">

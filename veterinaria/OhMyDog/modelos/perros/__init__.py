@@ -15,7 +15,6 @@ def buscar_perros_por_dueño(dueño):
 
 def buscar_perro_por_nombre(nombre, cliente):
     try:
-        perros = buscar_perros_por_dueño(cliente)
-        return perros.objects.filter(nombre__icontains=nombre)
+        return buscar_perros_por_dueño(cliente)
     except:
         return None
