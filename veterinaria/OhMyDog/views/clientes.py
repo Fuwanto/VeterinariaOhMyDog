@@ -44,12 +44,28 @@ def listado_de_perros_cliente(request, cliente_id):
 
 @user_passes_test(superuser_check)
 def agregar_perro(request, cliente_id):
-    return
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    if request.method == "POST":
+        nombre = request.POST.get("nombre_perro")
+        if nombre:
+            raza = request.POST.get("raza")
+            peso = request.POST.get("peso")
+            sexo = request.POST.get("sexo")
+            fecha_de_nacimiento = request.POST.get("fecha_de_nacimiento")
+            descripcion = request.POST.get("descripcion")
+            print(nombre, raza, peso, sexo, fecha_de_nacimiento, descripcion)
+            registrar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
+            messages.success(request, "Perro registrado con exito.")
+    else:
+        messages.error(request, f"Perro  ya existente.")
+    return render(request, 'agregar_perro.html', {"cliente_id": cliente_id})
 
 
 @login_required
 def mis_perros(request):
-    return render(request, "mis_perros.html", {"cliente": request.user.cliente})
+    cliente = request.user.cliente
+    perros = buscar_perros_por_dueño(cliente)
+    return render(request, 'mis_perros.html', {"perros": perros})
 
 @login_required
 def mis_turnos(request):

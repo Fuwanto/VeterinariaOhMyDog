@@ -17,14 +17,14 @@
 		</a>
 		{% if user.is_staff%}
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		  <a class="dropdown-item" href="clientes">Clientes</a>
+		  <a class="dropdown-item" href="{% url 'clientes' %}">Clientes</a>
 		  <a class="dropdown-item" href="solicitudes_de_turnos">Solicitudes de turnos</a>
 		</div>
 		{% else %}
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-		  <a class="dropdown-item" href="mis_datos">Mis Datos</a>
-		  <a class="dropdown-item" href="mis_perros">Mis Perros</a>
-		  <a class="dropdown-item" href="mis_turnos">Mis Turnos</a>
+		  <a class="dropdown-item" href="{% url 'mis_datos' %}">Mis Datos</a>
+		  <a class="dropdown-item" href="{% url 'mis_perros' %}">Mis Perros</a>
+		  <a class="dropdown-item" href="{% url 'mis_turnos' %}">Mis Turnos</a>
 		</div>
 		{% endif %}
 	  </div>
@@ -44,13 +44,13 @@
 		  {% if not user.is_authenticated %}
 		  <li class="nav-item" style="width: 131px; height: 40px;">
 			
-			<a class="nav-link" href="login" style="float: right; color: rgb(56, 182, 255); font-weight: 700; line-height: 24px; height: 40px; width: 132px;">Iniciar Sesión</a>
+			<a class="nav-link" href="{% url 'login' %}" style="float: right; color: rgb(56, 182, 255); font-weight: 700; line-height: 24px; height: 40px; width: 132px;">Iniciar Sesión</a>
 										
 			
 		  </li>
 		  {% endif %}
 		  {% if user.is_authenticated %}
-		  <li class="nav-item" style="height: 40px; width: 132px;"><a class="nav-link" href="logout" style="float: right; font-weight: 700; color: rgb(56, 182, 255);">Cerrar Sesión</a>
+		  <li class="nav-item" style="height: 40px; width: 132px;"><a class="nav-link" href="{% url 'logout' %}" style="float: right; font-weight: 700; color: rgb(56, 182, 255);">Cerrar Sesión</a>
 										
 		  {% endif %}
 		  </li>
@@ -63,7 +63,7 @@
 	  </div>
 	  
 	  {% if user.is_staff%}
-	  <a class="btn btn-lg btn-success" href="register" role="button" style="text-align: left; float: right; background-color: rgb(96, 219, 87); color: rgb(255, 255, 255); text-decoration-color: rgb(56, 221, 44); font-weight: 600;">Registrar Cliente</a>
+	  <a class="btn btn-lg btn-success" href={% url 'register' %} role="button" style="text-align: left; float: right; background-color: rgb(96, 219, 87); color: rgb(255, 255, 255); text-decoration-color: rgb(56, 221, 44); font-weight: 600;">Registrar Cliente</a>
 	  {% endif %}
 	</div>
 	</div>
@@ -108,7 +108,7 @@
 									{% csrf_token %}
 									<button type="submit">Listado de perros</button>
 								</form>
-								<form  method="post" action="">
+								<form  method="post" action="{% url 'agregar_perro' cliente.id %}">
 									{% csrf_token %}
 									<button type="submit">Agregar perro</button>
 								</form>

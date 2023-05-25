@@ -1,1 +1,8 @@
 <h1>Mis perros:</h1>
+{%if perros%}
+    {% for perro in perros %}
+    <p>{{perro}}</p>
+    {%endfor%}
+{%else%}
+    <p>No hay perros</p>
+{%endif%}

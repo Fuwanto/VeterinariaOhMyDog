@@ -133,3 +133,5 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "nawolfakbar@gmail.com"
 EMAIL_HOST_PASSWORD = "tinjhsebtfxbnarh"
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SECURE = True
