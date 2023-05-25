@@ -104,9 +104,9 @@
 									{% csrf_token %}
 									<button type="submit">Mostrar Datos</button>
 								</form>
-								<form  method="post" action="">
+								<form  method="post" action="{% url 'listado_de_perros_cliente' cliente.id %}">
 									{% csrf_token %}
-									<button type="submit">Listado de perros</button>
+									<button type="submit" >Listado de perros</button>
 								</form>
 								<form  method="post" action="{% url 'agregar_perro' cliente.id %}">
 									{% csrf_token %}

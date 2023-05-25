@@ -40,7 +40,9 @@ def datos_de_un_cliente(request, cliente_id):
 
 @user_passes_test(superuser_check)
 def listado_de_perros_cliente(request, cliente_id):
-    return 
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    perros = buscar_perros_por_dueño(cliente)
+    return render(request, "listado_de_perros_cliente.html", {"perros": perros})
 
 @user_passes_test(superuser_check)
 def agregar_perro(request, cliente_id):
