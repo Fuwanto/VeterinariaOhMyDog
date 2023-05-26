@@ -37,14 +37,12 @@
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item">
 								<a
-									class="nav-link active"
-									aria-current="page"
+									class="btn btn-warning"
 									href="{% url 'home' %}"
-									>Home</a
-								>
+									>Home</a>
 							</li>
 						</ul>
-						<li class="nav-item dropdown">
+						<li class="nav-item dropdown" style="border-radius: 6px; list-style-type: none;">
 							{% if user.is_authenticated %}
 							<a
 								class="btn btn-primary dropdown-toggle"
@@ -62,56 +60,61 @@
 							>
 								{% if user.is_staff %}
 								<li>
-									<a class="dropdown-item" href="clientes"
+									<a class="dropdown-item" href="{% url 'clientes' %}"
 										>Clientes</a
+									>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{% url 'register' %}"
+										>Registrar cliente</a
 									>
 								</li>
 								<li>
 									<a
 										class="dropdown-item"
-										href="solicitudes_de_turnos"
+										href="{% url 'solicitudes_de_turnos' %}"
 										>Solicitudes de turnos</a
 									>
 								</li>
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<a class="dropdown-item" href="logout"
+									<a class="dropdown-item" href="{% url 'logout' %}"
 										>Cerrar sesión</a
 									>
 								</li>
 								{% else %}
 								<li>
-									<a class="dropdown-item" href="mis_datos"
+									<a class="dropdown-item" href="{% url 'mis_datos' %}"
 										>Mis datos</a
 									>
 								</li>
 								<li>
-									<a class="dropdown-item" href="mis_perros"
+									<a class="dropdown-item" href="{% url 'mis_perros' %}"
 										>Mis perros</a
 									>
 								</li>
 								<li>
-									<a class="dropdown-item" href="mis_turnos"
+									<a class="dropdown-item" href="{% url 'mis_turnos' %}"
 										>Mis turnos</a
 									>
 								</li>
 								<li>
 									<a
 										class="dropdown-item"
-										href="solicitar_turno"
+										href="{% url 'solicitar_turno' %}"
 										>Solicitar turno</a
 									>
 								</li>
 								<li><hr class="dropdown-divider" /></li>
 								<li>
-									<a class="dropdown-item" href="logout"
+									<a class="dropdown-item" href="{% url 'logout' %}"
 										>Cerrar sesión</a
 									>
 								</li>
 								{% endif %}
 							</ul>
 							{% else %}
-							<a class="btn btn-primary" href="login"
+							<a class="btn btn-primary" id="iniciar_sesion" href="{% url 'login' %}"
 								>Iniciar sesión</a
 							>
 							{%endif%}
