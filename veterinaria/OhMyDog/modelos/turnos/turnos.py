@@ -8,18 +8,18 @@ from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 
 class Turno(models.Model):
     id = models.BigAutoField(primary_key=True)
-    cliente_id = models.ForeignKey(
+    cliente = models.ForeignKey(
         Cliente, null=False, on_delete=models.CASCADE
     )
-    fecha_del_turno = models.DateField()
-    fecha_de_solicitud = models.DateTimeField()
-    franja_horaria_id = models.ForeignKey(
+    fecha_del_turno = models.DateField(null=False)
+    fecha_de_solicitud = models.DateTimeField(null=False)
+    franja_horaria = models.ForeignKey(
         FranjaHoraria, null=False, on_delete=models.CASCADE
     )
-    tipo_atencion_id = models.ForeignKey(
+    tipo_atencion = models.ForeignKey(
         TipoDeAtencion, null=False, on_delete=models.CASCADE
     )
-    estado_id = models.ForeignKey(EstadoDelTurno, null=False, on_delete=models.CASCADE)
+    estado = models.ForeignKey(EstadoDelTurno, null=False, on_delete=models.CASCADE)
     notas = models.TextField(null=True)
 
     def __str__(self):

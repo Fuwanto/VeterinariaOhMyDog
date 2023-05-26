@@ -1,12 +1,26 @@
 from django.shortcuts import render
-from OhMyDog.modelos.turnos import solicitar_turno
+from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
+from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes
+from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
+
 
 def solicitar_turnos(request):
-    tipos_de_atenciones = [1,2,3]
+    atenciones = TipoDeAtencion.objects.all()
+    franjas_horarias = FranjaHoraria.objects.all()
+    context = {
+        'atenciones': atenciones,
+        'franjas_horarias': franjas_horarias
+    }
     if request.method == 'GET':
-        render(request, "solicitar_turno.html",{'tipos_de_atenciones': tipos_de_atenciones})
+        render(request, "solicitar_turno.html", context)
     if request.method == 'POST':
-        fecha_solicitud = request.POST['fecha_solicitud']
-        tipo_atencion = request.POST['tipo_atencion_id']
-        solicitar_turno(request.user.cliente, fecha_solicitud, 1, tipo_atencion, " ")
-    return render(request, "solicitar_turno.html",{'tipos_de_atenciones': tipos_de_atenciones})
+        fecha_solicitada = request.POST.get("fecha_solicitada")
+        franja_horaria = request.POST.get("franja_horaria")
+        tipo_atencion = request.POST.get("tipo_de_atencion")
+        notas = request.POST.get("notas")
+        solicitar_turno(request.user.cliente, fecha_solicitada, franja_horaria, tipo_atencion, notas)
+    return render(request, "solicitar_turno.html", context)
+
+def turnos_pendientes(request):
+    turnos_pendientes = filtrar_turnos_pendientes()
+    return(request, "turnos_pendientes.html", {'turnos_pendientes' : turnos_pendientes})
