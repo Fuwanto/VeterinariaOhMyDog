@@ -21,6 +21,9 @@ def solicitar_turnos(request):
         solicitar_turno(request.user.cliente, fecha_solicitada, franja_horaria, tipo_atencion, notas)
     return render(request, "solicitar_turno.html", context)
 
-def turnos_pendientes(request):
+def solicitudes_de_turnos(request):
     turnos_pendientes = filtrar_turnos_pendientes()
-    return(request, "turnos_pendientes.html", {'turnos_pendientes' : turnos_pendientes})
+    context = {
+        'solicitudes_de_turnos': turnos_pendientes
+    }
+    return render (request, "solicitudes_de_turnos.html", context)

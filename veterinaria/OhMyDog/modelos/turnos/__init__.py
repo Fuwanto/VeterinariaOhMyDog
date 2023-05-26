@@ -17,4 +17,8 @@ def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,tipo_atencion_id
     return turno
 
 def filtrar_turnos_pendientes():
-    return get_object_or_404(Turno, estadoDelTurno = 1)
+    estado_pendiente = get_object_or_404(EstadoDelTurno, id = 1)
+    return Turno.objects.filter(estado = estado_pendiente)
+
+def filtrar_turnos_por_cliente(cliente):
+    return Turno.objects.filter(cliente = cliente)

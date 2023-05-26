@@ -4,6 +4,7 @@ from OhMyDog.modelos.clientes import listar_clientes, Cliente
 from OhMyDog.modelos.perros import buscar_perros_por_dueño, buscar_perro_por_nombre, registrar_perro
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
+from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
 
 def buscar_clientes(request):
     email = request.GET.get('email', '')
@@ -74,4 +75,6 @@ def mis_perros(request):
 
 @login_required
 def mis_turnos(request):
-    return render(request, "mis_turnos.html", {"cliente": request.user.cliente})
+    cliente = request.user.cliente
+    turnos = filtrar_turnos_por_cliente(cliente)
+    return render(request, "mis_turnos.html", {"turnos": turnos})
