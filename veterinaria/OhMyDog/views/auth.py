@@ -19,7 +19,7 @@ def superuser_check(user):
 @user_passes_test(superuser_check)
 def register(request):
     if request.method == "GET":
-        return render(request, "register.html")
+        return render(request, "agregar_cliente.html")
 
     email = request.POST["email"]
     cliente = buscar_cliente_por_mail(email)
@@ -56,7 +56,6 @@ def register(request):
     return redirect("home")
 
 
-
 def buscar_usuario_por_mail(email):
     try:
         return Usuario.objects.get(mail=email)
@@ -73,8 +72,10 @@ def login_usuario(request):
         if usuario_solo_por_mail is None:
             messages.error(request, "Usuario no registrado")
             return redirect("login")  # redirecciona al login de nuevo
-        
-        elif usuario_solo_por_mail and (usuario is None): # quiere decir que la contraseña no coincide
+
+        elif usuario_solo_por_mail and (
+            usuario is None
+        ):  # quiere decir que la contraseña no coincide
             messages.error(request, "Contraseña incorrecta")
             return redirect("login")  # redirecciona al login de nuevo
         else:
@@ -92,19 +93,20 @@ def login_usuario(request):
 
 @login_required
 def primer_inicio(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, 'Tu contraseña ha sido cambiada exitosamente.')
-            return redirect('login')
+            messages.success(request, "Tu contraseña ha sido cambiada exitosamente.")
+            return redirect("login")
         else:
-            messages.error(request, 'Por favor corrige los errores.')
+            messages.error(request, "Por favor corrige los errores.")
     else:
         form = PasswordChangeForm(request.user)
-    
-    context = {'form': form}
-    return render(request, 'primer_inicio.html', context)
+
+    context = {"form": form}
+    return render(request, "primer_inicio.html", context)
+
 
 @login_required
 def logout_usuario(request):
