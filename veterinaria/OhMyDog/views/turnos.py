@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
-from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes
+from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes, confirmar_turno_init, rechazar_turno_init
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 
 
@@ -27,3 +27,16 @@ def solicitudes_de_turnos(request):
         'solicitudes_de_turnos': turnos_pendientes
     }
     return render (request, "solicitudes_de_turnos.html", context)
+
+def confirmar_turno(request, turno_id):
+    confirmar_turno_init(turno_id)
+    return render (request, "solicitudes_de_turnos.html")
+
+
+def rechazar_turno(request, turno_id):
+    rechazar_turno_init(turno_id)
+    return render (request, "solicitudes_de_turnos.html")
+
+
+
+    

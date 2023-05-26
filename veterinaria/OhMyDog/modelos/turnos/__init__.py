@@ -11,7 +11,7 @@ def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,tipo_atencion_id
     franja_horaria = get_object_or_404(FranjaHoraria, id=franja_horaria_id)
     tipo_atencion = get_object_or_404(TipoDeAtencion, id=tipo_atencion_id)
     turno = Turno(cliente = cliente, fecha_del_turno = fecha_del_turno, fecha_de_solicitud = datetime.today(),
-                    franja_horaria= franja_horaria, tipo_atencion_ = tipo_atencion,
+                    franja_horaria= franja_horaria, tipo_atencion = tipo_atencion,
                     estado = get_object_or_404(EstadoDelTurno, id = 1), notas = notas)
     turno.save()
     return turno
@@ -22,3 +22,15 @@ def filtrar_turnos_pendientes():
 
 def filtrar_turnos_por_cliente(cliente):
     return Turno.objects.filter(cliente = cliente)
+
+def confirmar_turno_init (turno_id):
+    turno = Turno.objects.get(id = turno_id)
+    estado = EstadoDelTurno.objects.get(id = 2)
+    turno.estado = estado
+    turno.save()
+
+def rechazar_turno_init (turno_id):
+    turno = Turno.objects.get(id = turno_id)
+    estado = EstadoDelTurno.objects.get(id = 3)
+    turno.estado = estado
+    turno.save()
