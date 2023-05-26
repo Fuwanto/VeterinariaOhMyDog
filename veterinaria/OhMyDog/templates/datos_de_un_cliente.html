@@ -21,7 +21,7 @@
 	   {% if user.is_staff%}
 	   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 		 <a class="dropdown-item" href="{% url 'clientes' %}">Clientes</a>
-		 <a class="dropdown-item" href="solicitudes_de_turnos">Solicitudes de turnos</a>
+		 <a class="dropdown-item" href="{% url 'solicitudes_de_turnos' %}">Solicitudes de turnos</a>
 	   </div>
 	   {% else %}
 	   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
