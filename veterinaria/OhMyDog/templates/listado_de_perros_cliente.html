@@ -92,7 +92,13 @@
 								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left; 
 								background-color: rgb(157, 209, 59);";>Acciones</a>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<button >Mostrar Datos</button>
+								<form
+								method="post"
+								action="{% url 'datos_de_un_perro' perro.id%}"
+								>
+								{% csrf_token %}
+								<button type="submit">Mostrar Datos</button>
+							</form>
 							</div>
 						</td>
 					</tr>

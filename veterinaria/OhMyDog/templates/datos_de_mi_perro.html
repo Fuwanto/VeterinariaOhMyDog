@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container" style="float: none;
+		text-align: center;
+		display: block;
+		width: 1510px;
+		max-width: 1980px;
+		height: 1080px;
+	"
+>
+	<h1 style="float: none; text-align: center; font-weight: bold">
+		Datos de {{perro.nombre}}
+	</h1>
+
+	<div
+		class="card"
+		id="datos_de_perro"
+		style="float: none; width: 400px; text-align: center; display: block"
+	>
+		<table class="table" style="float: none; width: 400px">
+			<tbody>
+				<tr>
+					<th scope="row">Nombre</th>
+					<td>{{ perro.nombre }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Raza</th>
+					<td>{{ perro.raza }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Peso</th>
+					<td>{{ perro.peso }}</td>
+				</tr>
+                <tr>
+					<th scope="row">Sexo</th>
+					<td>{{ perro.sexo }}</td>
+				</tr>
+                <tr>
+					<th scope="row" type="date">Fecha de Nacimiento</th>
+					<td>{{ perro.fecha_de_nacimiento  }}</td>
+				</tr>
+                <tr>
+					<th scope="row">Descripcion</th>
+					<td>{{ perro.descripcion }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{%endblock%}

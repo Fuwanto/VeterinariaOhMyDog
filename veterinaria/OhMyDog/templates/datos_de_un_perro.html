@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container" style="float: none;
+		text-align: center;
+		display: block;
+		width: 1510px;
+		max-width: 1980px;
+		height: 1080px;
+	"
+>
+	<h1 style="float: none; text-align: center; font-weight: bold">
+		Datos de {{perro.nombre}}
+	</h1>
+
+	<div
+		class="card"
+		id="datos_de_perro"
+		style="float: none; width: 400px; text-align: center; display: block"
+	>
+		<table class="table" style="float: none; width: 400px">
+			<tbody>
+				<tr>
+					<th scope="row">Nombre</th>
+					<td>{{ perro.nombre }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Raza</th>
+					<td>{{ perro.raza }}</td>
+				</tr>
+				<tr>
+					<th scope="row">Peso</th>
+					<td>{{ perro.peso }}</td>
+				</tr>
+                <tr>
+					<th scope="row">Sexo</th>
+					<td>{{ perro.sexo }}</td>
+				</tr>
+                <tr>
+					<th scope="row" type="date">Fecha de Nacimiento</th>
+					<td>{{ perro.fecha_de_nacimiento  }}</td>
+				</tr>
+                <tr>
+					<th scope="row">Descripcion</th>
+					<td>{{ perro.descripcion }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="button" id="modificar_datos" class="btn btn-primary">
+			Modificar datos
+		</button>
+	</div>
+
+	<div class="card" style="float: none; width: 400px">
+		<form
+			method="post"
+			id="formulario_modificar_datos"
+			style="float: none; text-align: center; display: none"
+		>
+			{% csrf_token %}
+			<table class="table" style="float: none; width: 400px">
+				<tbody>
+                    <tr>
+                        <th scope="row">Nombre</th>
+                        <td>{{ perro.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Raza</th>
+                        <td>{{ perro.raza }}</td>
+                    </tr>
+
+					<tr>
+						<th scope="row">Peso</th>
+						<td>
+							<input
+								type="number"
+								id="peso"
+								name="peso"
+								value="{{ perro.peso }}"
+								required
+							/><br />
+						</td>
+					</tr>
+
+                    <tr>
+                        <th scope="row">Sexo</th>
+                        <td>{{ perro.sexo }}</td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" type="date">Fecha de Nacimiento</th>
+                        <td>{{ cliente.fecha_de_nacimiento  }}</td>
+                    </tr>
+
+					<tr>
+						<th scope="row">Descripcion</th>
+						<td>
+							<input
+								type="text"
+								id="descripcion"
+								name="descripcion"
+								value="{{ perro.descripcion }}"
+							/><br />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button
+				class="btn btn-success"
+				type="submit"
+			>
+				Guardar Cambios
+			</button>
+		</form>
+	</div>
+
+
+	<script>
+		document
+			.getElementById("modificar_datos")
+			.addEventListener("click", function () {
+				var modificar = document.getElementById(
+					"formulario_modificar_datos"
+				);
+				var datos = document.getElementById("datos_de_perro");
+				if (modificar.style.display === "none") {
+					datos.style.display = "none";
+					modificar.style.display = "block";
+				} else {
+					modificar.style.display = "none";
+					datos.style.display = "block";
+				}
+			});
+	</script>
+</div>
+
+{%endblock%}
