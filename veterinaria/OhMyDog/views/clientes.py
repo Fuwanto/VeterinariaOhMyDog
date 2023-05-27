@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from OhMyDog.modelos.clientes import listar_clientes, Cliente
-from OhMyDog.modelos.perros import buscar_perros_por_dueño, buscar_perro_por_nombre, registrar_perro
+from OhMyDog.modelos.perros import buscar_perros_por_dueño, buscar_perro_por_nombre, registrar_perro, Perro
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
 from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
@@ -78,3 +78,24 @@ def mis_turnos(request):
     cliente = request.user.cliente
     turnos = filtrar_turnos_por_cliente(cliente)
     return render(request, "mis_turnos.html", {"turnos": turnos})
+
+
+@user_passes_test(superuser_check)
+def datos_de_un_perro(request, perro_id):
+    perro = get_object_or_404(Perro, id=perro_id)
+    peso = request.POST.get('peso')
+    if request.method == 'POST' and peso:
+        descripcion = request.POST.get('descripcion')
+        
+        # Actualizar los datos del perro
+        perro.peso = peso
+        perro.descripcion = descripcion
+        perro.save()
+    
+    return render(request, 'datos_de_un_perro.html', {"perro": perro})
+
+@login_required
+def datos_de_mi_perro(request, perro_id):
+    perro = get_object_or_404(Perro, id=perro_id)
+    return render(request, 'datos_de_mi_perro.html', {"perro": perro})
+
