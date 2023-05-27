@@ -16,9 +16,9 @@
 		<input
 			type="text"
 			name="email"
-			placeholder="Buscar por correo electrónico"
+			placeholder="Buscar por email"
 		/>
-		<button type="submit">Buscar</button>
+		<button class="btn btn-primary" type="submit">Buscar</button>
 	</form>
 
 	<p></p>
@@ -58,32 +58,25 @@
 							"
 							>Acciones</a
 						>
-						<div
-							class="dropdown-menu"
-							aria-labelledby="dropdownMenuLink"
-						>
-							<form
-								method="post"
-								action="{% url 'datos_de_un_cliente' cliente.id %}"
-							>
-								{% csrf_token %}
-								<button type="submit">Mostrar Datos</button>
-							</form>
-							<form
-								method="post"
-								action="{% url 'listado_de_perros_cliente' cliente.id %}"
-							>
-								{% csrf_token %}
-								<button type="submit">Listado de perros</button>
-							</form>
-							<form
-								method="post"
-								action="{% url 'agregar_perro' cliente.id %}"
-							>
-								{% csrf_token %}
-								<button type="submit">Agregar perro</button>
-							</form>
-						</div>
+						
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="{% url 'datos_de_un_cliente' cliente.id %}">
+									Mostrar datos
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{% url 'listado_de_perros_cliente' cliente.id %}">
+									Listado de perros
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{% url 'agregar_perro' cliente.id %}">
+									Agregar perro
+								</a>
+							</li>
+						</ul>
+						
 					</div>
 				</td>
 			</tr>
