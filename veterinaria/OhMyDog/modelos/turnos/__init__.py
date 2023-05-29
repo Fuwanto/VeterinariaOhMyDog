@@ -6,6 +6,8 @@ from datetime import datetime
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria 
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.estadosDelTurno.estadosDelTurno import EstadoDelTurno
+from django.core.mail import send_mail
+from django.conf import settings
 
 def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,tipo_atencion_id,notas):
     franja_horaria = get_object_or_404(FranjaHoraria, id=franja_horaria_id)
@@ -34,3 +36,30 @@ def rechazar_turno_init (turno_id):
     estado = EstadoDelTurno.objects.get(id = 3)
     turno.estado = estado
     turno.save()
+
+def enviar_mail_confirmacion (turno_id):
+    turno = Turno.objects.get(id = turno_id)
+    send_mail(
+        "Su turno ha sido confirmado.",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} ha sido confirmado.",
+        settings.EMAIL_HOST_USER,
+        [turno.cliente.email],
+        fail_silently=False,
+    )
+
+def enviar_mail_rechazo (turno_id):
+    turno = Turno.objects.get(id = turno_id)
+    send_mail(
+        "Su turno ha sido rechazado.",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} ha sido rechazado.",
+        settings.EMAIL_HOST_USER,
+        [turno.cliente.email],
+        fail_silently=False,
+    )
+    
+
+        
+       
+
+
+
