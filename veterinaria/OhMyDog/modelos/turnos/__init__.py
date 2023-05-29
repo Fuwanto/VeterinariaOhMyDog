@@ -41,7 +41,7 @@ def enviar_mail_confirmacion (turno_id):
     turno = Turno.objects.get(id = turno_id)
     send_mail(
         "Su turno ha sido confirmado.",
-        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} ha sido confirmado.",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido confirmado.",
         settings.EMAIL_HOST_USER,
         [turno.cliente.email],
         fail_silently=False,
@@ -51,7 +51,7 @@ def enviar_mail_rechazo (turno_id):
     turno = Turno.objects.get(id = turno_id)
     send_mail(
         "Su turno ha sido rechazado.",
-        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} ha sido rechazado.",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido rechazado.",
         settings.EMAIL_HOST_USER,
         [turno.cliente.email],
         fail_silently=False,

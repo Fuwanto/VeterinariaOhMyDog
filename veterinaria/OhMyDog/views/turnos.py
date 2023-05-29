@@ -2,7 +2,7 @@ from django.shortcuts import render
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes, confirmar_turno_init, rechazar_turno_init, enviar_mail_confirmacion, enviar_mail_rechazo
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
-from datetime import date
+from datetime import datetime, date
 from django.contrib import messages
 
 
@@ -17,8 +17,10 @@ def solicitar_turnos(request):
     if request.method == 'GET':
         render(request, "solicitar_turno.html", context)
     if request.method == 'POST':
+        fecha_solicitada = request.POST.get("fecha_solicitada")
+        formato = "%Y-%m-%d"
+        fecha_solicitada = datetime.strptime(fecha_solicitada, formato).date()
         if (fecha_solicitada > date.today()):
-            fecha_solicitada = request.POST.get("fecha_solicitada")
             franja_horaria = request.POST.get("franja_horaria")
             tipo_atencion = request.POST.get("tipo_de_atencion")
             notas = request.POST.get("notas")
