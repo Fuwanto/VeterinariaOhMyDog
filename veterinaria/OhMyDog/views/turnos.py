@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes, confirmar_turno_init, rechazar_turno_init, enviar_mail_confirmacion, enviar_mail_rechazo
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
@@ -44,6 +44,9 @@ def confirmar_turno(request):
         turno_id = request.POST.get('turno_id','')
         confirmar_turno_init(turno_id)
         enviar_mail_confirmacion(turno_id)
+        next_url = request.POST.get('next')
+        if next_url:
+                return redirect(next_url)
     return render (request, "solicitudes_de_turnos.html")
 
 
@@ -52,6 +55,9 @@ def rechazar_turno(request):
         turno_id = request.POST.get('turno_id')
         rechazar_turno_init(turno_id)
         enviar_mail_rechazo(turno_id)
+        next_url = request.POST.get('next')
+        if next_url:
+                return redirect(next_url)
     return render (request, "solicitudes_de_turnos.html")
 
 

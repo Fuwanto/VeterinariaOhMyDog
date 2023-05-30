@@ -31,30 +31,33 @@
 				<td>{{ turno.id }}</td>
 				<td>{{ turno.fecha_del_turno }}</td>
 				<td>{{ turno.cliente.nombre }}</td>
-
 				<td>
 					<form method="post" action="{% url 'confirmar_turno' %}">
 						{% csrf_token %}
 						<input type="hidden" name="turno_id" value="{{ turno.id }}">
-						<button type="submit">Confirmar Turno</button>
+						<input type="hidden" name="next" value="{{ request.path }}">
+						<button type="submit" class=" btn btn-secondary" style="
+							text-align: left;
+							float: right;
+							background-color: rgb(157, 209, 59);
+							color: rgb(255, 255, 255);
+							text-decoration-color: rgb(157, 209, 59);">Confirmar Turno</button>
 					</form>
-					<a class="btn btn-secondary" href="{}" role="button" style="
-							text-align: left;
-							float: right;
-							background-color: rgb(157, 209, 59);
-							color: rgb(255, 255, 255);
-							text-decoration-color: rgb(157, 209, 59);
-						">
-						Cancelar Turno</a>
-					<a class="btn btn-secondary" href="{% url 'confirmar_turno' %}" role="button" style="
-							text-align: left;
-							float: right;
-							background-color: rgb(157, 209, 59);
-							color: rgb(255, 255, 255);
-							text-decoration-color: rgb(157, 209, 59);
-						">
-						Confirmar Turno</a>
 				</td>
+				<td>
+					<form method="post" action="{% url 'rechazar_turno' %}">
+						{% csrf_token %}
+						<input type="hidden" name="turno_id" value="{{ turno.id }}">
+						<input type="hidden" name="next" value="{{ request.path }}">
+						<button type="submit" class=" btn btn-secondary" style="
+							text-align: left;
+							float: right;
+							background-color: rgb(157, 209, 59);
+							color: rgb(255, 255, 255);
+							text-decoration-color: rgb(157, 209, 59);">Rechazar Turno</button>
+					</form>
+				</td>
+
 			</tr>
 			{% endfor %}
 			{%else%}
