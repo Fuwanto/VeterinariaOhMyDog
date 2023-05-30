@@ -23,8 +23,8 @@ urlpatterns = [
     path('clientes/<int:cliente_id>/agregar_perro', agregar_perro, name='agregar_perro'),
     path('solicitar_turno',solicitar_turnos, name="solicitar_turno"),
     path('solicitudes_de_turnos',solicitudes_de_turnos, name="solicitudes_de_turnos"),
-    path('confirmar_turno/<int:turno_id>/', confirmar_turno, name="confirmar_turno"),
-    path('rechazar_turno/<int:turno_id>/', rechazar_turno, name="rechazar_turno"),
+    path('solicitudes_de_turnos', confirmar_turno, name="confirmar_turno"),
+    path('solicitudes_de_turnos', rechazar_turno, name="rechazar_turno"),
     path('perros/<int:perro_id>/', datos_de_un_perro, name='datos_de_un_perro')
     
 ]

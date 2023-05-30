@@ -1,35 +1,31 @@
-{% extends 'layout.html' %} 
+{% extends 'layout.html' %}
 
-{% block title %}OhMyDog - Solicitudes de turnos{% endblock %} 
+{% block title %}OhMyDog - Solicitudes de turnos{% endblock %}
 
 {% block content %}
 
-<div
-	class="container"
-	style="
+<div class="container" style="
 		float: none;
 		text-align: center;
 		display: block;
 		width: 1510px;
 		max-width: 1980px;
 		height: 1080px;
-	"
->
+	">
 	<div class="card" style="justify-content: center; align-items: center">
-		<table
-			style="
+
+		<table style="
 				justify-content: center;
 				align-items: center;
 				text-align: center;
 				width: 600px;
-			"
-		>
+			">
 			<tr>
 				<th>ID</th>
 				<th>Fecha</th>
 				<th>Cliente</th>
 			</tr>
-			{%if solicitudes_de_turnos%} 
+			{%if solicitudes_de_turnos%}
 			{% for turno in solicitudes_de_turnos %}
 			<tr>
 				<td>{{ turno.id }}</td>
@@ -37,37 +33,30 @@
 				<td>{{ turno.cliente.nombre }}</td>
 
 				<td>
-					<a
-						class="btn btn-secondary"
-						href="{% url 'rechazar_turno' turno.id %}"
-						role="button"
-						style="
+					<form method="post" action="{% url 'confirmar_turno' %}">
+						{% csrf_token %}
+						<input type="hidden" name="turno_id" value="{{ turno.id }}">
+						<button type="submit">Confirmar Turno</button>
+					</form>
+					<a class="btn btn-secondary" href="{}" role="button" style="
 							text-align: left;
 							float: right;
 							background-color: rgb(157, 209, 59);
 							color: rgb(255, 255, 255);
 							text-decoration-color: rgb(157, 209, 59);
-						"
-					>
-						Cancelar Turno</a
-					>
-					<a
-						class="btn btn-secondary"
-						href="{% url 'confirmar_turno' turno.id %}"
-						role="button"
-						style="
+						">
+						Cancelar Turno</a>
+					<a class="btn btn-secondary" href="{% url 'confirmar_turno' %}" role="button" style="
 							text-align: left;
 							float: right;
 							background-color: rgb(157, 209, 59);
 							color: rgb(255, 255, 255);
 							text-decoration-color: rgb(157, 209, 59);
-						"
-					>
-						Confirmar Turno</a
-					>
+						">
+						Confirmar Turno</a>
 				</td>
 			</tr>
-			{% endfor %} 
+			{% endfor %}
 			{%else%}
 			<p>No se encontraron turnos pendientes</p>
 			{%endif%}

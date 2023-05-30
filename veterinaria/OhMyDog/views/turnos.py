@@ -10,6 +10,7 @@ from django.contrib import messages
 def solicitar_turnos(request):
     atenciones = TipoDeAtencion.objects.all()
     franjas_horarias = FranjaHoraria.objects.all()
+
     context = {
         'atenciones': atenciones,
         'franjas_horarias': franjas_horarias
@@ -25,7 +26,7 @@ def solicitar_turnos(request):
             tipo_atencion = request.POST.get("tipo_de_atencion")
             notas = request.POST.get("notas")
             solicitar_turno(request.user.cliente, fecha_solicitada, franja_horaria, tipo_atencion, notas)
-            messages.error(request, f"Turno solicitado con exito. ")
+            messages.success(request, f"Turno solicitado con exito. ")
         else:
             messages.error(request, f"La fecha del turno debe ser posterior al dia de hoy.")
     
@@ -38,15 +39,19 @@ def solicitudes_de_turnos(request):
     }
     return render (request, "solicitudes_de_turnos.html", context)
 
-def confirmar_turno(request, turno_id):
-    confirmar_turno_init(turno_id)
-    enviar_mail_confirmacion(turno_id)
+def confirmar_turno(request):
+    if request.method == 'POST':
+        turno_id = request.POST.get('turno_id','')
+        confirmar_turno_init(turno_id)
+        enviar_mail_confirmacion(turno_id)
     return render (request, "solicitudes_de_turnos.html")
 
 
-def rechazar_turno(request, turno_id):
-    rechazar_turno_init(turno_id)
-    enviar_mail_rechazo(turno_id)
+def rechazar_turno(request):
+    if request.method == 'POST':
+        turno_id = request.POST.get('turno_id')
+        rechazar_turno_init(turno_id)
+        enviar_mail_rechazo(turno_id)
     return render (request, "solicitudes_de_turnos.html")
 
 
