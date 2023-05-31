@@ -41,18 +41,6 @@ urlpatterns = [
     path("primer_inicio", primer_inicio, name="primer_inicio"),
     path("buscar_clientes", buscar_clientes, name="buscar_clientes"),
     path("clientes", todos_los_clientes, name="clientes"),
-<<<<<<< HEAD
-    path('clientes/<int:cliente_id>/', datos_de_un_cliente, name='datos_de_un_cliente'),
-    path('clientes/<int:cliente_id>/perros', listado_de_perros_cliente, name='listado_de_perros_cliente'),
-    path('clientes/<int:cliente_id>/agregar_perro', agregar_perro, name='agregar_perro'),
-    path('solicitar_turno',solicitar_turnos, name="solicitar_turno"),
-    path('solicitudes_de_turnos',solicitudes_de_turnos, name="solicitudes_de_turnos"),
-    path('confirmar_turno', confirmar_turno, name="confirmar_turno"),
-    path('rechazar_turno', rechazar_turno, name="rechazar_turno"),
-    path('perros/<int:perro_id>/', datos_de_un_perro, name='datos_de_un_perro'),
-    path('agregar_atencion_clinica/', agregar_atencion_clinica, name='agregar_atencion_clinica')
-    
-=======
     path("clientes/<int:cliente_id>/", datos_de_un_cliente, name="datos_de_un_cliente"),
     path(
         "clientes/<int:cliente_id>/perros",
@@ -66,5 +54,5 @@ urlpatterns = [
     path("rechazar_turno/<int:turno_id>/", rechazar_turno, name="rechazar_turno"),
     path("perros/<int:perro_id>/", datos_de_un_perro, name="datos_de_un_perro"),
     path("borrar_perro/<int:perro_id>", borrar_perro, name="borrar_perro"),
->>>>>>> 26b5cd758d0e0e18b393d51fd4d0c65dabbdbbb6
+    path('agregar_atencion_clinica/', agregar_atencion_clinica, name='agregar_atencion_clinica')
 ]
