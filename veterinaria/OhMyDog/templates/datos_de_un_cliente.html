@@ -4,26 +4,30 @@
 
 {% block content %}
 
-<div
-	class="container"
-	style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	"
->
-	<div
-		class="card"
-		style="display: flex; justify-content: center; align-items: center"
-	>
+
+<head>
+	<style>
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 50vh;
+		}
+		.card {
+			width: 400px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<div class="container">
+	<div class="card">
 		<body>
 			<h1>Datos del cliente {{ cliente.id }}</h1>
 
 			<div class="card">
-				<table class="table">
+				<table class="table" style="width: 400px">
 					<tbody>
 						<tr>
 							<th scope="row">Correo Electrónico</th>
@@ -42,12 +46,5 @@
 			</div>
 		</body>
 	</div>
-	<a
-		type="button"
-		class="btn btn-primary"
-		href="{% url 'clientes' %}"
-		style="width: 200px"
-		>Regresar</a
-	>
 </div>
 {% endblock %}

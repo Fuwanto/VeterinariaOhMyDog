@@ -1,40 +1,57 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="card" style="justify-content: center; align-items: center;">
-	<body>
-		<table  style="justify-content: center; align-items: center; text-align: center; width: 600px">
+
+<head>
+	<style>
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 50vh;
+		}
+		.card {
+			width: 400px;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<div class="container">
+	<div class="card">
+		<h1>Mis Perros</h1>
+		<table style="text-align: center; width: 600px; margin-top: 20px;">
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
 			</tr>
-			{%if perros%}
+			{% if perros %}
 			{% for perro in perros %}
-					<tr>
-						<td>{{ perro.id }}</td>
-						<td>{{ perro.nombre }}</td>
-						<td>
-							<div class="dropdown">
-							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="float: left; 
-								background-color: rgb(157, 209, 59);";>Acciones</a>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<form
-								method="post"
-								action="{% url 'datos_de_mi_perro' perro.id%}"
-								>
+			<tr>
+				<td>{{ perro.id }}</td>
+				<td>{{ perro.nombre }}</td>
+				<td>
+					<div class="dropdown">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							style="float: left; background-color: rgb(157, 209, 59);">Acciones</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
 								{% csrf_token %}
 								<button type="submit">Mostrar Datos</button>
 							</form>
-							</div>
-						</td>
-					</tr>
+						</div>
+					</div>
+				</td>
+			</tr>
 			{% endfor %}
-
-			{%else%}
-				<p>No hay perros registrados</p>
-			{%endif%}
+			{% else %}
+			<tr>
+				<td colspan="3"><p>No hay perros registrados</p></td>
+			</tr>
+			{% endif %}
 		</table>
-	</body>
+	</div>
 </div>
 {%endblock%}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes, confirmar_turno_init, rechazar_turno_init, enviar_mail_confirmacion, enviar_mail_rechazo
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
@@ -10,6 +10,7 @@ from django.contrib import messages
 def solicitar_turnos(request):
     atenciones = TipoDeAtencion.objects.all()
     franjas_horarias = FranjaHoraria.objects.all()
+
     context = {
         'atenciones': atenciones,
         'franjas_horarias': franjas_horarias
@@ -25,7 +26,7 @@ def solicitar_turnos(request):
             tipo_atencion = request.POST.get("tipo_de_atencion")
             notas = request.POST.get("notas")
             solicitar_turno(request.user.cliente, fecha_solicitada, franja_horaria, tipo_atencion, notas)
-            messages.error(request, f"Turno solicitado con exito. ")
+            messages.success(request, f"Turno solicitado con exito. ")
         else:
             messages.error(request, f"La fecha del turno debe ser posterior al dia de hoy.")
     
@@ -38,15 +39,25 @@ def solicitudes_de_turnos(request):
     }
     return render (request, "solicitudes_de_turnos.html", context)
 
-def confirmar_turno(request, turno_id):
-    confirmar_turno_init(turno_id)
-    enviar_mail_confirmacion(turno_id)
+def confirmar_turno(request):
+    if request.method == 'POST':
+        turno_id = request.POST.get('turno_id','')
+        confirmar_turno_init(turno_id)
+        enviar_mail_confirmacion(turno_id)
+        next_url = request.POST.get('next')
+        if next_url:
+                return redirect(next_url)
     return render (request, "solicitudes_de_turnos.html")
 
 
-def rechazar_turno(request, turno_id):
-    rechazar_turno_init(turno_id)
-    enviar_mail_rechazo(turno_id)
+def rechazar_turno(request):
+    if request.method == 'POST':
+        turno_id = request.POST.get('turno_id')
+        rechazar_turno_init(turno_id)
+        enviar_mail_rechazo(turno_id)
+        next_url = request.POST.get('next')
+        if next_url:
+                return redirect(next_url)
     return render (request, "solicitudes_de_turnos.html")
 
 
