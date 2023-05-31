@@ -26,12 +26,10 @@ def buscar_perro_por_nombre(nombre, cliente):
         return buscar_perros_por_dueño(cliente)
     except:
         return None
-<<<<<<< HEAD
     
 def buscar_perro_por_id(perro_id):
     print('Como un camion', perro_id)
     return get_object_or_404(Perro,id=perro_id)
-=======
 
 
 def deshabilitar_perro(id):
@@ -39,4 +37,3 @@ def deshabilitar_perro(id):
     perro.habilitado = False
     perro.save()
     return perro
->>>>>>> 26b5cd758d0e0e18b393d51fd4d0c65dabbdbbb6

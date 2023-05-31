@@ -2,11 +2,6 @@ from django.urls import path
 
 from OhMyDog.views.home import home
 from OhMyDog.views.auth import register, login_usuario, logout_usuario, primer_inicio
-<<<<<<< HEAD
-from OhMyDog.views.clientes import mis_datos, mis_perros, mis_turnos, todos_los_clientes, datos_de_un_cliente, buscar_clientes, listado_de_perros_cliente, agregar_perro, datos_de_un_perro, datos_de_mi_perro
-from OhMyDog.views.turnos import solicitar_turnos, solicitudes_de_turnos, confirmar_turno, rechazar_turno
-from OhMyDog.views.atenciones import agregar_atencion_clinica
-=======
 from OhMyDog.views.clientes import (
     mis_datos,
     mis_perros,
@@ -26,7 +21,7 @@ from OhMyDog.views.turnos import (
     confirmar_turno,
     rechazar_turno,
 )
->>>>>>> 26b5cd758d0e0e18b393d51fd4d0c65dabbdbbb6
+from OhMyDog.views.atenciones import agregar_atencion_clinica
 
 
 urlpatterns = [
