@@ -4,6 +4,7 @@ from OhMyDog.views.home import home
 from OhMyDog.views.auth import register, login_usuario, logout_usuario, primer_inicio
 from OhMyDog.views.clientes import mis_datos, mis_perros, mis_turnos, todos_los_clientes, datos_de_un_cliente, buscar_clientes, listado_de_perros_cliente, agregar_perro, datos_de_un_perro, datos_de_mi_perro
 from OhMyDog.views.turnos import solicitar_turnos, solicitudes_de_turnos, confirmar_turno, rechazar_turno
+from OhMyDog.views.atenciones import agregar_atencion_clinica
 
 
 urlpatterns = [
@@ -25,6 +26,7 @@ urlpatterns = [
     path('solicitudes_de_turnos',solicitudes_de_turnos, name="solicitudes_de_turnos"),
     path('confirmar_turno', confirmar_turno, name="confirmar_turno"),
     path('rechazar_turno', rechazar_turno, name="rechazar_turno"),
-    path('perros/<int:perro_id>/', datos_de_un_perro, name='datos_de_un_perro')
+    path('perros/<int:perro_id>/', datos_de_un_perro, name='datos_de_un_perro'),
+    path('agregar_atencion_clinica/', agregar_atencion_clinica, name='agregar_atencion_clinica')
     
 ]

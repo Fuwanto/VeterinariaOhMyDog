@@ -61,7 +61,7 @@ def agregar_perro(request, cliente_id):
             registrar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
             messages.success(request, "Perro registrado con exito.")
         else:
-            messages.error(request, f"Perro ya {nombre} registrado.")
+            messages.error(request, f"Perro {nombre} ya registrado.")
     else:
         messages.error(request, f"Perro  ya existente.")
     return render(request, 'agregar_perro.html', {"cliente_id": cliente_id})

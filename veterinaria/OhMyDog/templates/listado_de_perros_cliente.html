@@ -1,6 +1,6 @@
-{% extends 'layout.html' %} 
+{% extends 'layout.html' %}
 
-{% block title %}OhMyDog - Perros del cliente {{cliente.id}}{%endblock %} 
+{% block title %}OhMyDog - Perros del cliente {{cliente.id}}{%endblock %}
 
 {% block content %}
 
@@ -13,6 +13,7 @@
 			width: 100vw;
 			height: 50vh;
 		}
+
 		.card {
 			width: 400px;
 			text-align: center;
@@ -22,14 +23,12 @@
 
 <div class="container">
 	<div class="card">
-		<table
-			style="
+		<table style="
 				justify-content: center;
 				align-items: center;
 				text-align: center;
 				width: 600px;
-			"
-		>
+			">
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
@@ -39,32 +38,48 @@
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
 				<td>
+
 					<div class="dropdown">
-						<a
-							class="btn btn-secondary dropdown-toggle"
-							href="#"
-							role="button"
-							id="dropdownMenuLink"
-							data-bs-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false"
-							style="
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
 								float: left;
 								background-color: rgb(157, 209, 59);
-							"
-							>Acciones</a
-						>
+							">Acciones</a>
+
 						<ul class="dropdown-menu">
+
 							<li>
-								<a
-									class="dropdown-item"
-									href="{% url 'datos_de_un_perro' perro.id %}"
-								>
+								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
 									Mostrar datos
 								</a>
+								{% if user.is_staff %}
+								<form method="GET" action="{% url 'agregar_atencion_clinica' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Cargar Atencion Clinica
+									</button>
+								</form>
+								<a class=" dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
+									Cargar Consulta
+								</a>
+								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
+									Cargar Vacunacion
+								</a>
+								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
+									Cargar Desparacitacion
+								</a>
+								{%if castracion%}
+								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
+									Mostrar datos
+								</a>
+								{%endif%}
+								{%endif%}
 							</li>
 						</ul>
+
 					</div>
+
 				</td>
 			</tr>
 			{% endfor %} {%else%}
