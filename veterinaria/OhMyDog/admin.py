@@ -7,6 +7,7 @@ from OhMyDog.modelos.perros.perros import Perro
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.turnos.turnos import Turno
 from OhMyDog.models import Usuario
+from OhMyDog.modelos.atenciones.atenciones import Atencion
 
 
 admin.site.register(Cliente)
@@ -16,3 +17,4 @@ admin.site.register(Perro)
 admin.site.register(TipoDeAtencion)
 admin.site.register(Turno)
 admin.site.register(Usuario)
+admin.site.register(Atencion)
