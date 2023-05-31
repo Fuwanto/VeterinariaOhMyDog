@@ -4,15 +4,31 @@
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <!DOCTYPE html>
+<head>
+	<style>
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 50vh;
+		}
+		.card {
+			text-align: center;
+		}
+	</style>
+</head>
 <html>
-<div class="card" style="float: none;  width: 400px; text-align: center; float: none">
-    {% block content %}
-    <h2>Cambiar contraseña</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Guardar Cambios</button>
-    </form>
-  {% endblock %}
+<div class="container">
+  <div class="card">
+      {% block content %}
+      <h2>Cambiar contraseña</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Cambios</button>
+      </form>
+    {% endblock %}
+  </div>
 </div>
 </html>

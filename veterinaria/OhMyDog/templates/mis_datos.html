@@ -1,117 +1,87 @@
 {% extends 'layout.html' %} {% block title %}OhMyDog - Mis datos{% endblock %}
 {% block content %}
 
-<div
-	class="container"
-	style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	"
->
-	<h1 style="float: none; text-align: center; font-weight: bold">
-		Mis datos
-	</h1>
 
-	<div
-		class="card"
-		id="mis_datos"
-		style="float: none; width: 400px; text-align: center"
-	>
-		<table class="table" style="float: none; width: 400px">
-			<tbody>
-				<tr>
-					<th scope="row">Correo electrónico</th>
-					<td>{{ cliente.email }}</td>
-				</tr>
-				<tr>
-					<th scope="row">Nombre</th>
-					<td>{{ cliente.nombre }}</td>
-				</tr>
-				<tr>
-					<th scope="row">Teléfono</th>
-					<td>{{ cliente.telefono }}</td>
-				</tr>
-			</tbody>
-		</table>
-		<button type="button" id="modificar_datos" class="btn btn-primary">
-			Modificar datos
-		</button>
-	</div>
-
-	<div class="card" style="float: none; width: 400px">
-		<form
-			method="post"
-			id="formulario_modificar_datos"
-			style="float: none; text-align: center; display: none"
-		>
-			{% csrf_token %}
-			<table class="table" style="float: none; width: 400px">
+<head>
+	<style>
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100vw;
+			height: 50vh;
+		}
+		.card {
+			width: 400px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="card"  id="mis_datos">
+			<h1>Mis datos</h1>
+			<table class="table">
 				<tbody>
 					<tr>
 						<th scope="row">Correo electrónico</th>
 						<td>{{ cliente.email }}</td>
 					</tr>
-
 					<tr>
 						<th scope="row">Nombre</th>
-						<td>
-							<input
-								type="text"
-								id="nombre"
-								name="nombre"
-								value="{{ cliente.nombre }}"
-								required
-							/><br />
-						</td>
+						<td>{{ cliente.nombre }}</td>
 					</tr>
-
 					<tr>
 						<th scope="row">Teléfono</th>
-						<td>
-							<input
-								type="text"
-								id="telfono"
-								name="telefono"
-								value="{{ cliente.telefono }}"
-								required
-							/><br />
-						</td>
+						<td>{{ cliente.telefono }}</td>
 					</tr>
 				</tbody>
 			</table>
-			<button
-				class="btn btn-primary"
-				type="submit"
-				style="
-					background-color: rgb(96, 219, 87);
-					color: rgb(255, 255, 255);
-				"
-			>
-				Guardar Cambios
-			</button>
-		</form>
+			<button type="button" id="modificar_datos" class="btn btn-primary">Modificar datos</button>
+		</div>
+
+		<div class="card" id="formulario_modificar_datos" style="display: none;">
+			<h1>Mis datos</h1>
+			<form method="post">
+				{% csrf_token %}
+				<table class="table">
+					<tbody>
+						<tr>
+							<th scope="row">Correo electrónico</th>
+							<td>{{ cliente.email }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Nombre</th>
+							<td>
+								<input type="text" id="nombre" name="nombre" value="{{ cliente.nombre }}" required><br>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Teléfono</th>
+							<td>
+								<input type="text" id="telfono" name="telefono" value="{{ cliente.telefono }}" required><br>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn btn-primary" type="submit" style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255);">Guardar Cambios</button>
+			</form>
+		</div>
 	</div>
 
 	<script>
-		document
-			.getElementById("modificar_datos")
-			.addEventListener("click", function () {
-				var modificar = document.getElementById(
-					"formulario_modificar_datos"
-				);
-				var datos = document.getElementById("mis_datos");
-				if (modificar.style.display === "none") {
-					datos.style.display = "none";
-					modificar.style.display = "block";
-				} else {
-					modificar.style.display = "none";
-					datos.style.display = "block";
-				}
-			});
+		document.getElementById("modificar_datos").addEventListener("click", function () {
+			var modificar = document.getElementById("formulario_modificar_datos");
+			var datos = document.getElementById("mis_datos");
+			if (modificar.style.display === "none") {
+				datos.style.display = "none";
+				modificar.style.display = "block";
+			} else {
+				modificar.style.display = "none";
+				datos.style.display = "block";
+			}
+		});
 	</script>
-</div>
+</body>
+
 {% endblock %}
