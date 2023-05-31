@@ -33,6 +33,23 @@
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
 				<td>
+					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							  <p>¿Está seguro que quiere borrar el perro?</p>
+							</div>
+							<div class="modal-footer">
+							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+							  <a  href="{% url 'borrar_perro' perro.id %}" class="btn btn-danger">Aceptar</a>
+							</div>
+						  </div>
+						</div>
+					  </div>
 					<div class="dropdown">
 						<a
 							class="btn btn-secondary dropdown-toggle"
@@ -55,6 +72,16 @@
 									href="{% url 'datos_de_un_perro' perro.id %}"
 								>
 									Mostrar datos
+								</a>
+							</li>
+							<li>
+								<a
+									class="dropdown-item" 
+									data-bs-toggle="modal" 
+									data-bs-target="#confirmModal"
+									href="#"
+								>
+									Eliminar perro
 								</a>
 							</li>
 						</ul>
