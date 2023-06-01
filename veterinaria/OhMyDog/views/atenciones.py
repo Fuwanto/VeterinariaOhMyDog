@@ -7,6 +7,7 @@ from OhMyDog.modelos.atenciones import (agregar_atencion_clinica_init,
                                         agregar_vacunacion_init)
 from datetime import datetime, date
 from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDeDosisVacunacion
+from django.contrib import messages
 
 def agregar_atencion_clinica(request):
     perro = None
@@ -24,6 +25,7 @@ def agregar_atencion_clinica(request):
         print('LALALALALA',fecha)
         perro = buscar_perro_por_id(perro_id)
         agregar_atencion_clinica_init(perro, fecha, observacion)
+        messages.success(request, f"Atencion clinica registrada con exito. ")
 
     context = {
         'perro': perro
@@ -42,6 +44,7 @@ def agregar_consulta (request):
         perro_id = request.POST.get('perro')
         perro = buscar_perro_por_id(perro_id)
         agregar_consulta_init(perro, fecha, observacion)
+        messages.success(request, f"Consulta registrada con exito. ")
 
     context = {
         'perro': perro
@@ -63,6 +66,7 @@ def agregar_desparacitacion (request):
         perro_id = request.POST.get('perro')
         perro = buscar_perro_por_id(perro_id)
         agregar_desparacitacion_init(perro, fecha,  parasito, farmaco, dosis, observacion)
+        messages.success(request, f"Desparacitacion registrada con exito. ")
 
     context = {
         'perro': perro
@@ -81,6 +85,7 @@ def agregar_castracion (request):
         perro_id = request.POST.get('perro')
         perro = buscar_perro_por_id(perro_id)
         agregar_castracion_init(perro, fecha, observacion)
+        messages.success(request, f"Castracion registrada con exito. ")
 
     context = {
         'perro': perro
@@ -102,6 +107,7 @@ def agregar_vacunacion(request):
         perro_id = request.POST.get('perro')
         perro = buscar_perro_por_id(perro_id)
         agregar_vacunacion_init(perro, fecha, vacuna, dosis, observacion)
+        messages.success(request, f"Vacunacion registrada con exito. ")
 
     context = {
         'perro': perro,
