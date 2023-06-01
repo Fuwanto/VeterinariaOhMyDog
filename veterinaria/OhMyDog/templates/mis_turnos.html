@@ -11,27 +11,28 @@
 		height: 1080px;
 	"
 >
-	<h1 style="float: none; text-align: center; font-weight: bold">
-		Mis turnos
-	</h1>
-	<div class="card" style="justify-content: center; align-items: center">
-		<body>
+<p>
+
+</p>
+	<div class="card">
+		<h1>
+			Mis turnos
+		</h1>
 			<table
-				style="
-					justify-content: center;
-					align-items: center;
-					text-align: center;
-					width: 600px;
-				"
+				class="table table-hover"
 			>
+			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Fecha</th>
-					<th>Franja Horaria</th>
-					<th>Atencion</th>
-					<th>Estado</th>
+					<th scope="col">ID</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Franja Horaria</th>
+					<th scope="col">Atencion</th>
+					<th scope="col">Estado</th>
 				</tr>
-				{%if turnos %} {% for turno in turnos %}
+			</thead>
+			<tbody>
+				{%if turnos %} 
+				{% for turno in turnos %}
 				<tr>
 					<td>{{ turno.id }}</td>
 					<td>{{ turno.cliente.nombre }}</td>
@@ -39,11 +40,12 @@
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>
 				</tr>
-				{% endfor %} {%else%}
-				<p>No hay turnos registrados</p>
+				{% endfor %} 
+				{%else%}
+					<p>No hay turnos registrados</p>
 				{%endif%}
+			</tbody>
 			</table>
-		</body>
 	</div>
 </div>
 {% endblock %}
