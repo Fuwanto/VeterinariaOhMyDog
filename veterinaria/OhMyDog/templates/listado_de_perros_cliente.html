@@ -38,27 +38,26 @@
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
 				<td>
-<<<<<<< HEAD
-
-=======
-					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+						aria-hidden="true">
 						<div class="modal-dialog">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
-							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<p>¿Está seguro que quiere borrar el perro?</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">Cancelar</button>
+									<a href="{% url 'borrar_perro' perro.id %}" class="btn btn-danger">Aceptar</a>
+								</div>
 							</div>
-							<div class="modal-body">
-							  <p>¿Está seguro que quiere borrar el perro?</p>
-							</div>
-							<div class="modal-footer">
-							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							  <a  href="{% url 'borrar_perro' perro.id %}" class="btn btn-danger">Aceptar</a>
-							</div>
-						  </div>
 						</div>
-					  </div>
->>>>>>> 26b5cd758d0e0e18b393d51fd4d0c65dabbdbbb6
+					</div>
 					<div class="dropdown">
 						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
@@ -77,18 +76,26 @@
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 									<button type="submit" class="dropdown-item">
-										Cargar Atencion Clinica
+										Registrar Atencion Clinica
 									</button>
 								</form>
-								<a class=" dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar Consulta
-								</a>
+								<form method="GET" action="{% url 'agregar_consulta' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar Consulta
+									</button>
+								</form>
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
 									Cargar Vacunacion
 								</a>
-								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar Desparacitacion
-								</a>
+								<form method="GET" action="{% url 'agregar_desparacitacion' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar Desparacitacion
+									</button>
+								</form>
 								{%if castracion%}
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
 									Mostrar datos
@@ -97,12 +104,7 @@
 								{%endif%}
 							</li>
 							<li>
-								<a
-									class="dropdown-item" 
-									data-bs-toggle="modal" 
-									data-bs-target="#confirmModal"
-									href="#"
-								>
+								<a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#confirmModal" href="#">
 									Eliminar perro
 								</a>
 							</li>
