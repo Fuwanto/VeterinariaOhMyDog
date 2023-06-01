@@ -14,15 +14,12 @@ def agregar_atencion_clinica(request):
     perro_id = None
     if request.method == 'GET':
         perro_id = request.GET.get('perro')
-        print('GET', perro_id)
         perro = buscar_perro_por_id(perro_id)
         print(perro)
     if request.method == 'POST':
         fecha = request.POST.get('fecha_de_atencion')     
         observacion = request.POST.get('observacion')
         perro_id = request.POST.get('perro')
-        print('POST', perro_id)
-        print('LALALALALA',fecha)
         perro = buscar_perro_por_id(perro_id)
         agregar_atencion_clinica_init(perro, fecha, observacion)
         messages.success(request, f"Atencion clinica registrada con exito. ")

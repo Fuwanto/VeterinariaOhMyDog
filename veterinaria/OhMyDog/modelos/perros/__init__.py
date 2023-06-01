@@ -38,3 +38,9 @@ def deshabilitar_perro(id):
     perro.habilitado = False
     perro.save()
     return perro
+
+def modificar_tiene_castracion(id):
+    perro = Perro.objects.get(id=id)
+    perro.tiene_castracion = True
+    perro.save()
+    return perro

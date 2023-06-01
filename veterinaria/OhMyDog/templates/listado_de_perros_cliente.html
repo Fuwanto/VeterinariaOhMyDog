@@ -4,146 +4,127 @@
 
 {% block content %}
 
-<div
-	class="container"
-	style="
+<div class="container" style="
 		float: none;
 		text-align: center;
 		display: block;
 		width: 1510px;
 		max-width: 1980px;
 		height: 1080px;
-	"
->
+	">
 
 	<p>
-		
+
 	</p>
 	<div class="card">
 		<table class="table table-hover">
 			<thead>
-			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">Nombre</th>
-				<th scope="col">Raza</th>
-				<th scope="col">Peso</th>
-				<th scope="col">Descripcion</th>
-				<th scope="col">Fecha de nacimiento</th>
-				<th scope="col">Sexo</th>
-				<th scope="col">Acciones</th>
-			</tr>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Raza</th>
+					<th scope="col">Peso</th>
+					<th scope="col">Descripcion</th>
+					<th scope="col">Fecha de nacimiento</th>
+					<th scope="col">Sexo</th>
+					<th scope="col">Acciones</th>
+				</tr>
 			</thead>
 			<tbody>
-			{%if perros %} 
-			{% for perro in perros %}
-			<tr>
-				<td>{{ perro.id }}</td>
-				<td>{{ perro.nombre }}</td>
-				<td>{{ perro.raza }}</td>
-				<td>{{ perro.peso }}</td>
-				<td>{{ perro.descripcion }}</td>
-				<td>{{ perro.fecha_de_nacimiento }}</td>
-				<td>{{ perro.sexo }}</td>
-				<td>
-					<div class="dropdown">
-						<a 
-							class="btn btn-secondary dropdown-toggle" 
-							href="#" 
-							role="button" 
-							id="dropdownMenuLink"
-							data-bs-toggle="dropdown" 
-							aria-haspopup="true" 
-							aria-expanded="false" 
-							style="background-color: rgb(157, 209, 59);"
-						>Acciones</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Mostrar datos
-								</a>
-								{% if user.is_staff %}
-								<form method="GET" action="{% url 'agregar_atencion_clinica' %}">
-									{% csrf_token %}
-									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-									<button type="submit" class="dropdown-item">
-										Registrar atencion clinica
-									</button>
-								</form>
-								<form method="GET" action="{% url 'agregar_consulta' %}">
-									{% csrf_token %}
-									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-									<button type="submit" class="dropdown-item">
-										Registrar consulta
-									</button>
-								</form>
-								<form method="GET" action="{% url 'agregar_vacunacion' %}">
-									{% csrf_token %}
-									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-									<button type="submit" class="dropdown-item">
-										Registrar vacunacion
-									</button>
-								</form>
-								<form method="GET" action="{% url 'agregar_desparacitacion' %}">
-									{% csrf_token %}
-									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-									<button type="submit" class="dropdown-item">
-										Registrar desparacitacion
-									</button>
-								</form>
-<!-- 								{% if not perro.tiene_castracion %}
-								<form method="GET" action="{% url 'agregar_castracion' %}">
-									{% csrf_token %}
-									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-									<button type="submit" class="dropdown-item">
-										Registrar castracion
-									</button>
-								</form>
-								{% endif %} -->
-								<form method="GET" action="{% url 'agregar_castracion' %}">
-									{% csrf_token %}
-									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-									<button type="submit" class="dropdown-item">
-										Registrar castracion
-									</button>
-								</form>
-								{%endif%}
-							</li>
-							<li>
-								<a class="dropdown-item eliminar-perro" 
-									data-bs-toggle="modal"
-									data-bs-target="#confirmModal" 
-									href="{% url 'borrar_perro' perro.id %}">
-									Eliminar perro
-								</a>
-							</li>
-						</ul>
-					</div>
-				</td>
+				{%if perros %}
+				{% for perro in perros %}
+				<tr>
+					<td>{{ perro.id }}</td>
+					<td>{{ perro.nombre }}</td>
+					<td>{{ perro.raza }}</td>
+					<td>{{ perro.peso }}</td>
+					<td>{{ perro.descripcion }}</td>
+					<td>{{ perro.fecha_de_nacimiento }}</td>
+					<td>{{ perro.sexo }}</td>
+					<td>
+						<div class="dropdown">
+							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="background-color: rgb(157, 209, 59);">Acciones</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
+										Mostrar datos
+									</a>
+									{% if user.is_staff %}
+									<form method="GET" action="{% url 'agregar_atencion_clinica' %}">
+										{% csrf_token %}
+										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">
+											Registrar atencion clinica
+										</button>
+									</form>
+									<form method="GET" action="{% url 'agregar_consulta' %}">
+										{% csrf_token %}
+										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">
+											Registrar consulta
+										</button>
+									</form>
+									<form method="GET" action="{% url 'agregar_vacunacion' %}">
+										{% csrf_token %}
+										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">
+											Registrar vacunacion
+										</button>
+									</form>
+									<form method="GET" action="{% url 'agregar_desparacitacion' %}">
+										{% csrf_token %}
+										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">
+											Registrar desparacitacion
+										</button>
+									</form>
+									{% if not perro.tiene_castracion %}
+									<form method="GET" action="{% url 'agregar_castracion' %}">
+										{% csrf_token %}
+										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">
+											Registrar castracion
+										</button>
+									</form>
+									{% endif %}
+									{%endif%}
+								</li>
+								<li>
+									<a class="dropdown-item eliminar-perro" data-bs-toggle="modal"
+										data-bs-target="#confirmModal" href="{% url 'borrar_perro' perro.id %}">
+										Eliminar perro
+									</a>
+								</li>
+							</ul>
+						</div>
+					</td>
 				</tr>
-				{% endfor %} 
+				{% endfor %}
 				{%else%}
 				<p>No hay perros registrados</p>
 				{%endif%}
-		</tbody>
-	</table>
-</div>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
-		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>¿Está seguro que quiere eliminar el perro?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				<a id="aceptarEliminarPerro" class="btn btn-danger">Aceptar</a>
+			</div>
 		</div>
-		<div class="modal-body">
-		  <p>¿Está seguro que quiere eliminar el perro?</p>
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		  <a  id="aceptarEliminarPerro" class="btn btn-danger">Aceptar</a>
-		</div>
-	  </div>
 	</div>
 </div>
 
