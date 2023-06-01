@@ -23,19 +23,17 @@
 
 <div class="container">
 	<div class="card">
-		<body>
 			<h1>Datos del cliente</h1>
-
 			<div class="card">
 				<table class="table" style="width: 400px">
 					<tbody>
 						<tr>
-							<th scope="row">Correo Electrónico</th>
-							<td>{{ cliente.email }}</td>
-						</tr>
-						<tr>
 							<th scope="row">Nombre</th>
 							<td>{{ cliente.nombre }}</td>
+						</tr>
+						<tr>
+							<th scope="row">Email</th>
+							<td>{{ cliente.email }}</td>
 						</tr>
 						<tr>
 							<th scope="row">Teléfono</th>
@@ -44,7 +42,6 @@
 					</tbody>
 				</table>
 			</div>
-		</body>
 	</div>
 </div>
 {% endblock %}
