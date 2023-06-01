@@ -1,33 +1,32 @@
 {% extends 'layout.html' %} {% block title %}OhMyDog - Mis turnos{% endblock %}
 {% block content %}
-<div
-	class="container"
-	style="
+<div class="container" style="
 		float: none;
 		text-align: center;
 		display: block;
 		width: 1510px;
 		max-width: 1980px;
 		height: 1080px;
-	"
->
-<p>
+	">
+	<h1 style="float: none; text-align: center; font-weight: bold">
+		Mis turnos
+	</h1>
+	<div class="card" style="justify-content: center; align-items: center">
 
-</p>
-	<div class="card">
-		<h1>
-			Mis turnos
-		</h1>
-			<table
-				class="table table-hover"
-			>
-			<thead>
+		<body>
+			<table style="
+					justify-content: center;
+					align-items: center;
+					text-align: center;
+					width: 600px;
+				">
 				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Fecha</th>
-					<th scope="col">Franja Horaria</th>
-					<th scope="col">Atencion</th>
-					<th scope="col">Estado</th>
+					<th>ID</th>
+					<th>Cliente</th>
+					<th>Fecha</th>
+					<th>Franja Horaria</th>
+					<th>Atencion</th>
+					<th>Estado</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,6 +35,7 @@
 				<tr>
 					<td>{{ turno.id }}</td>
 					<td>{{ turno.cliente.nombre }}</td>
+					<td>{{ turno.fecha_del_turno }}</td>
 					<td>{{ turno.franja_horaria.nombre }}</td>
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>
