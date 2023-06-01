@@ -32,7 +32,10 @@
 				<td>{{ turno.fecha_del_turno }}</td>
 				<td>{{ turno.cliente.nombre }}</td>
 				<td>
-						<a class="btn btn-secondary confirmar-turno" style="
+						<input type="hidden" name="turno_id" value="{{ turno.id }}">
+						<input type="hidden" name="next" value="{{ request.path }}">
+						<a class="btn btn-secondary confirmar-turno" 
+						style="
 							text-align: left;
 							float: right;
 							background-color: rgb(157, 209, 59);
@@ -45,6 +48,8 @@
 						</a>
 				</td>
 				<td>
+					<input type="hidden" name="turno_id" value="{{ turno.id }}">
+					<input type="hidden" name="next" value="{{ request.path }}">
 					<a class="btn btn-secondary rechazar-turno" style="
 						text-align: left;
 						float: right;
@@ -74,6 +79,11 @@
 		</div>
 		<div class="modal-body">
 		  <p>¿Está seguro que quiere confirmar el turno?</p>
+		  <form method="post">
+			<div class="mb-3">
+			  <label for="inputName" class="form-label">Observaciones</label>
+			  <input type="text" class="form-control" name="observaciones" id="observaciones" placeholder="Ingrese alguna observación (opcional)">
+			</div>
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

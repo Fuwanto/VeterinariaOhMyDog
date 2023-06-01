@@ -63,6 +63,7 @@ def solicitudes_de_turnos(request):
 def confirmar_turno(request):
     if request.method == "POST":
         turno_id = request.POST.get("turno_id", "")
+        print(request.POST.get("observaciones"))
         confirmar_turno_init(turno_id)
         enviar_mail_confirmacion(turno_id)
         next_url = request.POST.get("next")
