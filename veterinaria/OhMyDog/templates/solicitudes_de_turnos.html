@@ -32,33 +32,31 @@
 				<td>{{ turno.fecha_del_turno }}</td>
 				<td>{{ turno.cliente.nombre }}</td>
 				<td>
-					<form method="post" action="{% url 'confirmar_turno' %}">
-						{% csrf_token %}
-						<input type="hidden" name="turno_id" value="{{ turno.id }}">
-						<input type="hidden" name="next" value="{{ request.path }}">
-						<button type="submit" class=" btn btn-secondary" style="
+						<a class="btn btn-secondary confirmar-turno" style="
 							text-align: left;
 							float: right;
 							background-color: rgb(157, 209, 59);
 							color: rgb(255, 255, 255);
-							text-decoration-color: rgb(157, 209, 59);">Confirmar Turno</button>
-					</form>
+							text-decoration-color: rgb(157, 209, 59);" 
+							data-bs-toggle="modal" 
+							data-bs-target="#confirmModal"
+							href="{% url 'confirmar_turno' %}">
+							Confirmar Turno
+						</a>
 				</td>
 				<td>
-					<form method="post" action="{% url 'rechazar_turno' %}">
-						{% csrf_token %}
-						<input type="hidden" name="turno_id" value="{{ turno.id }}">
-						<input type="hidden" name="next" value="{{ request.path }}">
-						<button type="submit" class=" btn btn-secondary" style="
-							text-align: left;
-							float: right;
-							background-color: rgb(157, 209, 59);
-							color: rgb(255, 255, 255);
-							text-decoration-color: rgb(157, 209, 59);">Rechazar Turno</button>
-					</form>
+					<a class="btn btn-secondary rechazar-turno" style="
+						text-align: left;
+						float: right;
+						background-color: rgb(157, 209, 59);
+						color: rgb(255, 255, 255);
+						text-decoration-color: rgb(157, 209, 59);" 
+						data-bs-toggle="modal" 
+						data-bs-target="#rechazarModal"
+						href="{% url 'rechazar_turno' %}">
+						Rechazar Turno
+					</a>
 				</td>
-
-
 			</tr>
 			{% endfor %}
 			{%else%}
@@ -67,4 +65,74 @@
 		</table>
 	</div>
 </div>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="confirmModalLabel">Confirmar turno</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <p>¿Está seguro que quiere confirmar el turno?</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		  <a  id="aceptarConfirmarTurno" class="btn btn-danger">Aceptar</a>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<div class="modal fade" id="rechazarModal" tabindex="-1" aria-labelledby="rechazarModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="rechazarModalLabel">Rechazar turno</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  <p>¿Está seguro que quiere rechazar el turno?</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		  <a  id="rechazarEliminarTurno" class="btn btn-danger">Aceptar</a>
+		</div>
+	  </div>
+	</div>
+</div>
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const confirmarTurnoLinks = document.querySelectorAll(".confirmar-turno");
+		const aceptarConfirmarTurnoButton = document.querySelector("#aceptarConfirmarTurno");
+
+		confirmarTurnoLinks.forEach(function (link) {
+			link.addEventListener("click", function (event) {
+				event.preventDefault();
+				const confirmarTurnoUrl = link.href;
+				aceptarConfirmarTurnoButton.addEventListener("click", function () {
+					window.location.href = confirmarTurnoUrl;
+				});
+			});
+		});
+	});
+</script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const rechazarTurnoLinks = document.querySelectorAll(".rechazar-turno");
+		const rechazarEliminarTurnoButton = document.querySelector("#rechazarEliminarTurno");
+
+		rechazarTurnoLinks.forEach(function (link) {
+			link.addEventListener("click", function (event) {
+				event.preventDefault();
+				const rechazarTurnoUrl = link.href;
+				rechazarEliminarTurnoButton.addEventListener("click", function () {
+					window.location.href = rechazarTurnoUrl;
+				});
+			});
+		});
+	});
+</script>
 {%endblock%}
