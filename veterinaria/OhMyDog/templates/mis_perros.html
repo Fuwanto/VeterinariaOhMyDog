@@ -1,36 +1,37 @@
 {% extends 'layout.html' %}
-
+{% block title %}OhMyDog - Mis perros{% endblock %}
 {% block content %}
 
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
+<div
+	class="container"
+	style="
+		float: none;
+		text-align: center;
+		display: block;
+		width: 1510px;
+		max-width: 1980px;
+		height: 1080px;
+	"
+>
+	<p>
 
-		.card {
-			width: 850px;
-			text-align: center;
-		}
-	</style>
-</head>
-
-<div class="container">
+	</p>
 	<div class="card">
-		<h1>Mis Perros</h1>
-		<table class="table">
+		<h1>Mis perros</h1>
+		<table class="table table-hover">
+			<thead>
 			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Raza</th>
-				<th>Peso</th>
-				<th>Sexo</th>
-				<th></th>
+				<th scope="col">ID</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Raza</th>
+				<th scope="col">Peso</th>
+				<th scope="col">Sexo</th>
+				<th scope="col">Fecha de nacimiento</th>
+				<th scope="col">Descripción</th>
+				<th scope="col">Acción</th>
 			</tr>
+			</thead>
+			<tbody>
 			{% if perros %}
 			{% for perro in perros %}
 			<tr>
@@ -39,6 +40,8 @@
 				<td>{{ perro.raza }}</td>
 				<td>{{ perro.peso }}</td>
 				<td>{{ perro.sexo }}</td>
+				<td>{{ perro.fecha_de_nacimiento }}</td>
+				<td>{{ perro.descripcion }}</td>
 				<td>
 					<div>
 						<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
@@ -58,6 +61,7 @@
 				</td>
 			</tr>
 			{% endif %}
+		</tbody>
 		</table>
 	</div>
 </div>

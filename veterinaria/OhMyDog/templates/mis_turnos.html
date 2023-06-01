@@ -28,7 +28,10 @@
 					<th>Atencion</th>
 					<th>Estado</th>
 				</tr>
-				{%if turnos %} {% for turno in turnos %}
+			</thead>
+			<tbody>
+				{%if turnos %} 
+				{% for turno in turnos %}
 				<tr>
 					<td>{{ turno.id }}</td>
 					<td>{{ turno.cliente.nombre }}</td>
@@ -37,11 +40,12 @@
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>
 				</tr>
-				{% endfor %} {%else%}
-				<p>No hay turnos registrados</p>
+				{% endfor %} 
+				{%else%}
+					<p>No hay turnos registrados</p>
 				{%endif%}
+			</tbody>
 			</table>
-		</body>
 	</div>
 </div>
 {% endblock %}
