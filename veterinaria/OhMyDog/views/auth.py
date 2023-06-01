@@ -97,7 +97,6 @@ def login_usuario(request):
             login(request, usuario)
             if usuario.primer_inicio:
                 # Llamar funcion para mostrar cambiar contraseña
-                alternar_primer_acceso(usuario.id)
                 return redirect("primer_inicio")
             else:
                 # Si no es el primer inicio se lo redirecciona al home
@@ -113,12 +112,13 @@ def primer_inicio(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, "Tu contraseña ha sido cambiada exitosamente.")
+            alternar_primer_acceso(request.user.id)
             return redirect("login")
         else:
             messages.add_message(
                 request,
                 messages.ERROR,
-                "Por favor corrige los errores.",
+                "Por favor corrige los errores que se han indicado.",
                 extra_tags="danger",
             )
     else:
