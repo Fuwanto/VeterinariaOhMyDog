@@ -1,34 +1,24 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-<!DOCTYPE html>
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
-		.card {
-			text-align: center;
-		}
-	</style>
-</head>
-<html>
-<div class="container">
-  <div class="card">
-      {% block content %}
+{% extends 'layout.html' %} {% block title %}OhMyDog - Mis turnos{% endblock %}
+{% block content %}
+
+<div
+	class="container"
+	style="
+		float: none;
+		text-align: center;
+		display: block;
+		width: 1510px;
+		max-width: 1980px;
+		height: 1080px;
+	"
+>
+<div class="card">
       <h2>Cambiar contraseña</h2>
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar Cambios</button>
+        <button class="btn btn-primary" type="submit">Guardar Cambios</button>
       </form>
-    {% endblock %}
-  </div>
 </div>
-</html>
+{% endblock %}
