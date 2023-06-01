@@ -4,47 +4,58 @@
 
 {% block content %}
 
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
+<div
+	class="container"
+	style="
+		float: none;
+		text-align: center;
+		display: block;
+		width: 1510px;
+		max-width: 1980px;
+		height: 1080px;
+	"
+>
 
-		.card {
-			width: 400px;
-			text-align: center;
-		}
-	</style>
-</head>
-
-<div class="container">
+	<p>
+		
+	</p>
 	<div class="card">
-		<table style="
-				justify-content: center;
-				align-items: center;
-				text-align: center;
-				width: 600px;
-			">
+		<table class="table table-hover">
+			<thead>
 			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
+				<th scope="col">ID</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Raza</th>
+				<th scope="col">Peso</th>
+				<th scope="col">Descripcion</th>
+				<th scope="col">Fecha de nacimiento</th>
+				<th scope="col">Sexo</th>
+				<th scope="col">Acciones</th>
 			</tr>
-			{%if perros%} {% for perro in perros %}
+			</thead>
+			<tbody>
+			{%if perros %} 
+			{% for perro in perros %}
 			<tr>
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
+				<td>{{ perro.raza }}</td>
+				<td>{{ perro.peso }}</td>
+				<td>{{ perro.descripcion }}</td>
+				<td>{{ perro.fecha_de_nacimiento }}</td>
+				<td>{{ perro.sexo }}</td>
 				<td>
-
 					<div class="dropdown">
-						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
-								float: left;
-								background-color: rgb(157, 209, 59);
-							">Acciones</a>
+						<a 
+							class="btn btn-secondary dropdown-toggle" 
+							href="#" 
+							role="button" 
+							id="dropdownMenuLink"
+							data-bs-toggle="dropdown" 
+							aria-haspopup="true" 
+							aria-expanded="false" 
+							style="background-color: rgb(157, 209, 59);"
+						>Acciones</a>
 						<ul class="dropdown-menu">
 							<li>
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
@@ -107,15 +118,14 @@
 							</li>
 						</ul>
 					</div>
-	</div>
-</div>
-
-</td>
-</tr>
-{% endfor %} {%else%}
-<p>No hay perros registrados</p>
-{%endif%}
-</table>
+				</td>
+				</tr>
+				{% endfor %} 
+				{%else%}
+				<p>No hay perros registrados</p>
+				{%endif%}
+		</tbody>
+	</table>
 </div>
 </div>
 
