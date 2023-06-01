@@ -1,65 +1,75 @@
 from django.shortcuts import render, redirect
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
-from OhMyDog.modelos.turnos import solicitar_turno, filtrar_turnos_pendientes, confirmar_turno_init, rechazar_turno_init, enviar_mail_confirmacion, enviar_mail_rechazo
+from OhMyDog.modelos.turnos import (
+    solicitar_turno,
+    filtrar_turnos_pendientes,
+    confirmar_turno_init,
+    rechazar_turno_init,
+    enviar_mail_confirmacion,
+    enviar_mail_rechazo,
+)
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from datetime import datetime, date
 from django.contrib import messages
-
 
 
 def solicitar_turnos(request):
     atenciones = TipoDeAtencion.objects.all()
     franjas_horarias = FranjaHoraria.objects.all()
 
-    context = {
-        'atenciones': atenciones,
-        'franjas_horarias': franjas_horarias
-    }
-    if request.method == 'GET':
+    context = {"atenciones": atenciones, "franjas_horarias": franjas_horarias}
+    if request.method == "GET":
         render(request, "solicitar_turno.html", context)
-    if request.method == 'POST':
+    if request.method == "POST":
         fecha_solicitada = request.POST.get("fecha_solicitada")
         formato = "%Y-%m-%d"
         fecha_solicitada = datetime.strptime(fecha_solicitada, formato).date()
-        if (fecha_solicitada > date.today()):
+        if fecha_solicitada > date.today():
             franja_horaria = request.POST.get("franja_horaria")
             tipo_atencion = request.POST.get("tipo_de_atencion")
             notas = request.POST.get("notas")
-            solicitar_turno(request.user.cliente, fecha_solicitada, franja_horaria, tipo_atencion, notas)
+            solicitar_turno(
+                request.user.cliente,
+                fecha_solicitada,
+                franja_horaria,
+                tipo_atencion,
+                notas,
+            )
             messages.success(request, f"Turno solicitado con exito. ")
         else:
-            messages.error(request, f"La fecha del turno debe ser posterior al dia de hoy.")
-    
+            messages.add_message(
+                request,
+                messages.ERROR,
+                f"La fecha del turno debe ser posterior al dia de hoy.",
+                extra_tags="danger",
+            )
+
     return render(request, "solicitar_turno.html", context)
+
 
 def solicitudes_de_turnos(request):
     turnos_pendientes = filtrar_turnos_pendientes()
-    context = {
-        'solicitudes_de_turnos': turnos_pendientes
-    }
-    return render (request, "solicitudes_de_turnos.html", context)
+    context = {"solicitudes_de_turnos": turnos_pendientes}
+    return render(request, "solicitudes_de_turnos.html", context)
+
 
 def confirmar_turno(request):
-    if request.method == 'POST':
-        turno_id = request.POST.get('turno_id','')
+    if request.method == "POST":
+        turno_id = request.POST.get("turno_id", "")
         confirmar_turno_init(turno_id)
         enviar_mail_confirmacion(turno_id)
-        next_url = request.POST.get('next')
+        next_url = request.POST.get("next")
         if next_url:
-                return redirect(next_url)
-    return render (request, "solicitudes_de_turnos.html")
+            return redirect(next_url)
+    return render(request, "solicitudes_de_turnos.html")
 
 
 def rechazar_turno(request):
-    if request.method == 'POST':
-        turno_id = request.POST.get('turno_id')
+    if request.method == "POST":
+        turno_id = request.POST.get("turno_id")
         rechazar_turno_init(turno_id)
         enviar_mail_rechazo(turno_id)
-        next_url = request.POST.get('next')
+        next_url = request.POST.get("next")
         if next_url:
-                return redirect(next_url)
-    return render (request, "solicitudes_de_turnos.html")
-
-
-
-    
+            return redirect(next_url)
+    return render(request, "solicitudes_de_turnos.html")

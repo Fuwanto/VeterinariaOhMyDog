@@ -50,7 +50,12 @@ def register(request):
         )
         redirect("register")
     else:
-        messages.error(request, f"Cliente {email} ya existente.")
+        messages.add_message(
+            request,
+            messages.ERROR,
+            f"El cliente {email} ya existe.",
+            extra_tags="danger",
+        )
         return redirect("register")
 
     return redirect("home")
@@ -70,13 +75,23 @@ def login_usuario(request):
         usuario_solo_por_mail = buscar_usuario_por_mail(mail)
         usuario = authenticate(request, mail=mail, password=password)
         if usuario_solo_por_mail is None:
-            messages.error(request, "Usuario no registrado")
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "Usuario no registrado",
+                extra_tags="danger",
+            )
             return redirect("login")  # redirecciona al login de nuevo
 
         elif usuario_solo_por_mail and (
             usuario is None
         ):  # quiere decir que la contraseña no coincide
-            messages.error(request, "Contraseña incorrecta")
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "Contraseña incorrecta",
+                extra_tags="danger",
+            )
             return redirect("login")  # redirecciona al login de nuevo
         else:
             login(request, usuario)
@@ -100,7 +115,12 @@ def primer_inicio(request):
             messages.success(request, "Tu contraseña ha sido cambiada exitosamente.")
             return redirect("login")
         else:
-            messages.error(request, "Por favor corrige los errores.")
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "Por favor corrige los errores.",
+                extra_tags="danger",
+            )
     else:
         form = PasswordChangeForm(request.user)
 
