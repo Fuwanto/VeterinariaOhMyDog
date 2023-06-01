@@ -16,6 +16,7 @@ from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
 from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
 from datetime import date
+from decimal import Decimal
 
 
 def buscar_clientes(request):
@@ -67,6 +68,7 @@ def agregar_perro(request, cliente_id):
         nombre = request.POST.get("nombre_perro")
         raza = request.POST.get("raza")
         peso = request.POST.get("peso")
+        peso = Decimal(peso).quantize(Decimal("0.00"))
         sexo = request.POST.get("sexo")
         fecha_de_nacimiento = request.POST.get("fecha_de_nacimiento")
         descripcion = request.POST.get("descripcion")
@@ -87,7 +89,7 @@ def agregar_perro(request, cliente_id):
                 f"Perro {nombre} ya registrado.",
                 extra_tags="danger",
             )
-            return redirect("home")
+            return redirect(f"/clientes/{cliente.id}/agregar_perro")
     else:
         return render(
             request,
@@ -99,12 +101,14 @@ def agregar_perro(request, cliente_id):
 @user_passes_test(superuser_check)
 def borrar_perro(request, perro_id):
     deshabilitar_perro(perro_id)
+    messages.success(request, "Perro eliminado con exito.")
     return redirect("clientes")
 
 
 @user_passes_test(superuser_check)
 def borrar_cliente(request, cliente_id):
     deshabilitar_cliente(cliente_id)
+    messages.success(request, "Cliente eliminado con exito")
     return redirect("clientes")
 
 
