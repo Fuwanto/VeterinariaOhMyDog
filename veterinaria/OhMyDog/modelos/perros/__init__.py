@@ -21,7 +21,7 @@ def buscar_perros_por_dueño(dueño):
     return Perro.objects.filter(dueño=dueño, habilitado=True)
 
 
-def buscar_perro_por_nombre(nombre, dueño):
+def buscar_perro_por_nombre_y_dueño(nombre, dueño):
     try:
         return Perro.objects.get(nombre=nombre, dueño=dueño)
     except:

@@ -22,7 +22,11 @@ from OhMyDog.views.turnos import (
     confirmar_turno,
     rechazar_turno,
 )
-from OhMyDog.views.atenciones import agregar_atencion_clinica, agregar_consulta, agregar_desparacitacion
+from OhMyDog.views.atenciones import (
+    agregar_atencion_clinica,
+    agregar_consulta,
+    agregar_desparacitacion,
+)
 
 
 urlpatterns = [
@@ -50,8 +54,16 @@ urlpatterns = [
     path("rechazar_turno/<int:turno_id>/", rechazar_turno, name="rechazar_turno"),
     path("perros/<int:perro_id>/", datos_de_un_perro, name="datos_de_un_perro"),
     path("borrar_perro/<int:perro_id>", borrar_perro, name="borrar_perro"),
-    path('agregar_atencion_clinica/', agregar_atencion_clinica, name='agregar_atencion_clinica'),
-    path('agregar_consulta/', agregar_consulta, name='agregar_consulta'),
-    path('agregar_desparacitacion/', agregar_desparacitacion, name='agregar_desparacitacion')
-
+    path("borrar_cliente/<int:cliente_id>", borrar_cliente, name="borrar_cliente"),
+    path(
+        "agregar_atencion_clinica/",
+        agregar_atencion_clinica,
+        name="agregar_atencion_clinica",
+    ),
+    path("agregar_consulta/", agregar_consulta, name="agregar_consulta"),
+    path(
+        "agregar_desparacitacion/",
+        agregar_desparacitacion,
+        name="agregar_desparacitacion",
+    ),
 ]
