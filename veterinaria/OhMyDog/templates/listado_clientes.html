@@ -21,95 +21,96 @@
 		<button class="btn btn-primary" type="submit">Buscar</button>
 	</form>
 
-	<p></p>
+	<p>
 
-	<div class="card" style="justify-content: center; align-items: center">
-		<table
-			style="
-				justify-content: center;
-				align-items: center;
-				text-align: center;
-				width: 600px;
-			"
-		>
+	</p>
+	
+	<div class="card">
+		<table class="table table-hover">
+			<thead>
 			<tr>
-				<th>ID</th>
-				<th>Nombre</th>
-				<th>Email</th>
+				<th scope="col">ID</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Email</th>
+				<th scope="col">Telefono</th>
+				<th scope="col">Acciones</th>
 			</tr>
-			{%if clientes%} {% for cliente in clientes %}
-			<tr>
-				<td>{{ cliente.id }}</td>
-				<td>{{ cliente.nombre }}</td>
-				<td>{{ cliente.email }}</td>
-				<td>
-					<div class="dropdown">
-						<a
-							class="btn btn-secondary dropdown-toggle"
-							href="#"
-							role="button"
-							id="dropdownMenuLink"
-							data-bs-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false"
-							style="
-								float: left;
-								background-color: rgb(157, 209, 59);
-							"
-							>Acciones</a
-						>
-						
-						<ul class="dropdown-menu">
-							<li>
-								<a class="dropdown-item" href="{% url 'datos_de_un_cliente' cliente.id %}">
-									Mostrar datos
-								</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{% url 'listado_de_perros_cliente' cliente.id %}">
-									Listado de perros
-								</a>
-							</li>
-							<li>
-								<a class="dropdown-item" href="{% url 'agregar_perro' cliente.id %}">
-									Agregar perro
-								</a>
-							</li>
-
-							<li>
-								<a
-									class="dropdown-item eliminar-cliente" 
-									data-bs-toggle="modal" 
-									data-bs-target="#confirmModal"
-									href="{% url 'borrar_cliente' cliente.id %}"
-								>
-									Eliminar cliente
-								</a>
-							</li>
-						</ul>
-					</div>
-					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <h5 class="modal-title" id="confirmModalLabel">Eliminar cliente</h5>
-							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-							  <p>¿Está seguro que quiere borrar el cliente?</p>
-							</div>
-							<div class="modal-footer">
-							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							  <a  id="aceptarEliminarCliente" class="btn btn-danger">Aceptar</a>
-							</div>
-						  </div>
+			</thead>
+			<tbody>
+				{% if clientes %} 
+				{% for cliente in clientes %}
+				<tr>
+					<td>{{ cliente.id }}</td>
+					<td>{{ cliente.nombre }}</td>
+					<td>{{ cliente.email }}</td>
+					<td>{{ cliente.telefono }}</td>
+					<td>
+						<div class="dropdown">
+							<a
+								class="btn btn-secondary dropdown-toggle"
+								href="#"
+								role="button"
+								id="dropdownMenuLink"
+								data-bs-toggle="dropdown"
+								aria-haspopup="true"
+								aria-expanded="false"
+								style="
+									background-color: rgb(157, 209, 59);
+								"
+								>Acciones</a
+							>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{% url 'datos_de_un_cliente' cliente.id %}">
+										Mostrar datos
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{% url 'listado_de_perros_cliente' cliente.id %}">
+										Listado de perros
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{% url 'agregar_perro' cliente.id %}">
+										Agregar perro
+									</a>
+								</li>
+								<li>
+									<a
+										class="dropdown-item eliminar-cliente" 
+										data-bs-toggle="modal" 
+										data-bs-target="#confirmModal"
+										href="{% url 'borrar_cliente' cliente.id %}"
+									>
+										Eliminar cliente
+									</a>
+								</li>
+							</ul>
 						</div>
-					</div>
-				</td>
-			</tr>
-			{% endfor %} {%else%}
-			<p>No se encontraron clientes</p>
-			{%endif%}
+						<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+								<h5 class="modal-title" id="confirmModalLabel">Eliminar cliente</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+								<p>¿Está seguro que quiere borrar el cliente?</p>
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								<a  id="aceptarEliminarCliente" class="btn btn-danger">Aceptar</a>
+								</div>
+							</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				{% endfor %} 
+				{% else %}
+					<p>No se encontraron clientes</p>
+				{%endif%}
+			</tbody>
 		</table>
 	</div>
 </div>
