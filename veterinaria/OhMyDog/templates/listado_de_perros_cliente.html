@@ -55,18 +55,26 @@
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 									<button type="submit" class="dropdown-item">
-										Cargar atención clínica
+										Registrar Atencion Clinica
 									</button>
 								</form>
-								<a class=" dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar consulta
-								</a>
+								<form method="GET" action="{% url 'agregar_consulta' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar Consulta
+									</button>
+								</form>
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar vacunación
+									Cargar Vacunacion
 								</a>
-								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar desparacitación
-								</a>
+								<form method="GET" action="{% url 'agregar_desparacitacion' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar Desparacitacion
+									</button>
+								</form>
 								{%if castracion%}
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
 									Mostrar datos
@@ -75,41 +83,36 @@
 								{%endif%}
 							</li>
 							<li>
-								<a
-									class="dropdown-item eliminar-perro" 
-									data-bs-toggle="modal" 
-									data-bs-target="#confirmModal"
-									href="{% url 'borrar_perro' perro.id %}"
-								>
+								<a class="dropdown-item eliminar-perro" data-bs-toggle="modal"
+									data-bs-target="#confirmModal" href="{% url 'borrar_perro' perro.id %}">
 									Eliminar perro
 								</a>
 							</li>
 						</ul>
 					</div>
-					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
-							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-							  <p>¿Está seguro que quiere borrar el perro?</p>
-							</div>
-							<div class="modal-footer">
-							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							  <a  id="aceptarEliminarPerro" class="btn btn-danger">Aceptar</a>
-							</div>
-						  </div>
+					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+						aria-hidden="true">
+						<div class="modal-header">
+							<h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<p>¿Está seguro que quiere borrar el perro?</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+							<a href="{% url 'borrar_perro' perro.id %}" class="btn btn-danger">Aceptar</a>
 						</div>
 					</div>
-				</td>
-			</tr>
-			{% endfor %} {%else%}
-			<p>No hay perros registrados</p>
-			{%endif%}
-		</table>
 	</div>
+</div>
+</td>
+</tr>
+{% endfor %} {%else%}
+<p>No hay perros registrados</p>
+{%endif%}
+</table>
+</div>
 </div>
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
