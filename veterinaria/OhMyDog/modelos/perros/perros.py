@@ -14,6 +14,7 @@ class Perro(models.Model):
     sexos = [("M", "Macho"), ("H", "Hembra")]
     sexo = models.CharField(max_length=1, choices=sexos, blank=False)
     habilitado = models.BooleanField(default=True)
+    # tiene_castracion = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.nombre}, Dueño: {self.dueño}"

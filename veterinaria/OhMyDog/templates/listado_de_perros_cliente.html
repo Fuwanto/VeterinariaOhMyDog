@@ -79,6 +79,15 @@
 										Registrar desparacitacion
 									</button>
 								</form>
+<!-- 								{% if not perro.tiene_castracion %}
+								<form method="GET" action="{% url 'agregar_castracion' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar castracion
+									</button>
+								</form>
+								{% endif %} -->
 								<form method="GET" action="{% url 'agregar_castracion' %}">
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">

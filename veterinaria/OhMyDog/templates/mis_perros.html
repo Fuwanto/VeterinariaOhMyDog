@@ -43,7 +43,7 @@
 					<div>
 						<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
 							{% csrf_token %}
-							<button type="submit"
+							<button type="submit" class="btn btn-primary"
 								style="align-content: right; float: rigth; background-color: rgb(157, 209, 59)">Mostrar
 								Datos</button>
 						</form>
