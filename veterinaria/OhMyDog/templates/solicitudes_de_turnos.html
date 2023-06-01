@@ -12,20 +12,23 @@
 		max-width: 1980px;
 		height: 1080px;
 	">
-	<div class="card" style="justify-content: center; align-items: center">
+	<p>
 
-		<table style="
-				justify-content: center;
-				align-items: center;
-				text-align: center;
-				width: 600px;
-			">
+	</p>
+
+	<div class="card">
+		<table class="table table-hover">
+			<thead>
 			<tr>
-				<th>ID</th>
-				<th>Fecha</th>
-				<th>Cliente</th>
+				<th scope="col">ID</th>
+				<th scope="col">Fecha</th>
+				<th scope="col">Cliente</th>
+				<th scope="col">Confirmar</th>
+				<th scope="col">Rechazar</th>
 			</tr>
-			{%if solicitudes_de_turnos%}
+			</thead>
+			<tbody>
+			{% if solicitudes_de_turnos %}
 			{% for turno in solicitudes_de_turnos %}
 			<tr>
 				<td>{{ turno.id }}</td>
@@ -36,11 +39,7 @@
 						<input type="hidden" name="next" value="{{ request.path }}">
 						<a class="btn btn-secondary confirmar-turno" 
 						style="
-							text-align: left;
-							float: right;
-							background-color: rgb(157, 209, 59);
-							color: rgb(255, 255, 255);
-							text-decoration-color: rgb(157, 209, 59);" 
+							background-color: rgb(157, 209, 59)" 
 							data-bs-toggle="modal" 
 							data-bs-target="#confirmModal"
 							href="{% url 'confirmar_turno' %}">
@@ -51,11 +50,7 @@
 					<input type="hidden" name="turno_id" value="{{ turno.id }}">
 					<input type="hidden" name="next" value="{{ request.path }}">
 					<a class="btn btn-secondary rechazar-turno" style="
-						text-align: left;
-						float: right;
-						background-color: rgb(157, 209, 59);
-						color: rgb(255, 255, 255);
-						text-decoration-color: rgb(157, 209, 59);" 
+						background-color: rgb(157, 209, 59);"
 						data-bs-toggle="modal" 
 						data-bs-target="#rechazarModal"
 						href="{% url 'rechazar_turno' %}">
@@ -65,8 +60,9 @@
 			</tr>
 			{% endfor %}
 			{%else%}
-			<p>No se encontraron turnos pendientes</p>
+				<p>No se encontraron turnos pendientes</p>
 			{%endif%}
+		</tbody>
 		</table>
 	</div>
 </div>
