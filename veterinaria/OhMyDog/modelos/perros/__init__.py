@@ -21,15 +21,16 @@ def buscar_perros_por_dueño(dueño):
     return Perro.objects.filter(dueño=dueño, habilitado=True)
 
 
-def buscar_perro_por_nombre(nombre, cliente):
+def buscar_perro_por_nombre(nombre, dueño):
     try:
-        return buscar_perros_por_dueño(cliente)
+        return Perro.objects.get(nombre=nombre, dueño=dueño)
     except:
         return None
-    
+
+
 def buscar_perro_por_id(perro_id):
-    print('Como un camion', perro_id)
-    return get_object_or_404(Perro,id=perro_id)
+    print("Como un camion", perro_id)
+    return get_object_or_404(Perro, id=perro_id)
 
 
 def deshabilitar_perro(id):
