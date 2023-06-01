@@ -16,10 +16,6 @@ def buscar_cliente_por_mail(email):
         return None
 
 
-def filtrar_clientes_email(email):
-    return Cliente.objects.filter(email__icontains=email)
-
-
 def deshabilitar_cliente(id):
     cliente = Cliente.objects.get(id=id)
     cliente.habilitado = False
