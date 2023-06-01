@@ -16,8 +16,11 @@ def buscar_cliente_por_mail(email):
         return None
 
 
-def borrar_cliente():
-    pass
+def deshabilitar_cliente(id):
+    cliente = Cliente.objects.get(id=id)
+    cliente.habilitado = False
+    cliente.save()
+    return cliente
 
 
 def modificar_cliente():
@@ -28,5 +31,5 @@ def buscar_cliente_por():
     pass
 
 
-def listar_clientes():
-    return Cliente.objects.all()
+def listar_clientes_habilitados():
+    return Cliente.objects.filter(habilitado=True)

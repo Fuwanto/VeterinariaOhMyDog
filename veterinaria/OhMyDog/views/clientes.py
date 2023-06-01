@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from OhMyDog.modelos.clientes import listar_clientes, Cliente
+from OhMyDog.modelos.clientes import (
+    listar_clientes_habilitados,
+    Cliente,
+    deshabilitar_cliente,
+)
 from OhMyDog.modelos.perros import (
     buscar_perros_por_dueño,
     buscar_perro_por_nombre,
@@ -20,7 +24,7 @@ def buscar_clientes(request):
 
 
 def todos_los_clientes(request):
-    clientes = listar_clientes()
+    clientes = listar_clientes_habilitados()
     return render(request, "listado_clientes.html", {"clientes": clientes})
 
 
@@ -82,6 +86,12 @@ def agregar_perro(request, cliente_id):
 @user_passes_test(superuser_check)
 def borrar_perro(request, perro_id):
     deshabilitar_perro(perro_id)
+    return redirect("clientes")
+
+
+@user_passes_test(superuser_check)
+def borrar_cliente(request, cliente_id):
+    deshabilitar_cliente(cliente_id)
     return redirect("clientes")
 
 
