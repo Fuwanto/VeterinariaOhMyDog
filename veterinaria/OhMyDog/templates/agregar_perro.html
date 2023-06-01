@@ -30,7 +30,7 @@
 							class="form-control"
 							id="nombre_perro"
 							name="nombre_perro"
-							placeholder="Ingrese el Nombre"
+							placeholder="Ingrese el nombre"
 							required
 						/>
 					</div>
@@ -41,24 +41,24 @@
 							class="form-control"
 							id="raza"
 							name="raza"
-							placeholder="Ingrese la Raza"
+							placeholder="Ingrese la raza"
 							required
 						/>
 					</div>
 					<div class="mb-3">
-						<label for="peso" class="form-label">Raza</label>
+						<label for="peso" class="form-label">Peso</label>
 						<input
 							type="number"
 							step="0.01"
 							class="form-control"
 							id="peso"
 							name="peso"
-							placeholder="Ingrese el Peso"
+							placeholder="Ingrese el peso en KG"
 							required
 						/>
 					</div>
 					<div class="mb-3">
-						<label for="sexo" class="form-label">Raza</label>
+						<label for="sexo" class="form-label">Sexo</label>
 						<select id="sexo" name="sexo">
 							<option value="M">Macho</option>
 							<option value="H">Hembra</option>
@@ -66,7 +66,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="fecha_de_nacimiento" class="form-label"
-							>Raza</label
+							>Fecha de nacimiento</label
 						>
 						<input
 							type="date"
@@ -74,6 +74,7 @@
 							id="fecha_de_nacimiento"
 							name="fecha_de_nacimiento"
 							required
+							max="{{ hoy }}"
 						/>
 					</div>
 					<div class="mb-3">
@@ -85,7 +86,7 @@
 							class="form-control"
 							id="descripcion"
 							name="descripcion"
-							placeholder="Ingrese una descripcion"
+							placeholder="Ingrese una descripción"
 						/>
 					</div>
 					<div class="text-center">
