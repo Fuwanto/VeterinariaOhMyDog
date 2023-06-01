@@ -18,15 +18,6 @@
 
                 <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; text-align: center">
                   Inicia sesión en tu cuenta</h5>
-
-
-                {% if messages %}
-                  {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                      {{ message }}
-                    </div>
-                  {% endfor %}
-                {% endif %}
                 <form method="post">
                   {% csrf_token %}
                   <div class="form-group">
