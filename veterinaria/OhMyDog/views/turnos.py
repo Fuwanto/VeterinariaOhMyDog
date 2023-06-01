@@ -9,7 +9,7 @@ from OhMyDog.modelos.turnos import (
     enviar_mail_rechazo,
 )
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from django.contrib import messages
 
 
@@ -17,7 +17,14 @@ def solicitar_turnos(request):
     atenciones = TipoDeAtencion.objects.all()
     franjas_horarias = FranjaHoraria.objects.all()
 
-    context = {"atenciones": atenciones, "franjas_horarias": franjas_horarias}
+    hoy = date.today()
+    hoy = hoy + timedelta(days=1)
+
+    context = {
+        "atenciones": atenciones,
+        "franjas_horarias": franjas_horarias,
+        "min": hoy.strftime("%Y-%m-%d"),
+    }
     if request.method == "GET":
         render(request, "solicitar_turno.html", context)
     if request.method == "POST":
