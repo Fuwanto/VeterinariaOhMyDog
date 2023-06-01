@@ -38,23 +38,7 @@
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
 				<td>
-					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-						  <div class="modal-content">
-							<div class="modal-header">
-							  <h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
-							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-							  <p>¿Está seguro que quiere borrar el perro?</p>
-							</div>
-							<div class="modal-footer">
-							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-							  <a  href="{% url 'borrar_perro' perro.id %}" class="btn btn-danger">Aceptar</a>
-							</div>
-						  </div>
-						</div>
-					</div>
+
 					<div class="dropdown">
 						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
@@ -92,18 +76,33 @@
 							</li>
 							<li>
 								<a
-									class="dropdown-item" 
+									class="dropdown-item eliminar-perro" 
 									data-bs-toggle="modal" 
 									data-bs-target="#confirmModal"
-									href="#"
+									href="{% url 'borrar_perro' perro.id %}"
 								>
 									Eliminar perro
 								</a>
 							</li>
 						</ul>
-
 					</div>
-
+					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							  <p>¿Está seguro que quiere borrar el perro?</p>
+							</div>
+							<div class="modal-footer">
+							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+							  <a  id="aceptarEliminarPerro" class="btn btn-danger">Aceptar</a>
+							</div>
+						  </div>
+						</div>
+					</div>
 				</td>
 			</tr>
 			{% endfor %} {%else%}
@@ -112,4 +111,20 @@
 		</table>
 	</div>
 </div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const eliminarPerroLinks = document.querySelectorAll(".eliminar-perro");
+		const aceptarEliminarPerroButton = document.querySelector("#aceptarEliminarPerro");
+
+		eliminarPerroLinks.forEach(function (link) {
+			link.addEventListener("click", function (event) {
+				event.preventDefault();
+				const eliminarClienteUrl = link.href;
+				aceptarEliminarPerroButton.addEventListener("click", function () {
+					window.location.href = eliminarClienteUrl;
+				});
+			});
+		});
+	});
+</script>
 {% endblock %}
