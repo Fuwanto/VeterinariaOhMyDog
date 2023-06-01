@@ -8,7 +8,7 @@ from OhMyDog.views.clientes import (
     mis_turnos,
     todos_los_clientes,
     datos_de_un_cliente,
-    buscar_clientes,
+    buscar_clientes_email,
     listado_de_perros_cliente,
     agregar_perro,
     datos_de_un_perro,
@@ -35,7 +35,7 @@ urlpatterns = [
     path("mis_perros/<int:perro_id>/", datos_de_mi_perro, name="datos_de_mi_perro"),
     path("mis_turnos", mis_turnos, name="mis_turnos"),
     path("primer_inicio", primer_inicio, name="primer_inicio"),
-    path("buscar_clientes", buscar_clientes, name="buscar_clientes"),
+    path("buscar_clientes", buscar_clientes_email, name="buscar_clientes"),
     path("clientes", todos_los_clientes, name="clientes"),
     path("clientes/<int:cliente_id>/", datos_de_un_cliente, name="datos_de_un_cliente"),
     path(

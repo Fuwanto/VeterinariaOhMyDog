@@ -4,6 +4,7 @@ from OhMyDog.modelos.clientes import (
     listar_clientes_habilitados,
     Cliente,
     deshabilitar_cliente,
+    filtrar_clientes_email,
 )
 from OhMyDog.modelos.perros import (
     buscar_perros_por_dueño,
@@ -17,10 +18,10 @@ from django.contrib import messages
 from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
 
 
-def buscar_clientes(request):
+def buscar_clientes_email(request):
     email = request.GET.get("email", "")
-    cliente = Cliente.objects.filter(email__icontains=email)
-    return render(request, "listado_clientes.html", {"clientes": cliente})
+    clientes = filtrar_clientes_email(email)
+    return render(request, "listado_clientes.html", {"clientes": clientes})
 
 
 def todos_los_clientes(request):
