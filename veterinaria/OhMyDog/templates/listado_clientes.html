@@ -75,8 +75,35 @@
 									Agregar perro
 								</a>
 							</li>
+
+							<li>
+								<a
+									class="dropdown-item eliminar-cliente" 
+									data-bs-toggle="modal" 
+									data-bs-target="#confirmModal"
+									href="{% url 'borrar_cliente' cliente.id %}"
+								>
+									Eliminar cliente
+								</a>
+							</li>
 						</ul>
-						
+					</div>
+					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+						  <div class="modal-content">
+							<div class="modal-header">
+							  <h5 class="modal-title" id="confirmModalLabel">Eliminar cliente</h5>
+							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							  <p>¿Está seguro que quiere borrar el cliente?</p>
+							</div>
+							<div class="modal-footer">
+							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+							  <a  id="aceptarEliminarCliente" class="btn btn-danger">Aceptar</a>
+							</div>
+						  </div>
+						</div>
 					</div>
 				</td>
 			</tr>
@@ -86,4 +113,20 @@
 		</table>
 	</div>
 </div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const eliminarClienteLinks = document.querySelectorAll(".eliminar-cliente");
+		const aceptarEliminarClienteButton = document.querySelector("#aceptarEliminarCliente");
+
+		eliminarClienteLinks.forEach(function (link) {
+			link.addEventListener("click", function (event) {
+				event.preventDefault();
+				const eliminarClienteUrl = link.href;
+				aceptarEliminarClienteButton.addEventListener("click", function () {
+					window.location.href = eliminarClienteUrl;
+				});
+			});
+		});
+	});
+</script>
 {%endblock%}

@@ -14,6 +14,7 @@ from OhMyDog.views.clientes import (
     datos_de_un_perro,
     datos_de_mi_perro,
     borrar_perro,
+    borrar_cliente,
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -49,5 +50,10 @@ urlpatterns = [
     path("rechazar_turno/<int:turno_id>/", rechazar_turno, name="rechazar_turno"),
     path("perros/<int:perro_id>/", datos_de_un_perro, name="datos_de_un_perro"),
     path("borrar_perro/<int:perro_id>", borrar_perro, name="borrar_perro"),
-    path('agregar_atencion_clinica/', agregar_atencion_clinica, name='agregar_atencion_clinica')
+    path("borrar_cliente/<int:cliente_id>", borrar_cliente, name="borrar_cliente"),
+    path(
+        "agregar_atencion_clinica/",
+        agregar_atencion_clinica,
+        name="agregar_atencion_clinica",
+    ),
 ]
