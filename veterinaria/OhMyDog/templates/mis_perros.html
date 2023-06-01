@@ -11,8 +11,9 @@
 			width: 100vw;
 			height: 50vh;
 		}
+
 		.card {
-			width: 400px;
+			width: 850px;
 			text-align: center;
 		}
 	</style>
@@ -21,34 +22,40 @@
 <div class="container">
 	<div class="card">
 		<h1>Mis Perros</h1>
-		<table style="text-align: center; width: 600px; margin-top: 20px;">
+		<table class="table">
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
+				<th>Raza</th>
+				<th>Peso</th>
+				<th>Sexo</th>
+				<th></th>
 			</tr>
 			{% if perros %}
 			{% for perro in perros %}
 			<tr>
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
+				<td>{{ perro.raza }}</td>
+				<td>{{ perro.peso }}</td>
+				<td>{{ perro.sexo }}</td>
 				<td>
-					<div class="dropdown">
-						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-							style="float: left; background-color: rgb(157, 209, 59);">Acciones</a>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
-								{% csrf_token %}
-								<button type="submit">Mostrar Datos</button>
-							</form>
-						</div>
+					<div>
+						<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
+							{% csrf_token %}
+							<button type="submit"
+								style="align-content: right; float: rigth; background-color: rgb(157, 209, 59)">Mostrar
+								Datos</button>
+						</form>
 					</div>
 				</td>
 			</tr>
 			{% endfor %}
 			{% else %}
 			<tr>
-				<td colspan="3"><p>No hay perros registrados</p></td>
+				<td colspan="3">
+					<p>No hay perros registrados</p>
+				</td>
 			</tr>
 			{% endif %}
 		</table>
