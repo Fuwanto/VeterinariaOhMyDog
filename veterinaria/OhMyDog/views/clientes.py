@@ -8,7 +8,7 @@ from OhMyDog.modelos.clientes import (
 )
 from OhMyDog.modelos.perros import (
     buscar_perros_por_dueño,
-    buscar_perro_por_nombre,
+    buscar_perro_por_nombre_y_dueño,
     registrar_perro,
     Perro,
     deshabilitar_perro,
@@ -16,6 +16,7 @@ from OhMyDog.modelos.perros import (
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
 from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
+from datetime import date
 
 
 def buscar_clientes_email(request):
@@ -65,23 +66,36 @@ def agregar_perro(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     if request.method == "POST":
         nombre = request.POST.get("nombre_perro")
-        perro = buscar_perro_por_nombre(nombre, cliente)
-        if nombre and perro is None:
-            raza = request.POST.get("raza")
-            peso = request.POST.get("peso")
-            sexo = request.POST.get("sexo")
-            fecha_de_nacimiento = request.POST.get("fecha_de_nacimiento")
-            descripcion = request.POST.get("descripcion")
-            print(nombre, raza, peso, sexo, fecha_de_nacimiento, descripcion)
+        raza = request.POST.get("raza")
+        peso = request.POST.get("peso")
+        sexo = request.POST.get("sexo")
+        fecha_de_nacimiento = request.POST.get("fecha_de_nacimiento")
+        descripcion = request.POST.get("descripcion")
+
+        perro = buscar_perro_por_nombre_y_dueño(nombre, cliente)
+
+        if perro is None:
             registrar_perro(
                 cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo
             )
+            messages.get_messages(request).used = True
             messages.success(request, "Perro registrado con exito.")
+            return redirect("home")
         else:
-            messages.error(request, f"Perro {nombre} ya registrado.")
+            # messages.error(request, f"Perro {nombre} ya registrado.")
+            messages.add_message(
+                request,
+                messages.ERROR,
+                f"Perro {nombre} ya registrado.",
+                extra_tags="danger",
+            )
+            return redirect("home")
     else:
-        messages.error(request, f"Perro  ya existente.")
-    return render(request, "agregar_perro.html", {"cliente_id": cliente_id})
+        return render(
+            request,
+            "agregar_perro.html",
+            {"cliente_id": cliente_id, "hoy": date.today().isoformat()},
+        )
 
 
 @user_passes_test(superuser_check)
