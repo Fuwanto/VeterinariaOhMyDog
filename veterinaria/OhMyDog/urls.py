@@ -26,6 +26,8 @@ from OhMyDog.views.atenciones import (
     agregar_atencion_clinica,
     agregar_consulta,
     agregar_desparacitacion,
+    agregar_castracion,
+    agregar_vacunacion
 )
 
 
@@ -66,4 +68,6 @@ urlpatterns = [
         agregar_desparacitacion,
         name="agregar_desparacitacion",
     ),
+    path("agregar_castracion/", agregar_castracion, name="agregar_castracion"),
+    path("agregar_vacunacion/", agregar_vacunacion, name="agregar_vacunacion")
 ]

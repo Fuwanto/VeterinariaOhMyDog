@@ -55,31 +55,37 @@
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 									<button type="submit" class="dropdown-item">
-										Registrar Atencion Clinica
+										Registrar atencion clinica
 									</button>
 								</form>
 								<form method="GET" action="{% url 'agregar_consulta' %}">
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 									<button type="submit" class="dropdown-item">
-										Registrar Consulta
+										Registrar consulta
 									</button>
 								</form>
-								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar Vacunacion
-								</a>
+								<form method="GET" action="{% url 'agregar_vacunacion' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar vacunacion
+									</button>
+								</form>
 								<form method="GET" action="{% url 'agregar_desparacitacion' %}">
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 									<button type="submit" class="dropdown-item">
-										Registrar Desparacitacion
+										Registrar desparacitacion
 									</button>
 								</form>
-								{%if castracion%}
-								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Mostrar datos
-								</a>
-								{%endif%}
+								<form method="GET" action="{% url 'agregar_castracion' %}">
+									{% csrf_token %}
+									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+									<button type="submit" class="dropdown-item">
+										Registrar castracion
+									</button>
+								</form>
 								{%endif%}
 							</li>
 							<li>
