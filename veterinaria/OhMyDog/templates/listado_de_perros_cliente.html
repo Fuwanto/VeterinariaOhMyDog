@@ -38,9 +38,6 @@
 				<td>{{ perro.id }}</td>
 				<td>{{ perro.nombre }}</td>
 				<td>
-<<<<<<< HEAD
-
-=======
 					<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 						  <div class="modal-content">
@@ -57,17 +54,14 @@
 							</div>
 						  </div>
 						</div>
-					  </div>
->>>>>>> 26b5cd758d0e0e18b393d51fd4d0c65dabbdbbb6
+					</div>
 					<div class="dropdown">
 						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
 								float: left;
 								background-color: rgb(157, 209, 59);
 							">Acciones</a>
-
 						<ul class="dropdown-menu">
-
 							<li>
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
 									Mostrar datos
@@ -77,17 +71,17 @@
 									{% csrf_token %}
 									<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 									<button type="submit" class="dropdown-item">
-										Cargar Atencion Clinica
+										Cargar atención clínica
 									</button>
 								</form>
 								<a class=" dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar Consulta
+									Cargar consulta
 								</a>
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar Vacunacion
+									Cargar vacunación
 								</a>
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
-									Cargar Desparacitacion
+									Cargar desparacitación
 								</a>
 								{%if castracion%}
 								<a class="dropdown-item" href="{% url 'datos_de_un_perro' perro.id %}">
