@@ -45,3 +45,8 @@ def alternar_primer_acceso(id):
     usuario = Usuario.objects.get(id=id)
     usuario.primer_inicio = False
     usuario.save()
+
+def modificar_mail(email, cliente):
+    usuario = Usuario.objects.get(mail = cliente.email)
+    usuario.mail = email
+    usuario.save()

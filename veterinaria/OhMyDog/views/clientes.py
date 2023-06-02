@@ -17,6 +17,7 @@ from django.contrib import messages
 from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
 from datetime import date
 from decimal import Decimal
+from OhMyDog.models import modificar_mail
 
 
 def buscar_clientes(request):
@@ -33,17 +34,39 @@ def todos_los_clientes(request):
 @login_required
 def mis_datos(request):
     cliente = request.user.cliente
-
     if request.method == "POST":
+        email = request.POST.get("email")
         nombre = request.POST.get("nombre")
         telefono = request.POST.get("telefono")
+        if (cliente.email == email):
+            cliente.nombre = nombre
+            cliente.telefono = telefono
+            cliente.save()
+            print('a')
+            messages.success(request,f"Datos modificados correctamente")
+            return redirect("mis_datos")
+        else:
+            try:
+                print('b')
+                cliente = Cliente.objects.get(email = email)
+                messages.error(request,f"El mail ingresado ya se encuentra registrado")
+                return redirect("mis_datos")
+            except cliente.DoesNotExist:
+                print('c')
+                print(cliente)
+                modificar_mail(email, request.user.cliente)
+                cliente.nombre = nombre
+                cliente.telefono = telefono
+                cliente.email = email
+                cliente.save()
+                print(request.user.cliente.email)
+                print(email)
 
-        # Actualizar los datos del cliente
-        cliente.nombre = nombre
-        cliente.telefono = telefono
-        cliente.save()
 
-        return redirect("mis_datos")
+                messages.success(request,f"Datos modificados correctamente")
+                print('c')
+                return redirect("mis_datos")
+
 
     return render(request, "mis_datos.html", {"cliente": request.user.cliente})
 

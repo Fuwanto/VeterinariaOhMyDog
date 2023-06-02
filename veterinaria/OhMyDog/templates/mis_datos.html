@@ -11,15 +11,17 @@
 			width: 100vw;
 			height: 50vh;
 		}
+
 		.card {
 			width: 400px;
 			text-align: center;
 		}
 	</style>
 </head>
+
 <body>
 	<div class="container">
-		<div class="card"  id="mis_datos">
+		<div class="card" id="mis_datos">
 			<h1>Mis datos</h1>
 			<table class="table">
 				<tbody>
@@ -48,7 +50,9 @@
 					<tbody>
 						<tr>
 							<th scope="row">Correo electrónico</th>
-							<td>{{ cliente.email }}</td>
+							<td>
+								<input type="text" id="email" name="email" value="{{ cliente.email }}" required><br>
+							</td>
 						</tr>
 						<tr>
 							<th scope="row">Nombre</th>
@@ -59,12 +63,14 @@
 						<tr>
 							<th scope="row">Teléfono</th>
 							<td>
-								<input type="text" id="telfono" name="telefono" value="{{ cliente.telefono }}" required><br>
+								<input type="text" id="telfono" name="telefono" value="{{ cliente.telefono }}"
+									required><br>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<button class="btn btn-primary" type="submit" style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255);">Guardar Cambios</button>
+				<button class="btn btn-primary" type="submit"
+					style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255);">Guardar Cambios</button>
 			</form>
 		</div>
 	</div>
