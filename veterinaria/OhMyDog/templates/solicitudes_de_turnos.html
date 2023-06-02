@@ -21,6 +21,8 @@
 					<th scope="col">ID</th>
 					<th scope="col">Fecha</th>
 					<th scope="col">Cliente</th>
+					<th scope="col">Perro</th>
+					<th scope="col">Raza</th>
 					<th scope="col">Tipo</th>
 					<th scope="col">Franja horaria</th>
 					<th scope="col">Confirmar</th>
@@ -34,6 +36,8 @@
 					<td>{{ turno.id }}</td>
 					<td>{{ turno.fecha_del_turno }}</td>
 					<td>{{ turno.cliente.nombre }}</td>
+					<td>{{ turno.perro.nombre }}</td>
+					<td>{{ turno.perro.raza }}</td>
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.franja_horaria.nombre }}</td>
 					<td>
@@ -50,7 +54,7 @@
 				{% endfor %}
 				{% else %}
 				<tr>
-					<td colspan="7">No se encontraron turnos pendientes</td>
+					<td colspan="9">No se encontraron turnos pendientes</td>
 				</tr>
 				{% endif %}
 			</tbody>
