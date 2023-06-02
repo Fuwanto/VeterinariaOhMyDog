@@ -62,11 +62,11 @@ def solicitudes_de_turnos(request):
 
 def confirmar_turno(request):
     if request.method == "POST":
-        turno_id = request.POST.get("turno_id", "")
-        print(request.POST.get("observaciones"))
-        confirmar_turno_init(turno_id)
-        enviar_mail_confirmacion(turno_id)
+        turno_id = request.POST.get("turno_id")
         next_url = request.POST.get("next")
+        confirmar_turno_init(turno_id)
+        enviar_mail_rechazo(turno_id)
+        print(next_url)
         if next_url:
             messages.success(request, f"Turno confirmado con exito. ")
             return redirect(next_url)
@@ -79,6 +79,7 @@ def rechazar_turno(request):
         rechazar_turno_init(turno_id)
         enviar_mail_rechazo(turno_id)
         next_url = request.POST.get("next")
+
         if next_url:
             messages.success(request, f"Turno rechazado con exito. ")
             return redirect(next_url)
