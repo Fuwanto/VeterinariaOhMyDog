@@ -2,7 +2,7 @@ from django.db.models.query_utils import *  #  incluye funciones útiles para co
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from OhMyDog.modelos.turnos.turnos import Turno
-from datetime import datetime
+from datetime import datetime,date
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria 
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.estadosDelTurno.estadosDelTurno import EstadoDelTurno
@@ -58,6 +58,12 @@ def enviar_mail_rechazo (turno_id, observaciones):
         [turno.cliente.email],
         fail_silently=False,
     )
+
+def cliente_tiene_turno_en_fecha (cliente, fecha):
+    try:
+        return Turno.objects.get(cliente = cliente, fecha_del_turno = fecha)
+    except:
+        return None
     
 
         

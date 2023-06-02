@@ -7,6 +7,7 @@ from OhMyDog.modelos.turnos import (
     rechazar_turno_init,
     enviar_mail_confirmacion,
     enviar_mail_rechazo,
+    cliente_tiene_turno_en_fecha
 )
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from datetime import datetime, date, timedelta
@@ -31,26 +32,33 @@ def solicitar_turnos(request):
         fecha_solicitada = request.POST.get("fecha_solicitada")
         formato = "%Y-%m-%d"
         fecha_solicitada = datetime.strptime(fecha_solicitada, formato).date()
-        if fecha_solicitada > date.today():
-            franja_horaria = request.POST.get("franja_horaria")
-            tipo_atencion = request.POST.get("tipo_de_atencion")
-            notas = request.POST.get("notas")
-            solicitar_turno(
-                request.user.cliente,
-                fecha_solicitada,
-                franja_horaria,
-                tipo_atencion,
-                notas,
-            )
-            messages.success(request, f"Turno solicitado con exito. ")
-        else:
+        if (cliente_tiene_turno_en_fecha (request.user.cliente, fecha_solicitada) is None):
+            if fecha_solicitada > date.today():
+                franja_horaria = request.POST.get("franja_horaria")
+                tipo_atencion = request.POST.get("tipo_de_atencion")
+                notas = request.POST.get("notas")
+                solicitar_turno(
+                    request.user.cliente,
+                    fecha_solicitada,
+                    franja_horaria,
+                    tipo_atencion,
+                    notas,
+                )
+                messages.success(request, f"Turno solicitado con exito. ")
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f"La fecha del turno debe ser posterior al dia de hoy.",
+                    extra_tags="danger",
+                )
+        else: 
             messages.add_message(
                 request,
                 messages.ERROR,
-                f"La fecha del turno debe ser posterior al dia de hoy.",
+                f"Usted ya ha solicitado un turno en esa fecha.",
                 extra_tags="danger",
             )
-
     return render(request, "solicitar_turno.html", context)
 
 
