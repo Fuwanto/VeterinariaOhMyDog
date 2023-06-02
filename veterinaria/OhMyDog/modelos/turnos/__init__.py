@@ -25,8 +25,9 @@ def filtrar_turnos_pendientes():
 def filtrar_turnos_por_cliente(cliente):
     return Turno.objects.filter(cliente = cliente)
 
-def confirmar_turno_init (turno_id):
+def confirmar_turno_init (turno_id, observaciones):
     turno = Turno.objects.get(id = turno_id)
+    turno.notas = observaciones
     estado = EstadoDelTurno.objects.get(id = 2)
     turno.estado = estado
     turno.save()
@@ -37,11 +38,11 @@ def rechazar_turno_init (turno_id):
     turno.estado = estado
     turno.save()
 
-def enviar_mail_confirmacion (turno_id):
+def enviar_mail_confirmacion (turno_id, observaciones):
     turno = Turno.objects.get(id = turno_id)
     send_mail(
         "Su turno ha sido confirmado.",
-        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido confirmado.",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido confirmado. Observaciones: {observaciones}",
         settings.EMAIL_HOST_USER,
         [turno.cliente.email],
         fail_silently=False,

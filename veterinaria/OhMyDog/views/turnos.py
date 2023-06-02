@@ -63,9 +63,9 @@ def solicitudes_de_turnos(request):
 def confirmar_turno(request):
     if request.method == "POST":
         turno_id = request.POST.get("turno_id")
-        confirmar_turno_init(turno_id)
-        enviar_mail_rechazo(turno_id)
-        print(request.POST.get("observaciones"))  # hacer algo con la observacion
+        observaciones = request.POST.get("observaciones") 
+        confirmar_turno_init(turno_id, observaciones)
+        enviar_mail_confirmacion(turno_id, observaciones)
         messages.success(request, f"Turno confirmado con exito. ")
         return redirect("solicitudes_de_turnos")
     return render(request, "solicitudes_de_turnos.html")
@@ -76,9 +76,6 @@ def rechazar_turno(request):
         turno_id = request.POST.get("turno_id")
         rechazar_turno_init(turno_id)
         enviar_mail_rechazo(turno_id)
-        next_url = request.POST.get("next")
-
-        if next_url:
-            messages.success(request, f"Turno rechazado con exito. ")
-            return redirect(next_url)
+        messages.success(request, f"Turno rechazado con exito. ")
+        return redirect("solicitudes_de_turnos")
     return render(request, "solicitudes_de_turnos.html")

@@ -11,112 +11,113 @@
     max-width: 1980px;
     height: 1080px;
 ">
-    <p></p>
+	<p></p>
 
-    <div class="card">
-        <h1>Solicitudes de turnos</h1>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Cliente</th>
+	<div class="card">
+		<h1>Solicitudes de turnos</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Fecha</th>
+					<th scope="col">Cliente</th>
 					<th scope="col">Tipo</th>
-                    <th scope="col">Franja horaria</th>
-                    <th scope="col">Confirmar</th>
-                    <th scope="col">Rechazar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if solicitudes_de_turnos %}
-                {% for turno in solicitudes_de_turnos %}
-                <tr>
-                    <td>{{ turno.id }}</td>
-                    <td>{{ turno.fecha_del_turno }}</td>
-                    <td>{{ turno.cliente.nombre }}</td>
+					<th scope="col">Franja horaria</th>
+					<th scope="col">Confirmar</th>
+					<th scope="col">Rechazar</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if solicitudes_de_turnos %}
+				{% for turno in solicitudes_de_turnos %}
+				<tr>
+					<td>{{ turno.id }}</td>
+					<td>{{ turno.fecha_del_turno }}</td>
+					<td>{{ turno.cliente.nombre }}</td>
 					<td>{{ turno.tipo_atencion.nombre }}</td>
-                    <td>{{ turno.franja_horaria.nombre }}</td>
-                    <td>
-                        <button type="button" class="btn btn-secondary confirmar-turno" style="background-color: rgb(157, 209, 59)" data-bs-toggle="modal" data-bs-target="#confirmModal" data-id="{{ turno.id }}">Confirmar Turno</button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-secondary rechazar-turno" style="background-color: rgb(157, 209, 59)" data-bs-toggle="modal" data-bs-target="#rechazarModal" data-id="{{ turno.id }}">Rechazar Turno</button>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                    <td colspan="5">No se encontraron turnos pendientes</td>
-                </tr>
-                {% endif %}
-            </tbody>
-        </table>
-    </div>
+					<td>{{ turno.franja_horaria.nombre }}</td>
+					<td>
+						<button type="button" class="btn btn-secondary confirmar-turno"
+							style="background-color: rgb(157, 209, 59)" data-bs-toggle="modal"
+							data-bs-target="#confirmModal" data-id="{{ turno.id }}">Confirmar Turno</button>
+					</td>
+					<td>
+						<button type="button" class="btn btn-secondary rechazar-turno"
+							style="background-color: rgb(157, 209, 59)" data-bs-toggle="modal"
+							data-bs-target="#rechazarModal" data-id="{{ turno.id }}">Rechazar Turno</button>
+					</td>
+				</tr>
+				{% endfor %}
+				{% else %}
+				<tr>
+					<td colspan="7">No se encontraron turnos pendientes</td>
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Confirmar turno</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Está seguro que quiere confirmar el turno?</p>
-                <form method="post" action="{% url 'confirmar_turno' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="turno_id" id="confirmTurnoId">
-                    <div class="mb-3">
-                        <label for="observaciones" class="form-label">Observaciones</label>
-                        <input type="text" class="form-control" name="observaciones" id="observaciones" placeholder="Ingrese alguna observación (opcional)">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="confirmModalLabel">Confirmar turno</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>¿Está seguro que quiere confirmar el turno?</p>
+				<form method="post" action="{% url 'confirmar_turno' %}">
+					{% csrf_token %}
+					<input type="hidden" name="turno_id" id="confirmTurnoId">
+					<div class="mb-3">
+						<label for="observaciones" class="form-label">Observaciones</label>
+						<input type="text" class="form-control" name="observaciones" id="observaciones"
+							placeholder="Ingrese alguna observación (opcional)">
+					</div>
+					<button type="submit" class="btn btn-primary">Confirmar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="modal fade" id="rechazarModal" tabindex="-1" aria-labelledby="rechazarModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="rechazarModalLabel">Rechazar turno</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Está seguro que quiere rechazar el turno?</p>
-                <form method="post" action="{% url 'rechazar_turno' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="turno_id" id="rechazarTurnoId">
-                    <div class="mb-3">
-                        <label for="observaciones" class="form-label">Observaciones</label>
-                        <input type="text" class="form-control" name="observaciones" id="observaciones" placeholder="Ingrese alguna observación (opcional)">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Rechazar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </form>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="rechazarModalLabel">Rechazar turno</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>¿Está seguro que quiere rechazar el turno?</p>
+				<form method="post" action="{% url 'rechazar_turno' %}">
+					{% csrf_token %}
+					<input type="hidden" name="turno_id" id="rechazarTurnoId">
+					<button type="submit" class="btn btn-primary">Rechazar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
-    var confirmModal = document.getElementById('confirmModal');
-    confirmModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var turnoId = button.getAttribute('data-id');
-        var confirmTurnoIdInput = document.getElementById('confirmTurnoId');
-        confirmTurnoIdInput.value = turnoId;
-    });
+	var confirmModal = document.getElementById('confirmModal');
+	confirmModal.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		var turnoId = button.getAttribute('data-id');
+		var confirmTurnoIdInput = document.getElementById('confirmTurnoId');
+		confirmTurnoIdInput.value = turnoId;
+	});
 
-    var rechazarModal = document.getElementById('rechazarModal');
-    rechazarModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var turnoId = button.getAttribute('data-id');
-        var rechazarTurnoIdInput = document.getElementById('rechazarTurnoId');
-        rechazarTurnoIdInput.value = turnoId;
-    });
+	var rechazarModal = document.getElementById('rechazarModal');
+	rechazarModal.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		var turnoId = button.getAttribute('data-id');
+		var rechazarTurnoIdInput = document.getElementById('rechazarTurnoId');
+		rechazarTurnoIdInput.value = turnoId;
+	});
 </script>
 {% endblock %}
