@@ -93,6 +93,11 @@
 			<div class="modal-body">
 				<p>¿Está seguro que quiere rechazar el turno?</p>
 				<form method="post" action="{% url 'rechazar_turno' %}">
+					<div class="mb-3">
+						<label for="observaciones" class="form-label">Observaciones</label>
+						<input type="text" class="form-control" name="observaciones" id="observaciones"
+							placeholder="Ingrese alguna observación (opcional)">
+					</div>
 					{% csrf_token %}
 					<input type="hidden" name="turno_id" id="rechazarTurnoId">
 					<button type="submit" class="btn btn-primary">Rechazar</button>

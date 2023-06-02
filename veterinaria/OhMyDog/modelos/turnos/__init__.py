@@ -27,13 +27,14 @@ def filtrar_turnos_por_cliente(cliente):
 
 def confirmar_turno_init (turno_id, observaciones):
     turno = Turno.objects.get(id = turno_id)
-    turno.notas = observaciones
+    turno.observaciones = observaciones
     estado = EstadoDelTurno.objects.get(id = 2)
     turno.estado = estado
     turno.save()
 
-def rechazar_turno_init (turno_id):
+def rechazar_turno_init (turno_id, observaciones):
     turno = Turno.objects.get(id = turno_id)
+    turno.observaciones = observaciones
     estado = EstadoDelTurno.objects.get(id = 3)
     turno.estado = estado
     turno.save()
@@ -42,17 +43,17 @@ def enviar_mail_confirmacion (turno_id, observaciones):
     turno = Turno.objects.get(id = turno_id)
     send_mail(
         "Su turno ha sido confirmado.",
-        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido confirmado. Observaciones: {observaciones}",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido confirmado.\nObservaciones: {observaciones}",
         settings.EMAIL_HOST_USER,
         [turno.cliente.email],
         fail_silently=False,
     )
 
-def enviar_mail_rechazo (turno_id):
+def enviar_mail_rechazo (turno_id, observaciones):
     turno = Turno.objects.get(id = turno_id)
     send_mail(
         "Su turno ha sido rechazado.",
-        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido rechazado.",
+        f"Estimado cliente, su turno para el dia {turno.fecha_del_turno} para una {turno.tipo_atencion.nombre} ha sido rechazado.\nObservaciones: {observaciones}",
         settings.EMAIL_HOST_USER,
         [turno.cliente.email],
         fail_silently=False,

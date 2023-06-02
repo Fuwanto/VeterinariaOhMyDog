@@ -2,17 +2,14 @@
 {% block title %}OhMyDog - Mis perros{% endblock %}
 {% block content %}
 
-<div
-	class="container"
-	style="
+<div class="container" style="
 		float: none;
 		text-align: center;
 		display: block;
 		width: 1510px;
 		max-width: 1980px;
 		height: 1080px;
-	"
->
+	">
 	<p>
 
 	</p>
@@ -20,48 +17,48 @@
 		<h1>Mis perros</h1>
 		<table class="table table-hover">
 			<thead>
-			<tr>
-				<th scope="col">ID</th>
-				<th scope="col">Nombre</th>
-				<th scope="col">Raza</th>
-				<th scope="col">Peso</th>
-				<th scope="col">Sexo</th>
-				<th scope="col">Fecha de nacimiento</th>
-				<th scope="col">Descripción</th>
-				<th scope="col">Acción</th>
-			</tr>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Raza</th>
+					<th scope="col">Peso</th>
+					<th scope="col">Sexo</th>
+					<th scope="col">Fecha de nacimiento</th>
+					<th scope="col">Descripción</th>
+					<th scope="col">Acción</th>
+				</tr>
 			</thead>
 			<tbody>
-			{% if perros %}
-			{% for perro in perros %}
-			<tr>
-				<td>{{ perro.id }}</td>
-				<td>{{ perro.nombre }}</td>
-				<td>{{ perro.raza }}</td>
-				<td>{{ perro.peso }}</td>
-				<td>{{ perro.sexo }}</td>
-				<td>{{ perro.fecha_de_nacimiento }}</td>
-				<td>{{ perro.descripcion }}</td>
-				<td>
-					<div>
-						<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
-							{% csrf_token %}
-							<button type="submit" class="btn btn-primary"
-								style="align-content: right; float: rigth; background-color: rgb(157, 209, 59)">Mostrar
-								Datos</button>
-						</form>
-					</div>
-				</td>
-			</tr>
-			{% endfor %}
-			{% else %}
-			<tr>
-				<td colspan="3">
-					<p>No hay perros registrados</p>
-				</td>
-			</tr>
-			{% endif %}
-		</tbody>
+				{% if perros %}
+				{% for perro in perros %}
+				<tr>
+					<td>{{ perro.id }}</td>
+					<td>{{ perro.nombre }}</td>
+					<td>{{ perro.raza }}</td>
+					<td>{{ perro.peso }}</td>
+					<td>{{ perro.sexo }}</td>
+					<td>{{ perro.fecha_de_nacimiento }}</td>
+					<td>{{ perro.descripcion }}</td>
+					<td>
+						<div>
+							<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
+								{% csrf_token %}
+								<button type="submit" class="btn btn-primary"
+									style="align-content: right; float: rigth; background-color: rgb(157, 209, 59)">Mostrar
+									Datos</button>
+							</form>
+						</div>
+					</td>
+				</tr>
+				{% endfor %}
+				{% else %}
+				<tr>
+					<td colspan="7">
+						<p>No hay perros registrados</p>
+					</td>
+				</tr>
+				{% endif %}
+			</tbody>
 		</table>
 	</div>
 </div>

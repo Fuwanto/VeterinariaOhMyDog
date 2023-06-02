@@ -56,7 +56,6 @@ def mis_datos(request):
                 cliente.email = email
                 cliente.save()
                 messages.success(request,f"Datos modificados correctamente")
-                print('c')
                 return redirect("mis_datos")
 
 

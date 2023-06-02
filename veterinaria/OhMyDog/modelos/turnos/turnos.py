@@ -21,6 +21,7 @@ class Turno(models.Model):
     )
     estado = models.ForeignKey(EstadoDelTurno, null=False, on_delete=models.CASCADE)
     notas = models.TextField(null=True)
+    observaciones = models.TextField(null=True)
 
     def __str__(self):
         return f"Cliente: {self.cliente_id}, Atencion: {self.tipo_atencion_id}, Turno: {self.fecha_del_turno}, {self.franja_horaria_id}, Estado del Turno: {self.estado_id},"
