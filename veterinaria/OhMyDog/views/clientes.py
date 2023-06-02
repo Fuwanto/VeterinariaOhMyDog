@@ -42,27 +42,19 @@ def mis_datos(request):
             cliente.nombre = nombre
             cliente.telefono = telefono
             cliente.save()
-            print('a')
             messages.success(request,f"Datos modificados correctamente")
             return redirect("mis_datos")
         else:
             try:
-                print('b')
                 cliente = Cliente.objects.get(email = email)
                 messages.error(request,f"El mail ingresado ya se encuentra registrado")
                 return redirect("mis_datos")
             except cliente.DoesNotExist:
-                print('c')
-                print(cliente)
                 modificar_mail(email, request.user.cliente)
                 cliente.nombre = nombre
                 cliente.telefono = telefono
                 cliente.email = email
                 cliente.save()
-                print(request.user.cliente.email)
-                print(email)
-
-
                 messages.success(request,f"Datos modificados correctamente")
                 print('c')
                 return redirect("mis_datos")
