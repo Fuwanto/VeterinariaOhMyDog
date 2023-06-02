@@ -12,12 +12,14 @@ from OhMyDog.modelos.turnos import (
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from datetime import datetime, date, timedelta
 from django.contrib import messages
+from OhMyDog.modelos.perros import buscar_perros_por_dueño
 
 
 def solicitar_turnos(request):
     atenciones = TipoDeAtencion.objects.all()
     franjas_horarias = FranjaHoraria.objects.all()
-
+    perros = buscar_perros_por_dueño(request.user.cliente)
+    print(perros)
     hoy = date.today()
     hoy = hoy + timedelta(days=1)
 
@@ -25,6 +27,7 @@ def solicitar_turnos(request):
         "atenciones": atenciones,
         "franjas_horarias": franjas_horarias,
         "min": hoy.strftime("%Y-%m-%d"),
+        "perros": perros,
     }
     if request.method == "GET":
         render(request, "solicitar_turno.html", context)
@@ -37,10 +40,12 @@ def solicitar_turnos(request):
                 franja_horaria = request.POST.get("franja_horaria")
                 tipo_atencion = request.POST.get("tipo_de_atencion")
                 notas = request.POST.get("notas")
+                perro_id=request.POST.get("perro_id")
                 solicitar_turno(
                     request.user.cliente,
                     fecha_solicitada,
                     franja_horaria,
+                    perro_id,
                     tipo_atencion,
                     notas,
                 )

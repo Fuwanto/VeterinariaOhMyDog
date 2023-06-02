@@ -4,12 +4,15 @@ from OhMyDog.modelos.clientes.clientes import Cliente
 from OhMyDog.modelos.estadosDelTurno.estadosDelTurno import EstadoDelTurno
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
-
+from OhMyDog.modelos.perros.perros import Perro
 
 class Turno(models.Model):
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(
         Cliente, null=False, on_delete=models.CASCADE
+    )
+    perro = models.ForeignKey(
+        Perro, null=True, on_delete=models.CASCADE
     )
     fecha_del_turno = models.DateField(null=False)
     fecha_de_solicitud = models.DateTimeField(null=False)

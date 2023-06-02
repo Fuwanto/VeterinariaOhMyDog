@@ -1,7 +1,7 @@
 from django.db.models.query_utils import *  #  incluye funciones útiles para consultas de bases de datos en Django.
 
 from OhMyDog.modelos.clientes.clientes import Cliente
-
+from OhMyDog.modelos.perros import buscar_perros_por_dueño
 
 def agregar_cliente(nombre, email, telefono):
     cliente = Cliente(nombre=nombre, email=email, telefono=telefono)
@@ -33,3 +33,6 @@ def buscar_cliente_por():
 
 def listar_clientes_habilitados():
     return Cliente.objects.filter(habilitado=True)
+
+def listar_perros_cliente (cliente):
+    return buscar_perros_por_dueño(cliente)

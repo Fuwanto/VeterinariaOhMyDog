@@ -6,15 +6,21 @@ from datetime import datetime,date
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria 
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.estadosDelTurno.estadosDelTurno import EstadoDelTurno
+from OhMyDog.modelos.perros.perros import Perro
 from django.core.mail import send_mail
 from django.conf import settings
 
-def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,tipo_atencion_id,notas):
+def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,perro_id,tipo_atencion_id,notas):
     franja_horaria = get_object_or_404(FranjaHoraria, id=franja_horaria_id)
     tipo_atencion = get_object_or_404(TipoDeAtencion, id=tipo_atencion_id)
+    try:
+        perro = Perro.objects.get(id=perro_id)
+    except:
+        perro = None
     turno = Turno(cliente = cliente, fecha_del_turno = fecha_del_turno, fecha_de_solicitud = datetime.today(),
                     franja_horaria= franja_horaria, tipo_atencion = tipo_atencion,
-                    estado = get_object_or_404(EstadoDelTurno, id = 1), notas = notas)
+                    estado = get_object_or_404(EstadoDelTurno, id = 1), notas = notas,
+                    perro = perro)
     turno.save()
     return turno
 
