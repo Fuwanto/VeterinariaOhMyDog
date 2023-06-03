@@ -18,8 +18,8 @@ vet/Scripts/activate
 
 ## Cuenta SUPERUSER
 
--   denisseanto11@hotmail.com
--   anto123
+-   ohMyDog@hotmail.com
+-   @ohmydog2023
 
 ## Cuenta Cliente
 
