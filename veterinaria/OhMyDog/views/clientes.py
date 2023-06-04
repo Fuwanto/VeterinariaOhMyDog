@@ -96,7 +96,6 @@ def agregar_perro(request, cliente_id):
             registrar_perro(
                 cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo
             )
-            messages.get_messages(request).used = True
             messages.success(request, "Perro registrado con exito.")
             return redirect("home")
         else:

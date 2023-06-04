@@ -19,14 +19,14 @@
 					<form method="post">
 						{% csrf_token %}
 						<div class="mb-3">
-							<label for="fecha_solicitada" class="form-label">Fecha Del Turno</label>
+							<label for="fecha_solicitada" class="form-label">Fecha del turno</label>
 							<input type="date" class="form-control" id="fecha_solicitada" name="fecha_solicitada"
 								min="{{ min }}" required />
 						</div>
 						<div class="mb-3">
 							<label for="perro" class="form-label">Perro</label>
 							<select id="perro_id" name="perro_id">
-								<option value="">---</option>
+								<option value="">Ninguno</option>
 								{% for perro in perros %}
 								<option value="{{perro.id}}">
 									{{ perro.nombre }}
@@ -55,7 +55,7 @@
 							</select>
 						</div>
 						<div class="mb-3">
-							<label for="notas" class="form-label">Notas (Opcional)</label>
+							<label for="notas" class="form-label">Notas (opcional)</label>
 							<input type="notas" class="form-control" id="notas" name="notas"
 								placeholder="Ingrese alguna nota (opcional)" />
 						</div>
