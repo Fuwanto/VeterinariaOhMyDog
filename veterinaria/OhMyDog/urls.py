@@ -16,7 +16,6 @@ from OhMyDog.views.clientes import (
     buscar_clientes,
     listado_de_perros_cliente,
     agregar_perro,
-    datos_de_un_perro,
     datos_de_mi_perro,
     borrar_perro,
     borrar_cliente,
@@ -34,6 +33,7 @@ from OhMyDog.views.atenciones import (
     agregar_castracion,
     agregar_vacunacion,
 )
+from OhMyDog.views.perros import datos_de_un_perro
 
 
 urlpatterns = [

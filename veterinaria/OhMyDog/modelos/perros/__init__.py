@@ -28,9 +28,9 @@ def buscar_perro_por_nombre_y_dueño(nombre, dueño):
         return None
 
 
-def buscar_perro_por_id(perro_id):
-    print("Como un camion", perro_id)
-    return get_object_or_404(Perro, id=perro_id)
+def buscar_perro_por_id(id):
+    perro = Perro.objects.get(id=id)
+    return perro
 
 
 def deshabilitar_perro(id):
@@ -43,5 +43,13 @@ def deshabilitar_perro(id):
 def modificar_tiene_castracion(id):
     perro = Perro.objects.get(id=id)
     perro.tiene_castracion = True
+    perro.save()
+    return perro
+
+
+def modificar_datos(id, peso, descripcion):
+    perro = Perro.objects.get(id=id)
+    perro.peso = peso
+    perro.descripcion = descripcion
     perro.save()
     return perro

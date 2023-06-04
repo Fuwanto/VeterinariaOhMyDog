@@ -143,21 +143,6 @@ def mis_turnos(request):
     return render(request, "mis_turnos.html", {"turnos": turnos})
 
 
-@user_passes_test(superuser_check)
-def datos_de_un_perro(request, perro_id):
-    perro = get_object_or_404(Perro, id=perro_id)
-    peso = request.POST.get("peso")
-    if request.method == "POST" and peso:
-        descripcion = request.POST.get("descripcion")
-
-        # Actualizar los datos del perro
-        perro.peso = peso
-        perro.descripcion = descripcion
-        perro.save()
-
-    return render(request, "datos_de_un_perro.html", {"perro": perro})
-
-
 @login_required
 def datos_de_mi_perro(request, perro_id):
     perro = get_object_or_404(Perro, id=perro_id)
