@@ -17,7 +17,7 @@ def superuser_check(user):
 
 
 @user_passes_test(superuser_check)
-def register(request):
+def registrar_cliente(request):
     if request.method == "GET":
         return render(request, "agregar_cliente.html")
 
@@ -48,7 +48,7 @@ def register(request):
             request,
             "Cliente registrado correctamente. Contraseña autogenerada enviada.",
         )
-        redirect("register")
+        redirect("registrar_cliente")
     else:
         messages.add_message(
             request,
@@ -56,7 +56,7 @@ def register(request):
             f"El cliente {email} ya existe.",
             extra_tags="danger",
         )
-        return redirect("register")
+        return redirect("registrar_cliente")
 
     return redirect("home")
 

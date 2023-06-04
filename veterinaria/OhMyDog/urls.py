@@ -1,7 +1,12 @@
 from django.urls import path
 
 from OhMyDog.views.home import home
-from OhMyDog.views.auth import register, login_usuario, logout_usuario, primer_inicio
+from OhMyDog.views.auth import (
+    registrar_cliente,
+    login_usuario,
+    logout_usuario,
+    primer_inicio,
+)
 from OhMyDog.views.clientes import (
     mis_datos,
     mis_perros,
@@ -27,13 +32,13 @@ from OhMyDog.views.atenciones import (
     agregar_consulta,
     agregar_desparacitacion,
     agregar_castracion,
-    agregar_vacunacion
+    agregar_vacunacion,
 )
 
 
 urlpatterns = [
     path("", home, name="home"),
-    path("register", register, name="register"),
+    path("registrar_cliente", registrar_cliente, name="registrar_cliente"),
     path("login", login_usuario, name="login"),
     path("logout", logout_usuario, name="logout"),
     path("mis_datos", mis_datos, name="mis_datos"),
@@ -69,5 +74,5 @@ urlpatterns = [
         name="agregar_desparacitacion",
     ),
     path("agregar_castracion/", agregar_castracion, name="agregar_castracion"),
-    path("agregar_vacunacion/", agregar_vacunacion, name="agregar_vacunacion")
+    path("agregar_vacunacion/", agregar_vacunacion, name="agregar_vacunacion"),
 ]
