@@ -1,5 +1,3 @@
-import string, random
-
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import logout, login, authenticate
@@ -10,7 +8,7 @@ from django.shortcuts import render, redirect
 
 from OhMyDog.modelos.clientes import agregar_cliente, buscar_cliente_por_mail
 from OhMyDog.models import Usuario, alternar_primer_acceso, buscar_usuario_por_mail
-from OhMyDog.views.utils import agregar_mensaje_error
+from OhMyDog.views.utils import agregar_mensaje_error, generar_contraseña
 
 
 def superuser_check(user):
@@ -24,64 +22,57 @@ def registrar_cliente(request):
 
     email = request.POST["email"]
     cliente = buscar_cliente_por_mail(email)
-    if cliente is None:
-        nombre = request.POST["nombre"]
-        telefono = request.POST["telefono"]
-        contraseña = "".join(
-            random.choices(
-                string.ascii_uppercase + string.ascii_lowercase + string.digits, k=8
-            )
-        )
-        cliente = agregar_cliente(
-            nombre,
-            email,
-            telefono,
-        )
-        Usuario.objects.create_user(email, contraseña, cliente)
-        send_mail(
-            "Contraseña de su cuenta de OhMyDog",
-            f"La contraseña autogenerada es: {contraseña}",
-            settings.EMAIL_HOST_USER,
-            [email],
-            fail_silently=False,
-        )
-        messages.success(
-            request,
-            "Cliente registrado correctamente. Contraseña autogenerada enviada.",
-        )
-        redirect("registrar_cliente")
-    else:
+    if cliente is not None:
         agregar_mensaje_error(request, f"El cliente {email} ya existe.")
         return redirect("registrar_cliente")
 
+    nombre = request.POST["nombre"]
+    telefono = request.POST["telefono"]
+    contraseña = generar_contraseña()
+    cliente = agregar_cliente(
+        nombre,
+        email,
+        telefono,
+    )
+    Usuario.objects.create_user(email, contraseña, cliente)
+    send_mail(
+        "Contraseña de su cuenta de OhMyDog",
+        f"La contraseña autogenerada es: {contraseña}",
+        settings.EMAIL_HOST_USER,
+        [email],
+        fail_silently=False,
+    )
+    messages.success(
+        request,
+        "Cliente registrado correctamente. Contraseña autogenerada enviada.",
+    )
     return redirect("home")
 
 
 def login_usuario(request):
-    if request.method == "POST":
-        mail = request.POST["email"]
-        password = request.POST["contraseña"]
-        usuario_solo_por_mail = buscar_usuario_por_mail(mail)
-        usuario = authenticate(request, mail=mail, password=password)
-        if usuario_solo_por_mail is None:
-            agregar_mensaje_error(request, "Usuario no registrado.")
-            return redirect("login")  # redirecciona al login de nuevo
+    if request.method == "GET":
+        return render(request, "login.html")
 
-        elif usuario_solo_por_mail and (
-            usuario is None
-        ):  # quiere decir que la contraseña no coincide
+    email = request.POST["email"]
+    password = request.POST["contraseña"]
+    usuario_solo_por_mail = buscar_usuario_por_mail(email)
+    if usuario_solo_por_mail is None:
+        agregar_mensaje_error(request, "Usuario no registrado.")
+        return redirect("login")
+    else:
+        usuario = authenticate(request, mail=email, password=password)
+        if usuario is None:
             agregar_mensaje_error(request, "Contraseña incorrecta.")
-            return redirect("login")  # redirecciona al login de nuevo
+            return redirect("login")
         else:
+            if not usuario.cliente.habilitado:
+                agregar_mensaje_error(request, "Cliente deshabilitado.")
+                return redirect("login")
             login(request, usuario)
             if usuario.primer_inicio:
-                # Llamar funcion para mostrar cambiar contraseña
                 return redirect("primer_inicio")
             else:
-                # Si no es el primer inicio se lo redirecciona al home
                 return redirect("home")
-
-    return render(request, "login.html")
 
 
 @login_required
