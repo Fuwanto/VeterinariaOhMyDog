@@ -4,6 +4,7 @@ from OhMyDog.modelos.clientes import (
     listar_clientes_habilitados,
     Cliente,
     deshabilitar_cliente,
+    perros_cliente,
 )
 from OhMyDog.modelos.perros import (
     buscar_perros_por_dueño,
@@ -38,16 +39,21 @@ def mis_datos(request):
         email = request.POST.get("email")
         nombre = request.POST.get("nombre")
         telefono = request.POST.get("telefono")
-        if (cliente.email == email):
+        if cliente.email == email:
             cliente.nombre = nombre
             cliente.telefono = telefono
             cliente.save()
-            messages.success(request,f"Datos modificados correctamente")
+            messages.success(request, f"Datos modificados correctamente")
             return redirect("mis_datos")
         else:
             try:
-                cliente = Cliente.objects.get(email = email)
-                messages.error(request,f"El mail ingresado ya se encuentra registrado")
+                cliente = Cliente.objects.get(email=email)
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f"El mail ingresado ya se encuentra registrado",
+                    extra_tags="danger",
+                )
                 return redirect("mis_datos")
             except cliente.DoesNotExist:
                 modificar_mail(email, request.user.cliente)
@@ -55,9 +61,8 @@ def mis_datos(request):
                 cliente.telefono = telefono
                 cliente.email = email
                 cliente.save()
-                messages.success(request,f"Datos modificados correctamente")
+                messages.success(request, f"Datos modificados correctamente")
                 return redirect("mis_datos")
-
 
     return render(request, "mis_datos.html", {"cliente": request.user.cliente})
 
@@ -70,8 +75,7 @@ def datos_de_un_cliente(request, cliente_id):
 
 @user_passes_test(superuser_check)
 def listado_de_perros_cliente(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
-    perros = buscar_perros_por_dueño(cliente)
+    perros = perros_cliente(cliente_id)
     return render(request, "listado_de_perros_cliente.html", {"perros": perros})
 
 
@@ -128,8 +132,7 @@ def borrar_cliente(request, cliente_id):
 
 @login_required
 def mis_perros(request):
-    cliente = request.user.cliente
-    perros = buscar_perros_por_dueño(cliente)
+    perros = perros_cliente(request.user.cliente.id)
     return render(request, "mis_perros.html", {"perros": perros})
 
 
