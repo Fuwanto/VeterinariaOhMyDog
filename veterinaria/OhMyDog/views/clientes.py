@@ -19,6 +19,7 @@ from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
 from datetime import date
 from decimal import Decimal
 from OhMyDog.models import modificar_mail
+from OhMyDog.views.utils import agregar_mensaje_error
 
 
 def buscar_clientes(request):
@@ -48,11 +49,8 @@ def mis_datos(request):
         else:
             try:
                 cliente = Cliente.objects.get(email=email)
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    f"El mail ingresado ya se encuentra registrado",
-                    extra_tags="danger",
+                agregar_mensaje_error(
+                    request, "El mail ingresado ya se encuentra registrado."
                 )
                 return redirect("mis_datos")
             except cliente.DoesNotExist:
@@ -101,12 +99,7 @@ def agregar_perro(request, cliente_id):
             messages.success(request, "Perro registrado con exito.")
             return redirect("home")
         else:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                f"Perro {nombre} ya registrado.",
-                extra_tags="danger",
-            )
+            agregar_mensaje_error(request, f"Perro {nombre} ya registrado.")
             return redirect(f"/clientes/{cliente.id}/agregar_perro")
     else:
         return render(

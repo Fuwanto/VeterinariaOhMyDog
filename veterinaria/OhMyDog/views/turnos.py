@@ -13,6 +13,7 @@ from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from datetime import datetime, date, timedelta
 from django.contrib import messages
 from OhMyDog.modelos.perros import buscar_perros_por_dueño
+from OhMyDog.views.utils import agregar_mensaje_error
 
 
 def solicitar_turnos(request):
@@ -50,18 +51,12 @@ def solicitar_turnos(request):
                 )
                 messages.success(request, f"Turno solicitado con exito. ")
             else:
-                messages.add_message(
-                    request,
-                    messages.ERROR,
-                    f"La fecha del turno debe ser posterior al dia de hoy.",
-                    extra_tags="danger",
+                agregar_mensaje_error(
+                    request, "La fecha del turno debe ser posterior al día de hoy."
                 )
         else:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                f"Usted ya ha solicitado un turno en esa fecha.",
-                extra_tags="danger",
+            agregar_mensaje_error(
+                request, "Usted ya ha solicitado un turno en esa fecha."
             )
     return render(request, "solicitar_turno.html", context)
 

@@ -9,7 +9,8 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 
 from OhMyDog.modelos.clientes import agregar_cliente, buscar_cliente_por_mail
-from OhMyDog.models import Usuario, alternar_primer_acceso
+from OhMyDog.models import Usuario, alternar_primer_acceso, buscar_usuario_por_mail
+from OhMyDog.views.utils import agregar_mensaje_error
 
 
 def superuser_check(user):
@@ -50,22 +51,10 @@ def registrar_cliente(request):
         )
         redirect("registrar_cliente")
     else:
-        messages.add_message(
-            request,
-            messages.ERROR,
-            f"El cliente {email} ya existe.",
-            extra_tags="danger",
-        )
+        agregar_mensaje_error(request, f"El cliente {email} ya existe.")
         return redirect("registrar_cliente")
 
     return redirect("home")
-
-
-def buscar_usuario_por_mail(email):
-    try:
-        return Usuario.objects.get(mail=email)
-    except:
-        return None
 
 
 def login_usuario(request):
@@ -75,23 +64,13 @@ def login_usuario(request):
         usuario_solo_por_mail = buscar_usuario_por_mail(mail)
         usuario = authenticate(request, mail=mail, password=password)
         if usuario_solo_por_mail is None:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "Usuario no registrado",
-                extra_tags="danger",
-            )
+            agregar_mensaje_error(request, "Usuario no registrado.")
             return redirect("login")  # redirecciona al login de nuevo
 
         elif usuario_solo_por_mail and (
             usuario is None
         ):  # quiere decir que la contraseña no coincide
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "Contraseña incorrecta",
-                extra_tags="danger",
-            )
+            agregar_mensaje_error(request, "Contraseña incorrecta.")
             return redirect("login")  # redirecciona al login de nuevo
         else:
             login(request, usuario)
@@ -115,11 +94,8 @@ def primer_inicio(request):
             alternar_primer_acceso(request.user.id)
             return redirect("login")
         else:
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "Por favor corrige los errores que se han indicado.",
-                extra_tags="danger",
+            agregar_mensaje_error(
+                request, "Por favor corrige los errores que se han indicado."
             )
     else:
         form = PasswordChangeForm(request.user)

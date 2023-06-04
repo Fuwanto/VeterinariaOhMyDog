@@ -26,12 +26,12 @@ vet/Scripts/activate
 ## Cuenta Cliente 1
 
 -   thegamerwata@gmail.com
--   ?
+-   StephenCurry
 
 ## Cuenta Cliente 2
 
 -   nahucapara@hotmail.com
--   ?
+-   StephenCurry
 
 ## Cuenta Cliente 3
 
