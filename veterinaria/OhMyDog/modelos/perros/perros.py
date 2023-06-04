@@ -5,7 +5,9 @@ from OhMyDog.modelos.clientes.clientes import Cliente
 
 class Perro(models.Model):
     id = models.BigAutoField(primary_key=True)
-    dueño = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
+    dueño = models.ForeignKey(
+        Cliente, null=False, on_delete=models.CASCADE, related_name="perros"
+    )
     nombre = models.CharField(max_length=35, blank=False)
     raza = models.CharField(max_length=255, blank=False)
     peso = models.DecimalField(blank=False, max_digits=5, decimal_places=2)
