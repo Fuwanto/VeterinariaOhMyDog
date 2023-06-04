@@ -5,6 +5,7 @@ from OhMyDog.modelos.clientes import (
     Cliente,
     deshabilitar_cliente,
     perros_cliente,
+    perros_habilitados_cliente,
 )
 from OhMyDog.modelos.perros import (
     buscar_perro_por_nombre_y_dueño,
@@ -131,7 +132,7 @@ def borrar_cliente(request, cliente_id):
 
 @login_required
 def mis_perros(request):
-    perros = perros_cliente(request.user.cliente.id)
+    perros = perros_habilitados_cliente(request.user.cliente.id)
     return render(request, "mis_perros.html", {"perros": perros})
 
 

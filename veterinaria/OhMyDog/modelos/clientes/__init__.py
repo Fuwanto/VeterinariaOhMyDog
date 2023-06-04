@@ -47,3 +47,8 @@ def listar_perros_cliente(cliente):
 def perros_cliente(id):
     cliente = Cliente.objects.get(id=id)
     return cliente.perros.all()
+
+
+def perros_habilitados_cliente(id):
+    cliente = Cliente.objects.get(id=id)
+    return cliente.perros.filter(habilitado=True)

@@ -43,6 +43,7 @@
 					<td>{{ perro.fecha_de_nacimiento }}</td>
 					<td>{{ perro.sexo }}</td>
 					<td>
+						{% if perro.habilitado %}
 						<div class="dropdown">
 							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -100,6 +101,9 @@
 								</li>
 							</ul>
 						</div>
+						{% else %}
+						<a style="color:red; font-weight:bold">Deshabilitado</a>
+						{% endif %}
 					</td>
 				</tr>
 				{% endfor %}

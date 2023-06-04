@@ -18,7 +18,7 @@ def registrar_perro(dueño, nombre, raza, peso, descripcion, fecha_de_nacimiento
 
 
 def buscar_perros_por_dueño(dueño):
-    return Perro.objects.filter(dueño=dueño, habilitado=True)
+    return Perro.objects.filter(dueño=dueño)
 
 
 def buscar_perro_por_nombre_y_dueño(nombre, dueño):
@@ -38,6 +38,7 @@ def deshabilitar_perro(id):
     perro.habilitado = False
     perro.save()
     return perro
+
 
 def modificar_tiene_castracion(id):
     perro = Perro.objects.get(id=id)
