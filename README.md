@@ -32,3 +32,8 @@ vet/Scripts/activate
 
 -   nahucapara@hotmail.com
 -   ?
+
+## Cuenta Cliente 3
+
+-   juancasserab@outlook.com.ar
+-   @juancruz
