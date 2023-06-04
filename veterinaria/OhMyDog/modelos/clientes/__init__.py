@@ -3,6 +3,7 @@ from django.db.models.query_utils import *  #  incluye funciones útiles para co
 from OhMyDog.modelos.clientes.clientes import Cliente
 from OhMyDog.modelos.perros import buscar_perros_por_dueño
 
+
 def agregar_cliente(nombre, email, telefono):
     cliente = Cliente(nombre=nombre, email=email, telefono=telefono)
     cliente.save()
@@ -34,5 +35,11 @@ def buscar_cliente_por():
 def listar_clientes_habilitados():
     return Cliente.objects.filter(habilitado=True)
 
-def listar_perros_cliente (cliente):
+
+def listar_perros_cliente(cliente):
     return buscar_perros_por_dueño(cliente)
+
+
+def perros_cliente(id):
+    cliente = Cliente.objects.get(id=id)
+    return cliente.perros.all()
