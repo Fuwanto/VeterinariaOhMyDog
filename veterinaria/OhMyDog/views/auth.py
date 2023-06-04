@@ -65,7 +65,7 @@ def login_usuario(request):
             agregar_mensaje_error(request, "Contraseña incorrecta.")
             return redirect("login")
         else:
-            if not usuario.cliente.habilitado:
+            if not usuario.habilitado:
                 agregar_mensaje_error(request, "Cliente deshabilitado.")
                 return redirect("login")
             login(request, usuario)
@@ -98,4 +98,4 @@ def primer_inicio(request):
 @login_required
 def logout_usuario(request):
     logout(request)
-    return redirect("home")
+    return redirect("login")

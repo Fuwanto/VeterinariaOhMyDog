@@ -20,6 +20,8 @@ def buscar_cliente_por_mail(email):
 def deshabilitar_cliente(id):
     cliente = Cliente.objects.get(id=id)
     cliente.habilitado = False
+    cliente.usuario.habilitado = False
+    cliente.usuario.save()
     cliente.save()
     return cliente
 
