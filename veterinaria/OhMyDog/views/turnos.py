@@ -7,7 +7,7 @@ from OhMyDog.modelos.turnos import (
     rechazar_turno_init,
     enviar_mail_confirmacion,
     enviar_mail_rechazo,
-    cliente_tiene_turno_en_fecha
+    cliente_tiene_turno_en_fecha,
 )
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
 from datetime import datetime, date, timedelta
@@ -19,7 +19,6 @@ def solicitar_turnos(request):
     atenciones = TipoDeAtencion.objects.all()
     franjas_horarias = FranjaHoraria.objects.all()
     perros = buscar_perros_por_dueño(request.user.cliente)
-    print(perros)
     hoy = date.today()
     hoy = hoy + timedelta(days=1)
 
@@ -35,12 +34,12 @@ def solicitar_turnos(request):
         fecha_solicitada = request.POST.get("fecha_solicitada")
         formato = "%Y-%m-%d"
         fecha_solicitada = datetime.strptime(fecha_solicitada, formato).date()
-        if (cliente_tiene_turno_en_fecha (request.user.cliente, fecha_solicitada) is None):
+        if cliente_tiene_turno_en_fecha(request.user.cliente, fecha_solicitada) is None:
             if fecha_solicitada > date.today():
                 franja_horaria = request.POST.get("franja_horaria")
                 tipo_atencion = request.POST.get("tipo_de_atencion")
                 notas = request.POST.get("notas")
-                perro_id=request.POST.get("perro_id")
+                perro_id = request.POST.get("perro_id")
                 solicitar_turno(
                     request.user.cliente,
                     fecha_solicitada,
@@ -57,7 +56,7 @@ def solicitar_turnos(request):
                     f"La fecha del turno debe ser posterior al dia de hoy.",
                     extra_tags="danger",
                 )
-        else: 
+        else:
             messages.add_message(
                 request,
                 messages.ERROR,
@@ -76,7 +75,7 @@ def solicitudes_de_turnos(request):
 def confirmar_turno(request):
     if request.method == "POST":
         turno_id = request.POST.get("turno_id")
-        observaciones = request.POST.get("observaciones") 
+        observaciones = request.POST.get("observaciones")
         confirmar_turno_init(turno_id, observaciones)
         enviar_mail_confirmacion(turno_id, observaciones)
         messages.success(request, f"Turno confirmado con exito. ")
@@ -87,9 +86,9 @@ def confirmar_turno(request):
 def rechazar_turno(request):
     if request.method == "POST":
         turno_id = request.POST.get("turno_id")
-        observaciones = request.POST.get("observaciones") 
+        observaciones = request.POST.get("observaciones")
         rechazar_turno_init(turno_id, observaciones)
-        enviar_mail_rechazo(turno_id,observaciones)
+        enviar_mail_rechazo(turno_id, observaciones)
         messages.success(request, f"Turno rechazado con exito. ")
         return redirect("solicitudes_de_turnos")
     return render(request, "solicitudes_de_turnos.html")
