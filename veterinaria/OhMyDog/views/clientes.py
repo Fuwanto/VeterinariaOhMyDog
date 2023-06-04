@@ -6,6 +6,7 @@ from OhMyDog.modelos.clientes import (
     deshabilitar_cliente,
     perros_cliente,
     perros_habilitados_cliente,
+    buscar_clientes_contienen_mail,
 )
 from OhMyDog.modelos.perros import (
     buscar_perro_por_nombre_y_dueño,
@@ -24,8 +25,8 @@ from OhMyDog.views.utils import agregar_mensaje_error
 
 def buscar_clientes(request):
     email = request.GET.get("email", "")
-    cliente = Cliente.objects.filter(email__icontains=email)
-    return render(request, "listado_clientes.html", {"clientes": cliente})
+    clientes = buscar_clientes_contienen_mail(email)
+    return render(request, "listado_clientes.html", {"clientes": clientes})
 
 
 def todos_los_clientes(request):
