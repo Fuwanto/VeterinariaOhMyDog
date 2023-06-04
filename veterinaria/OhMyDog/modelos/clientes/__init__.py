@@ -36,6 +36,10 @@ def listar_clientes_habilitados():
     return Cliente.objects.filter(habilitado=True)
 
 
+def listar_clientes():
+    return Cliente.objects.all()
+
+
 def listar_perros_cliente(cliente):
     return buscar_perros_por_dueño(cliente)
 

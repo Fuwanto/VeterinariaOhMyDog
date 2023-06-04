@@ -46,6 +46,7 @@
 					<td>{{ cliente.email }}</td>
 					<td>{{ cliente.telefono }}</td>
 					<td>
+						{% if cliente.habilitado %}
 						<div class="dropdown">
 							<a
 								class="btn btn-secondary dropdown-toggle"
@@ -88,6 +89,9 @@
 								</li>
 							</ul>
 						</div>
+						{% else %}
+						<a style="color:red; font-weight:bold">Deshabilitado</a>
+						{% endif %}
 						<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
 							<div class="modal-content">
