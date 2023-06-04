@@ -16,12 +16,19 @@ python manage.py migrate
 
 vet/Scripts/activate
 
+# Cuentas
+
 ## Cuenta SUPERUSER
 
 -   ohMyDog@hotmail.com
 -   @ohmydog2023
 
-## Cuenta Cliente
+## Cuenta Cliente 1
 
--   cuencadenisse10@hotmail.com
--   messiMejorDelMundo10
+-   thegamerwata@gmail.com
+-   ?
+
+## Cuenta Cliente 2
+
+-   nahucapara@hotmail.com
+-   ?
