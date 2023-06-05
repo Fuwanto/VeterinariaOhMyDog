@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from OhMyDog.modelos.clientes import agregar_cliente, buscar_cliente_por_mail
 from OhMyDog.models import Usuario, alternar_primer_acceso, buscar_usuario_por_mail
 from OhMyDog.views.utils import agregar_mensaje_error, generar_contraseña
+from django.contrib.auth.hashers import make_password, check_password
 
 
 def superuser_check(user):
@@ -78,21 +79,70 @@ def login_usuario(request):
 @login_required
 def primer_inicio(request):
     if request.method == "POST":
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            messages.success(request, "Tu contraseña ha sido cambiada exitosamente.")
-            alternar_primer_acceso(request.user.id)
-            return redirect("login")
-        else:
-            agregar_mensaje_error(
-                request, "Por favor corrige los errores que se han indicado."
+        mail = request.user.mail
+        telefono = request.user.cliente.telefono
+        contraseña_actual_guardada = request.user.password 
+        contraseña_actual_ingresada = request.POST.get("currentPassword")
+        contraseña_nueva = request.POST.get("newPassword")
+        contraseña_nueva_repetida = request.POST.get("confirmPassword")
+        if (not check_password(contraseña_actual_ingresada, contraseña_actual_guardada)):
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "La contraseña actual ingresada es incorrecta",
+                extra_tags="danger",
             )
+            return render(request, "primer_inicio.html")
+        if (contraseña_nueva == contraseña_actual_ingresada):
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "La contraseña nueva no puede ser igual a la actual",
+                extra_tags="danger",
+            )
+            return render(request, "primer_inicio.html")
+        if (contraseña_nueva != contraseña_nueva_repetida):
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "Las contraseñas no coinciden",
+                extra_tags="danger",
+            )
+            return render(request, "primer_inicio.html")
+        if (contraseña_nueva == mail or contraseña_nueva == telefono):
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "La contraseña nueva no puede ser igual a su informacion personal",
+                extra_tags="danger",
+            )
+            return render(request, "primer_inicio.html")
+        if (len(contraseña_nueva) < 8 ):
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "La contraseña debe tener al menos 8 caracteres",
+                extra_tags="danger",
+            )
+            return render(request, "primer_inicio.html")          
+        if (contraseña_nueva.isdigit()):
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "La contraseña no puede ser totalmente numerica",
+                extra_tags="danger",
+            )
+            return render(request, "primer_inicio.html") 
+        encrypted_password = make_password(contraseña_nueva)
+        request.user.password = encrypted_password
+        request.user.save()   
+        messages.success(
+            request,
+            "La contraseña ha sido cambiada correctamente",
+        )
+        return redirect("home")
     else:
-        form = PasswordChangeForm(request.user)
-
-    context = {"form": form}
-    return render(request, "primer_inicio.html", context)
+        return render(request, "primer_inicio.html")
 
 
 @login_required
