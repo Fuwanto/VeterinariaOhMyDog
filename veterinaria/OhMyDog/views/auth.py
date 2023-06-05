@@ -7,7 +7,12 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 
 from OhMyDog.modelos.clientes import agregar_cliente, buscar_cliente_por_mail
-from OhMyDog.models import Usuario, alternar_primer_acceso, buscar_usuario_por_mail
+from OhMyDog.models import (
+    Usuario,
+    alternar_primer_acceso,
+    buscar_usuario_por_mail,
+    actualizar_contraseña,
+)
 from OhMyDog.views.utils import agregar_mensaje_error, generar_contraseña
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -71,78 +76,52 @@ def login_usuario(request):
                 return redirect("login")
             login(request, usuario)
             if usuario.primer_inicio:
-                return redirect("primer_inicio")
+                return redirect("cambiar_contraseña")
             else:
                 return redirect("home")
 
 
 @login_required
-def primer_inicio(request):
+def cambiar_contraseña(request):
     if request.method == "POST":
-        mail = request.user.mail
-        telefono = request.user.cliente.telefono
-        contraseña_actual_guardada = request.user.password 
-        contraseña_actual_ingresada = request.POST.get("currentPassword")
-        contraseña_nueva = request.POST.get("newPassword")
-        contraseña_nueva_repetida = request.POST.get("confirmPassword")
-        if (not check_password(contraseña_actual_ingresada, contraseña_actual_guardada)):
-            messages.add_message(
+        contraseña_actual_guardada = request.user.password
+        contraseña_actual_ingresada = request.POST.get("contraseña_actual")
+        contraseña_nueva = request.POST.get("contraseña_nueva")
+        contraseña_nueva_repetida = request.POST.get("contraseña_nueva_confirmar")
+
+        if not check_password(contraseña_actual_ingresada, contraseña_actual_guardada):
+            agregar_mensaje_error(request, "La contraseña actual ingresada es incorrecta")
+            return render(request, "cambiar_contraseña.html")
+
+        if contraseña_nueva == contraseña_actual_ingresada:
+            agregar_mensaje_error(request, "La contraseña nueva no puede ser igual a la actual")
+            return render(request, "cambiar_contraseña.html")
+
+        if contraseña_nueva != contraseña_nueva_repetida:
+            agregar_mensaje_error(request, "Las contraseñas no coinciden")
+            return render(request, "cambiar_contraseña.html")
+
+        if contraseña_nueva == request.user.mail or contraseña_nueva == request.user.cliente.telefono:
+            agregar_mensaje_error(
                 request,
-                messages.ERROR,
-                "La contraseña actual ingresada es incorrecta",
-                extra_tags="danger",
-            )
-            return render(request, "primer_inicio.html")
-        if (contraseña_nueva == contraseña_actual_ingresada):
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "La contraseña nueva no puede ser igual a la actual",
-                extra_tags="danger",
-            )
-            return render(request, "primer_inicio.html")
-        if (contraseña_nueva != contraseña_nueva_repetida):
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "Las contraseñas no coinciden",
-                extra_tags="danger",
-            )
-            return render(request, "primer_inicio.html")
-        if (contraseña_nueva == mail or contraseña_nueva == telefono):
-            messages.add_message(
-                request,
-                messages.ERROR,
                 "La contraseña nueva no puede ser igual a su informacion personal",
-                extra_tags="danger",
             )
-            return render(request, "primer_inicio.html")
-        if (len(contraseña_nueva) < 8 ):
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "La contraseña debe tener al menos 8 caracteres",
-                extra_tags="danger",
-            )
-            return render(request, "primer_inicio.html")          
-        if (contraseña_nueva.isdigit()):
-            messages.add_message(
-                request,
-                messages.ERROR,
-                "La contraseña no puede ser totalmente numerica",
-                extra_tags="danger",
-            )
-            return render(request, "primer_inicio.html") 
-        encrypted_password = make_password(contraseña_nueva)
-        request.user.password = encrypted_password
-        request.user.save()   
-        messages.success(
-            request,
-            "La contraseña ha sido cambiada correctamente",
-        )
-        return redirect("home")
+            return render(request, "cambiar_contraseña.html")
+
+        if len(contraseña_nueva) < 8:
+            agregar_mensaje_error(request, "La contraseña debe tener al menos 8 caracteres")
+            return render(request, "cambiar_contraseña.html")
+
+        if contraseña_nueva.isdigit():
+            agregar_mensaje_error(request, "La contraseña no puede ser totalmente numerica")
+            return render(request, "cambiar_contraseña.html")
+
+        actualizar_contraseña(request.user.id, make_password(contraseña_nueva))
+        alternar_primer_acceso(request.user.id)
+        messages.success(request, "La contraseña ha sido cambiada correctamente")
+        return redirect("login")
     else:
-        return render(request, "primer_inicio.html")
+        return render(request, "cambiar_contraseña.html")
 
 
 @login_required

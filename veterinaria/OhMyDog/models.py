@@ -41,6 +41,12 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.mail
 
 
+def actualizar_contraseña(id, contraseña):
+    usuario = Usuario.objects.get(id=id)
+    usuario.password = contraseña
+    usuario.save()
+
+
 def alternar_primer_acceso(id):
     usuario = Usuario.objects.get(id=id)
     usuario.primer_inicio = False

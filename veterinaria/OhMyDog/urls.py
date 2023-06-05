@@ -5,7 +5,7 @@ from OhMyDog.views.auth import (
     registrar_cliente,
     login_usuario,
     logout_usuario,
-    primer_inicio,
+    cambiar_contraseña,
 )
 from OhMyDog.views.clientes import (
     mis_datos,
@@ -45,7 +45,7 @@ urlpatterns = [
     path("mis_perros", mis_perros, name="mis_perros"),
     path("mis_perros/<int:perro_id>/", datos_de_mi_perro, name="datos_de_mi_perro"),
     path("mis_turnos", mis_turnos, name="mis_turnos"),
-    path("primer_inicio", primer_inicio, name="primer_inicio"),
+    path("cambiar_contraseña", cambiar_contraseña, name="cambiar_contraseña"),
     path("buscar_clientes", buscar_clientes, name="buscar_clientes"),
     path("clientes", todos_los_clientes, name="clientes"),
     path("clientes/<int:cliente_id>/", datos_de_un_cliente, name="datos_de_un_cliente"),
