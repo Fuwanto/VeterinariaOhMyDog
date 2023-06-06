@@ -2,15 +2,7 @@
 {% block content %}
 
 <div
-	class="container"
-	style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	"
+	class="container containerPrincipal"
 >
 	<form method="GET" action="{% url 'buscar_clientes' %}">
 		<input
@@ -23,7 +15,7 @@
 
 	<p>
 
-	</p>
+	</p> 
 	
 	<div class="card">
 		<h1>Clientes</h1>
@@ -33,7 +25,7 @@
 				<th scope="col">ID</th>
 				<th scope="col">Nombre</th>
 				<th scope="col">Email</th>
-				<th scope="col">Telefono</th>
+				<th scope="col">Teléfono</th>
 				<th scope="col">Acciones</th>
 			</tr>
 			</thead>
@@ -113,7 +105,11 @@
 				</tr>
 				{% endfor %} 
 				{% else %}
-					<p>No se encontraron clientes</p>
+				<tr>
+					<td colspan="5">
+						<p>No se encontraron clientes</p>
+					</td>
+				</tr>
 				{%endif%}
 			</tbody>
 		</table>

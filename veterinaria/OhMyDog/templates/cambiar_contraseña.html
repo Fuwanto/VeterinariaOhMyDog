@@ -1,14 +1,10 @@
-{% extends 'layout.html' %} {% block title %}OhMyDog - Cambiar contraseña {% endblock %}
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Cambiar contraseña{%endblock %} 
+
 {% block content %}
 
-<div class="container" style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	">
+<div class="container containerPrincipal">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-6 mt-5">
@@ -16,39 +12,88 @@
 				<form action="{% url 'cambiar_contraseña' %}" method="POST">
 					{% csrf_token %}
 					<div class="mb-3">
-						<label for="contraseña_actual" class="form-label">Contraseña actual</label>
+						<label for="contraseña_actual" class="form-label"
+							>Contraseña actual</label
+						>
 						<div class="input-group">
-							<input type="password" class="form-control" id="contraseña_actual" name="contraseña_actual"
-								required>
-							<button class="btn btn-outline-secondary" type="button"
-								onclick="alternarContraseñaVisible('contraseña_actual')">Mostrar</button>
+							<input
+								type="password"
+								class="form-control"
+								id="contraseña_actual"
+								name="contraseña_actual"
+								required
+							/>
+							<button
+								class="btn btn-outline-secondary"
+								type="button"
+								onclick="alternarContraseñaVisible('contraseña_actual')"
+							>
+								Mostrar
+							</button>
 						</div>
 					</div>
 					<div class="mb-3">
-						<label for="contraseña_nueva" class="form-label">Contraseña nueva</label>
+						<label for="contraseña_nueva" class="form-label"
+							>Contraseña nueva</label
+						>
 						<div class="input-group">
-							<input type="password" class="form-control" id="contraseña_nueva" name="contraseña_nueva" required>
-							<button class="btn btn-outline-secondary" type="button"
-								onclick="alternarContraseñaVisible('contraseña_nueva')">Mostrar</button>
+							<input
+								type="password"
+								class="form-control"
+								id="contraseña_nueva"
+								name="contraseña_nueva"
+								required
+							/>
+							<button
+								class="btn btn-outline-secondary"
+								type="button"
+								onclick="alternarContraseñaVisible('contraseña_nueva')"
+							>
+								Mostrar
+							</button>
 						</div>
 					</div>
 					<div class="mb-3">
-						<label for="" class="form-labe">Su contraseña no puede ser igual a su otra información
-							personal.</label>
-						<label for="" class="form-labe">Su contraseña debe contener al menos 8 caracteres.</label>
-						<label for="" class="form-labe">Su contraseña no puede ser completamente numérica.</label>
+						<label for="" class="form-labe"
+							>Su contraseña no puede ser igual a su otra
+							información personal.</label
+						>
+						<label for="" class="form-labe"
+							>Su contraseña debe contener al menos 8
+							caracteres.</label
+						>
+						<label for="" class="form-labe"
+							>Su contraseña no puede ser completamente
+							numérica.</label
+						>
 					</div>
 					<div class="mb-3">
-						<label for="contraseña_nueva_confirmar" class="form-label">Confirmar contraseña nueva</label>
+						<label
+							for="contraseña_nueva_confirmar"
+							class="form-label"
+							>Confirmar contraseña nueva</label
+						>
 						<div class="input-group">
-							<input type="password" class="form-control" id="contraseña_nueva_confirmar" name="contraseña_nueva_confirmar"
-								required>
-							<button class="btn btn-outline-secondary" type="button"
-								onclick="alternarContraseñaVisible('contraseña_nueva_confirmar')">Mostrar</button>
+							<input
+								type="password"
+								class="form-control"
+								id="contraseña_nueva_confirmar"
+								name="contraseña_nueva_confirmar"
+								required
+							/>
+							<button
+								class="btn btn-outline-secondary"
+								type="button"
+								onclick="alternarContraseñaVisible('contraseña_nueva_confirmar')"
+							>
+								Mostrar
+							</button>
 						</div>
 					</div>
 					<div class="text-center">
-						<button type="submit" class="btn btn-primary">Aceptar</button>
+						<button type="submit" class="btn btn-primary">
+							Aceptar
+						</button>
 					</div>
 				</form>
 			</div>
@@ -57,7 +102,9 @@
 	<script>
 		function alternarContraseñaVisible(inputId) {
 			const input = document.getElementById(inputId);
-			const button = document.querySelector(`button[onclick="alternarContraseñaVisible('${inputId}')"]`);
+			const button = document.querySelector(
+				`button[onclick="alternarContraseñaVisible('${inputId}')"]`
+			);
 
 			if (input.type === "password") {
 				input.type = "text";

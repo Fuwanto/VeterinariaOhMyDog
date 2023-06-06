@@ -3,14 +3,7 @@
 {% block title %}OhMyDog - Solicitudes de turnos{% endblock %}
 
 {% block content %}
-<div class="container" style="
-    float: none;
-    text-align: center;
-    display: block;
-    width: 1510px;
-    max-width: 1980px;
-    height: 1080px;
-">
+<div class="container containerPrincipal">
 	<p></p>
 
 	<div class="card">
@@ -43,12 +36,12 @@
 					<td>
 						<button type="button" class="btn btn-secondary confirmar-turno"
 							style="background-color: rgb(157, 209, 59)" data-bs-toggle="modal"
-							data-bs-target="#confirmModal" data-id="{{ turno.id }}">Confirmar Turno</button>
+							data-bs-target="#confirmModal" data-id="{{ turno.id }}">Confirmar turno</button>
 					</td>
 					<td>
 						<button type="button" class="btn btn-secondary rechazar-turno"
 							style="background-color: rgb(157, 209, 59)" data-bs-toggle="modal"
-							data-bs-target="#rechazarModal" data-id="{{ turno.id }}">Rechazar Turno</button>
+							data-bs-target="#rechazarModal" data-id="{{ turno.id }}">Rechazar turno</button>
 					</td>
 				</tr>
 				{% endfor %}

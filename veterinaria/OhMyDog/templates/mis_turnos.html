@@ -1,13 +1,6 @@
 {% extends 'layout.html' %} {% block title %}OhMyDog - Mis turnos{% endblock %}
 {% block content %}
-<div class="container" style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	">
+<div class="container containerPrincipal">
 	<p>
 
 	</p>
@@ -23,7 +16,7 @@
 					<th scope="col">Cliente</th>
 					<th scope="col">Fecha</th>
 					<th scope="col">Franja Horaria</th>
-					<th scope="col">Atencion</th>
+					<th scope="col">Atención</th>
 					<th scope="col">Estado</th>
 				</tr>
 			</thead>
@@ -40,7 +33,11 @@
 				</tr>
 				{% endfor %} 
 				{%else%}
-					<p>No hay turnos registrados</p>
+				<tr>
+					<td colspan="6">
+						<p>No hay turnos registrados</p>
+					</td>
+				</tr>	
 				{%endif%}
 			</tbody>
 			</table>

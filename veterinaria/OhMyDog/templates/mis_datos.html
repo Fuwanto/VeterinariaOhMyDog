@@ -1,27 +1,9 @@
 {% extends 'layout.html' %} {% block title %}OhMyDog - Mis datos{% endblock %}
 {% block content %}
 
-
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
-
-		.card {
-			width: 400px;
-			text-align: center;
-		}
-	</style>
-</head>
-
 <body>
-	<div class="container">
-		<div class="card" id="mis_datos">
+	<div class="containerPequeño">
+		<div class="card cardPequeño" id="mis_datos">
 			<h1>Mis datos</h1>
 			<table class="table">
 				<tbody>
@@ -70,7 +52,7 @@
 					</tbody>
 				</table>
 				<button class="btn btn-primary" type="submit"
-					style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255);">Guardar Cambios</button>
+					style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255);">Guardar cambios</button>
 			</form>
 		</div>
 	</div>

@@ -4,14 +4,7 @@
 
 {% block content %}
 
-<div class="container" style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	">
+<div class="container containerPrincipal">
 
 	<p>
 
@@ -25,7 +18,7 @@
 					<th scope="col">Nombre</th>
 					<th scope="col">Raza</th>
 					<th scope="col">Peso</th>
-					<th scope="col">Descripcion</th>
+					<th scope="col">Descripción</th>
 					<th scope="col">Fecha de nacimiento</th>
 					<th scope="col">Sexo</th>
 					<th scope="col">Acciones</th>
@@ -58,7 +51,7 @@
 										{% csrf_token %}
 										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 										<button type="submit" class="dropdown-item">
-											Registrar atencion clinica
+											Registrar atención clínica
 										</button>
 									</form>
 									<form method="GET" action="{% url 'agregar_consulta' %}">
@@ -72,14 +65,14 @@
 										{% csrf_token %}
 										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 										<button type="submit" class="dropdown-item">
-											Registrar vacunacion
+											Registrar vacunación
 										</button>
 									</form>
 									<form method="GET" action="{% url 'agregar_desparacitacion' %}">
 										{% csrf_token %}
 										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 										<button type="submit" class="dropdown-item">
-											Registrar desparacitacion
+											Registrar desparacitación
 										</button>
 									</form>
 									{% if not perro.tiene_castracion %}
@@ -87,7 +80,7 @@
 										{% csrf_token %}
 										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 										<button type="submit" class="dropdown-item">
-											Registrar castracion
+											Registrar castración
 										</button>
 									</form>
 									{% endif %}

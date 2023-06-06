@@ -1,31 +1,12 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Datos del perro {{perro.id}}{%endblock %} 
+{% block title %}OhMyDog - Datos del perro{{perro.id}}{%endblock %} 
 
 {% block content %}
 
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
-		.card {
-			width: 400px;
-			text-align: center;
-		}
-	</style>
-</head>
-
-<div class="container">
-
-	<div class="card" id="datos_de_perro">
-		<h1>
-			Datos del perro
-		</h1>
+<div class="containerPequeño">
+	<div class="card cardPequeño" id="datos_de_perro">
+		<h1>Datos del perro</h1>
 		<table class="table" style="width: 400px">
 			<tbody>
 				<tr>
@@ -40,15 +21,15 @@
 					<th scope="row">Peso</th>
 					<td>{{ perro.peso }}</td>
 				</tr>
-                <tr>
+				<tr>
 					<th scope="row">Descripcion</th>
 					<td>{{ perro.descripcion }}</td>
 				</tr>
-                <tr>
-					<th scope="row" type="date">Fecha de Nacimiento</th>
-					<td>{{ perro.fecha_de_nacimiento  }}</td>
+				<tr>
+					<th scope="row" type="date">Fecha de nacimiento</th>
+					<td>{{ perro.fecha_de_nacimiento }}</td>
 				</tr>
-                <tr>
+				<tr>
 					<th scope="row">Sexo</th>
 					<td>{{ perro.sexo }}</td>
 				</tr>
@@ -59,22 +40,20 @@
 		</button>
 	</div>
 
-	<div class="card" id="formulario_modificar_datos" style="display: none;">
-		<h1>
-			Datos de {{perro.nombre}}
-		</h1>
-		<form method="post" >
+	<div class="card" id="formulario_modificar_datos" style="display: none">
+		<h1>Datos de {{perro.nombre}}</h1>
+		<form method="post">
 			{% csrf_token %}
 			<table class="table" style="width: 400px">
 				<tbody>
-                    <tr>
-                        <th scope="row">Nombre</th>
-                        <td>{{ perro.nombre }}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Raza</th>
-                        <td>{{ perro.raza }}</td>
-                    </tr>
+					<tr>
+						<th scope="row">Nombre</th>
+						<td>{{ perro.nombre }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Raza</th>
+						<td>{{ perro.raza }}</td>
+					</tr>
 
 					<tr>
 						<th scope="row">Peso</th>
@@ -90,18 +69,18 @@
 						</td>
 					</tr>
 
-                    <tr>
-                        <th scope="row">Sexo</th>
-                        <td>{{ perro.sexo }}</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row" type="date">Fecha de Nacimiento</th>
-                        <td>{{ perro.fecha_de_nacimiento  }}</td>
-                    </tr>
+					<tr>
+						<th scope="row">Sexo</th>
+						<td>{{ perro.sexo }}</td>
+					</tr>
 
 					<tr>
-						<th scope="row">Descripcion</th>
+						<th scope="row" type="date">Fecha de nacimiento</th>
+						<td>{{ perro.fecha_de_nacimiento }}</td>
+					</tr>
+
+					<tr>
+						<th scope="row">Descripción</th>
 						<td>
 							<input
 								type="text"
@@ -114,25 +93,27 @@
 				</tbody>
 			</table>
 			<button class="btn btn-success" type="submit">
-				Guardar Cambios
+				Guardar cambios
 			</button>
 		</form>
 	</div>
 
 	<script>
-		document.getElementById("modificar_datos").addEventListener("click", function () {
-			var modificar = document.getElementById("formulario_modificar_datos");
-			var datos = document.getElementById("datos_de_perro");
-			if (modificar.style.display === "none") {
-				datos.style.display = "none";
-				modificar.style.display = "block";
-			} else {
-				modificar.style.display = "none";
-				datos.style.display = "block";
-			}
-		});
+		document
+			.getElementById("modificar_datos")
+			.addEventListener("click", function () {
+				var modificar = document.getElementById(
+					"formulario_modificar_datos"
+				);
+				var datos = document.getElementById("datos_de_perro");
+				if (modificar.style.display === "none") {
+					datos.style.display = "none";
+					modificar.style.display = "block";
+				} else {
+					modificar.style.display = "none";
+					datos.style.display = "block";
+				}
+			});
 	</script>
 </div>
-
-
 {%endblock%}

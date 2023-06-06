@@ -1,47 +1,30 @@
 {% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Datos del cliente {{cliente.id}}{%endblock %} 
+{% block title %}OhMyDog - Datos del cliente{{cliente.id}}{%endblock %} 
 
 {% block content %}
 
-
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
-		.card {
-			width: 400px;
-			text-align: center;
-		}
-	</style>
-</head>
-
-<div class="container">
-	<div class="card">
-			<h1>Datos del cliente</h1>
-			<div class="card">
-				<table class="table" style="width: 400px">
-					<tbody>
-						<tr>
-							<th scope="row">Nombre</th>
-							<td>{{ cliente.nombre }}</td>
-						</tr>
-						<tr>
-							<th scope="row">Email</th>
-							<td>{{ cliente.email }}</td>
-						</tr>
-						<tr>
-							<th scope="row">Teléfono</th>
-							<td>{{ cliente.telefono }}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+<div class="containerPequeño">
+	<div class="card cardPequeño">
+		<h1>Datos del cliente</h1>
+		<div class="card">
+			<table class="table" style="width: 400px">
+				<tbody>
+					<tr>
+						<th scope="row">Nombre</th>
+						<td>{{ cliente.nombre }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Email</th>
+						<td>{{ cliente.email }}</td>
+					</tr>
+					<tr>
+						<th scope="row">Teléfono</th>
+						<td>{{ cliente.telefono }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 {% endblock %}

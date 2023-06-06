@@ -51,13 +51,9 @@ def solicitar_turnos(request):
                 )
                 messages.success(request, f"Turno solicitado con exito. ")
             else:
-                agregar_mensaje_error(
-                    request, "La fecha del turno debe ser posterior al día de hoy."
-                )
+                agregar_mensaje_error(request, "La fecha del turno debe ser posterior al día de hoy.")
         else:
-            agregar_mensaje_error(
-                request, "Usted ya ha solicitado un turno en esa fecha."
-            )
+            agregar_mensaje_error(request, "Usted ya ha solicitado un turno en esa fecha.")
     return render(request, "solicitar_turno.html", context)
 
 

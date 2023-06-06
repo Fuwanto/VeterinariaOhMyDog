@@ -1,20 +1,10 @@
 {% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Agregar perro{%endblock%} 
+{% block title %}OhMyDog - Agregar perro{%endblock%}
 
 {% block content %}
 
-<div
-	class="container"
-	style="
-		float: none;
-		text-align: center;
-		display: block;
-		width: 1510px;
-		max-width: 1980px;
-		height: 1080px;
-	"
->
+<div class="container containerPrincipal">
 	<div class="container py-5">
 		<h1 class="text-center mb-4">Registrar nuevo perro</h1>
 		<div class="row justify-content-center">
@@ -79,7 +69,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="descripcion" class="form-label"
-							>Descripcion (opcional)</label
+							>Descripción (opcional)</label
 						>
 						<input
 							type="textarea"

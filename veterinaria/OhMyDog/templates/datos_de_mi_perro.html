@@ -1,32 +1,12 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Datos de mi perro{%endblock %} 
 
 {% block content %}
 
-<head>
-	<style>
-		.container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 100vw;
-			height: 50vh;
-		}
-		.card {
-			width: 400px;
-			text-align: center;
-		}
-	</style>
-</head>
-
-<div class="container">
-
-	<div
-		class="card"
-		id="datos_de_perro"
-	>
-	<h1>
-		Datos de {{perro.nombre}}
-	</h1>
+<div class="containerPequeño">
+	<div class="card cardPequeño" id="datos_de_perro">
+		<h1>Datos de {{perro.nombre}}</h1>
 		<table class="table" style="float: none; width: 400px">
 			<tbody>
 				<tr>
@@ -41,21 +21,20 @@
 					<th scope="row">Peso</th>
 					<td>{{ perro.peso }}</td>
 				</tr>
-                <tr>
+				<tr>
 					<th scope="row">Sexo</th>
 					<td>{{ perro.sexo }}</td>
 				</tr>
-                <tr>
-					<th scope="row" type="date">Fecha de Nacimiento</th>
-					<td>{{ perro.fecha_de_nacimiento  }}</td>
+				<tr>
+					<th scope="row" type="date">Fecha de nacimiento</th>
+					<td>{{ perro.fecha_de_nacimiento }}</td>
 				</tr>
-                <tr>
-					<th scope="row">Descripcion</th>
+				<tr>
+					<th scope="row">Descripción</th>
 					<td>{{ perro.descripcion }}</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </div>
-
 {%endblock%}
