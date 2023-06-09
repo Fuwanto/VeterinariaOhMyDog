@@ -4,14 +4,26 @@
 
 {% block content %}
 
+<head>
+	<style>
+		.btn-adopciones {
+			background-color: #B69D86; /* Color inicial del botón */
+			border-radius: 10px; /* Radio de los bordes redondeados */
+		}
+
+		.btn-adopciones:hover {
+			background-color: #9D8A78; /* Color al pasar el mouse por encima */
+		}
+	</style>
+</head>
+
 <div class="container containerPrincipal">
 	<div
 		class="jumbotron"
 		style="
-			float: none;
-			display: block;
 			background-color: rgb(255, 255, 255);
 		"
+		
 	>
 		<img
 			src="http://imgfz.com/i/RWx6eN8.png"
@@ -28,5 +40,83 @@
 
 		<p></p>
 	</div>
+
+	<div class="row marketing">
+
+		<div class="col-lg-6">
+
+			
+			<h4>
+				<button type="button" class="btn-adopciones"
+					href="adopciones">
+					<img src="http://imgfz.com/i/tA8nC9r.gif" />
+				</button>
+			</h4>
+			<img src="http://imgfz.com/i/4DICYmA.png"
+					height="128" width="128" style="width: 731px; height: 98px" />
+
+
+			<h4>
+				<button type="button" class="btn btn-primary"
+					href="perdidos">
+					<img src="http://imgfz.com/i/nOUV2dY.png"/>
+				</button>
+			</h4>
+			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
+					height="128" width="128" style="width: 731px; height: 98px" />
+
+
+			<h4>
+				<button type="button" class="btn btn-primary"
+					href="busquedas">
+					<img src="http://imgfz.com/i/UgqIn2G.png"/>
+				</button>
+			</h4>
+			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
+					height="128" width="128" style="width: 731px; height: 98px" />
+
+			
+		</div>
+
+
+		<div class="col-lg-6">
+
+			
+
+			<h4>
+				<button type="button" class="btn btn-primary"
+					href="paseadores">
+					<img src="http://imgfz.com/i/uOhtPQ0.png" />
+				</button>
+			</h4>
+			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
+					height="128" width="128" style="width: 731px; height: 98px" />
+
+
+			<h4>
+				<button type="button" class="btn btn-primary"
+					href="cuidadores">
+					<img src="http://imgfz.com/i/MQchnok.png" />
+				</button>
+			</h4>
+			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
+					height="128" width="128" style="width: 731px; height: 98px" />
+			
+			<h4>
+				<button type="button" class="btn btn-primary"
+					href="cruzas">
+					<img src="http://imgfz.com/i/EVrf8Qj.png"  />
+				</button>
+			</h4>
+			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
+					height="128" width="128" style="width: 731px; height: 98px" />
+
+			
+		</div>
+	</div>
+
 </div>
+
+
+
 {% endblock %}
