@@ -12,7 +12,7 @@ from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import (
     TipoDeDosisVacunacion,
 )
 from django.contrib import messages
-
+from OhMyDog.modelos.atenciones.atenciones import Atencion
 
 def agregar_atencion_clinica(request):
     perro = None
@@ -108,3 +108,4 @@ def agregar_vacunacion(request):
 
     context = {"perro": perro, "tipo_dosis": tipo_dosis}
     return render(request, "agregar_vacunacion.html", context)
+

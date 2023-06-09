@@ -10,4 +10,4 @@ class Atencion(models.Model):
     tipo_atencion = models.ForeignKey(TipoDeAtencion, null=False, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.perro.nombre}, {self.tipo_atencion.nombre,}, {self.fecha}"
+        return f"{self.id},{self.perro.nombre}, {self.perro.id}, {self.tipo_atencion.nombre,}, {self.fecha}"

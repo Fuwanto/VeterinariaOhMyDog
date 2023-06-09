@@ -47,6 +47,13 @@
 										Mostrar datos
 									</a>
 									{% if user.is_staff %}
+									<form method="GET" action="{% url 'listado_de_atenciones' %}">
+										{% csrf_token %}
+										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">
+											Listar Atenciones
+										</button>
+									</form>
 									<form method="GET" action="{% url 'agregar_atencion_clinica' %}">
 										{% csrf_token %}
 										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">

@@ -36,3 +36,9 @@ def agregar_vacunacion_init (perro, fecha, vacuna, dosis_id, observacion):
     atencion.save()
     vacunacion = Vacunacion(atencion = atencion, vacuna = vacuna, dosis = dosis)
     vacunacion.save()
+
+def buscar_atenciones_por_perro (perro):
+    try:
+        return Atencion.objects.filter(perro=perro)
+    except Atencion.DoesNotExist:
+        return None

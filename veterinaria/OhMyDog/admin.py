@@ -9,6 +9,7 @@ from OhMyDog.modelos.turnos.turnos import Turno
 from OhMyDog.models import Usuario
 from OhMyDog.modelos.atenciones.atenciones import Atencion
 from OhMyDog.modelos.atenciones.desparacitacion import Desparacitacion
+from OhMyDog.modelos.atenciones.vacunacion import Vacunacion
 from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDeDosisVacunacion
 
 
@@ -21,4 +22,5 @@ admin.site.register(Turno)
 admin.site.register(Usuario)
 admin.site.register(Atencion)
 admin.site.register(Desparacitacion)
+admin.site.register(Vacunacion)
 admin.site.register(TipoDeDosisVacunacion)

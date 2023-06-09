@@ -1,0 +1,50 @@
+{% extends 'layout.html' %} {% block title %}OhMyDog - Atenciones{% endblock %}
+{% block content %}
+
+<div class="container containerPrincipal">
+    <p>
+
+    </p>
+
+    <div class="card">
+        <h1>Atenciones</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo de Atencion</th>
+                    <th scope="col">Observaciones</th>
+                    <th scope="col">Accion</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% if atenciones%}
+                {% for atencion in atenciones %}
+                <tr>
+                    <td>{{ atencion.id }}</td>
+                    <td>{{ atencion.fecha }}</td>
+                    <td>{{ atencion.tipo_atencion.nombre }}</td>
+                    <td>{{ atencion.observacion}}</td>
+                    <td>
+                        <form>
+                            <button type="button" method="submit" class="btn btn-secondary" }
+                                action="{% url 'listado_de_atenciones' %}" style="background-color: rgb(157, 209, 59)"
+                                data-bs-toggle="modal"> Agregar Observacion
+                            </button>
+                        </form>
+                    </td>
+                <tr>
+                    {%endfor%}
+                    {% else %}
+                    <td colspan="5">
+                        <p>No se encontraron atenciones para el perro</p>
+                    </td>
+                </tr>
+                {%endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

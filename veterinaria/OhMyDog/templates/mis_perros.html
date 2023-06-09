@@ -33,13 +33,25 @@
 					<td>{{ perro.fecha_de_nacimiento }}</td>
 					<td>{{ perro.descripcion }}</td>
 					<td>
-						<div>
-							<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
-								{% csrf_token %}
-								<button type="submit" class="btn btn-primary"
-									style="align-content: right; float: rigth; background-color: rgb(157, 209, 59)">Mostrar
-									datos</button>
-							</form>
+						<div class="dropdown">
+							<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+								data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="background-color: rgb(157, 209, 59);">Acciones</a>
+							<ul class="dropdown-menu">
+								<div>
+									<form method="post" action="{% url 'datos_de_mi_perro' perro.id %}">
+										{% csrf_token %}
+										<button type="submit" class="dropdown-item">Mostrar datos</button>
+									</form>
+								</div>
+								<div>
+									<form method="post" action="{% url 'listado_de_atenciones_cliente' %}">
+										{% csrf_token %}
+										<input type="hidden" name="perro_id" id="perro_id" value="{{ perro.id }}">
+										<button type="submit" class="dropdown-item">Listar atenciones</button>
+									</form>
+								</div>
+							</ul>
 						</div>
 					</td>
 				</tr>

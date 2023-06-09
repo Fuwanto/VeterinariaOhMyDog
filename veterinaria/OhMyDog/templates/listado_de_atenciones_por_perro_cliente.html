@@ -1,0 +1,42 @@
+{% extends 'layout.html' %} {% block title %}OhMyDog - Atenciones{% endblock %}
+{% block content %}
+
+<div class="container containerPrincipal">
+    <p>
+
+    </p>
+
+    <div class="card">
+        <h1>Atenciones</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Tipo de Atencion</th>
+                    <th scope="col">Observaciones</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {% if atenciones%}
+                {% for atencion in atenciones %}
+                <tr>
+                    <td>{{ atencion.id }}</td>
+                    <td>{{ atencion.fecha }}</td>
+                    <td>{{ atencion.tipo_atencion.nombre }}</td>
+                    <td>{{ atencion.observacion}}</td>
+                <tr>
+                    {%endfor%}
+                    {% else %}
+                    <td colspan="4">
+                        <p>No se encontraron atenciones para el perro</p>
+                    </td>
+                </tr>
+                {%endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

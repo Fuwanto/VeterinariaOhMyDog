@@ -33,7 +33,12 @@ from OhMyDog.views.atenciones import (
     agregar_castracion,
     agregar_vacunacion,
 )
-from OhMyDog.views.perros import datos_de_un_perro
+from OhMyDog.views.perros import (
+    datos_de_un_perro, 
+    atenciones_de_un_perro_cliente, 
+    atenciones_de_un_perro_veterinario,
+
+)
 
 
 urlpatterns = [
@@ -75,4 +80,6 @@ urlpatterns = [
     ),
     path("agregar_castracion/", agregar_castracion, name="agregar_castracion"),
     path("agregar_vacunacion/", agregar_vacunacion, name="agregar_vacunacion"),
+    path("listado_de_atenciones_cliente", atenciones_de_un_perro_cliente, name="listado_de_atenciones_cliente"),
+    path('listado_de_atenciones', atenciones_de_un_perro_veterinario, name="listado_de_atenciones"),
 ]
