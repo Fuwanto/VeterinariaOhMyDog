@@ -14,6 +14,7 @@ from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import (
 from django.contrib import messages
 from OhMyDog.modelos.atenciones.atenciones import Atencion
 
+
 def agregar_atencion_clinica(request):
     perro = None
     perro_id = None
@@ -58,13 +59,13 @@ def agregar_desparacitacion(request):
         perro = buscar_perro_por_id(perro_id)
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
-        parasito = request.POST.get("parasito")
+        diagnostico = request.POST.get("diagnostico")
         farmaco = request.POST.get("farmaco")
         dosis = request.POST.get("dosis")
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_desparacitacion_init(perro, fecha, parasito, farmaco, dosis, observacion)
+        agregar_desparacitacion_init(perro, fecha, diagnostico, farmaco, dosis, observacion)
         messages.success(request, f"Desparacitacion registrada con exito. ")
 
     context = {"perro": perro}
@@ -108,4 +109,3 @@ def agregar_vacunacion(request):
 
     context = {"perro": perro, "tipo_dosis": tipo_dosis}
     return render(request, "agregar_vacunacion.html", context)
-
