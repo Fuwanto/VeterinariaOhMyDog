@@ -44,10 +44,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
 					<a class="navbar-brand">
-						<img
-							src="http://imgfz.com/i/eq02Nh8.png"
-							alt="OhMyDog"
-						/>
+						<img src="http://imgfz.com/i/eq02Nh8.png" alt="OhMyDog" />
 					</a>
 					<button
 						class="navbar-toggler"
@@ -60,99 +57,66 @@
 					>
 						<span class="navbar-toggler-icon"></span>
 					</button>
-					<div
-						class="collapse navbar-collapse"
-						id="navbarSupportedContent"
-					>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-							<li class="nav-item">
-								<a
-									class="btn btn-warning"
-									href="{% url 'home' %}"
-									>Home</a>
-							</li>
-						</ul>
-						<li class="nav-item dropdown" style="border-radius: 6px; list-style-type: none;">
 							{% if user.is_authenticated %}
-								<a
-									class="btn {% if user.is_staff %} btn-primary {% else %} btn-success {% endif %} dropdown-toggle"
-									href="#"
-									id="navbarDropdown"
-									role="button"
-									data-bs-toggle="dropdown"
-									aria-expanded="false"
-								>
-									{{user.mail}}
-								</a>
-							<ul
-								class="dropdown-menu"
-								aria-labelledby="navbarDropdown"
-							>
 								{% if user.is_staff %}
-								<li>
-									<a class="dropdown-item" href="{% url 'clientes' %}"
-										>Listar clientes</a
-									>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{% url 'registrar_cliente' %}"
-										>Registrar cliente</a
-									>
-								</li>
-								<li>
-									<a
-										class="dropdown-item"
-										href="{% url 'solicitudes_de_turnos' %}"
-										>Solicitudes de turnos</a
-									>
-								</li>
-								<li><hr class="dropdown-divider" /></li>
-								<li>
-									<a class="dropdown-item" href="{% url 'logout' %}"
-										>Cerrar sesión</a
-									>
-								</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'home' %}">Home</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'clientes' %}">Listar clientes</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'registrar_cliente' %}">Registrar cliente</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'solicitudes_de_turnos' %}">Solicitudes de turnos</a>
+									</li>
 								{% else %}
-								<li>
-									<a class="dropdown-item" href="{% url 'mis_datos' %}"
-										>Mis datos</a
-									>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{% url 'mis_perros' %}"
-										>Mis perros</a
-									>
-								</li>
-								<li>
-									<a class="dropdown-item" href="{% url 'mis_turnos' %}"
-										>Mis turnos</a
-									>
-								</li>
-								<li>
-									<a
-										class="dropdown-item"
-										href="{% url 'solicitar_turno' %}"
-										>Solicitar turno</a
-									>
-								</li>
-								<li><hr class="dropdown-divider" /></li>
-								<li>
-									<a class="dropdown-item" href="{% url 'logout' %}"
-										>Cerrar sesión</a
-									>
-								</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'home' %}">Home</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'mis_datos' %}">Mis datos</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'mis_perros' %}">Mis perros</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'mis_turnos' %}">Mis turnos</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="{% url 'solicitar_turno' %}">Solicitar turno</a>
+									</li>
 								{% endif %}
-							</ul>
 							{% else %}
-							<a class="btn btn-primary" id="iniciar_sesion" href="{% url 'login' %}"
-								>Iniciar sesión</a
-							>
-							{%endif%}
-						</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{% url 'home' %}">Home</a>
+								</li>
+							{% endif %}
+						</ul>
+						{% if user.is_authenticated %}
+							<li class="nav-item dropdown" style="border-radius: 6px; list-style-type: none;">
+								<a class="btn {% if user.is_staff %} btn-primary {% else %} btn-success {% endif %} dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									{{ user.mail }}
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li>
+										<a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
+									</li>
+								</ul>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="btn btn-primary" id="iniciar_sesion" href="{% url 'login' %}">Iniciar sesión</a>
+							</li>
+						{% endif %}
 					</div>
 				</div>
 			</nav>
 		</header>
+		
 
 		{% for message in messages %}
 		<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
