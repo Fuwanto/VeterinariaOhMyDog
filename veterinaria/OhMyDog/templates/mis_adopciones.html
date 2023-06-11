@@ -1,0 +1,50 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Agregar Mis adopciones{%endblock %} 
+
+{% block content %}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootstrap snippets bootdey">
+    <a type="button" class="btn btn-primary" href="{% url 'agregar_publicacion_adopcion' %}" 
+        style="margin-bottom: 20px;">
+        Agregar Adopcion
+    </a>
+    {% if adopciones %} 
+	    {% for adopcion in adopciones %}
+            <div class="row">
+                <div class="post-list">
+                    <div class="row justify-content-center" 
+                        style="border: 1px solid red; border-radius: 10px;
+                                width: 80%;
+                                margin: 0 auto;"
+                    >
+                        <div class="col-sm-4">
+                            <h4>
+                                <a hre="#" class="username">Autor: {{adopcion.cliente.nombre}}</a>
+                            </h4>
+                            <h5> 
+                            <i class="label"></i>
+                                {{adopcion.nombre}}
+                            </h5>
+                            <p class="description">Etapa de vida: {{adopcion.etapa_vida_perro.nombre}}</p>
+                            <p class="description">Tamaño: {{adopcion.tamanio_perro.nombre}}</p>
+                            <p class="description">Sexo: {{adopcion.sexo}}</p>
+                            <p class="description">Castrado: {{adopcion.castrado}}</p>
+                            <p class="description">Descripción: {{adopcion.descripcion}}</p>
+                        </div>
+                        <div class="col-sm-4" data-no-turbolink="">
+                            <a class="btn btn-info btn-download btn-round pull-right makeLoading" href="#">
+                            <i class="fa fa-share"></i> Marcar como adoptado
+                            </a>            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%endfor%}
+    {% else %}
+        <p>No se encontraron adopciones</p>
+    {%endif%}
+<div>
+
+{% endblock %}

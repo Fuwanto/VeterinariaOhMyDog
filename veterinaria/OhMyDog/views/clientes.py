@@ -14,6 +14,13 @@ from OhMyDog.modelos.perros import (
     Perro,
     deshabilitar_perro,
 )
+from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
+from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
+from OhMyDog.modelos.publicaciones.adopciones import Adopcion
+from OhMyDog.modelos.publicaciones import (
+    filtrar_adopciones_por_cliente, agregar_adopcion, buscar_adopcion_por_nombre_y_cliente,
+    listar_adopciones
+)
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
 from OhMyDog.modelos.turnos import filtrar_turnos_por_cliente
@@ -140,3 +147,46 @@ def mis_turnos(request):
 def datos_de_mi_perro(request, perro_id):
     perro = get_object_or_404(Perro, id=perro_id)
     return render(request, "datos_de_mi_perro.html", {"perro": perro})
+
+
+@login_required
+def agregar_publicacion_adopcion(request):
+    tamanios_perro = TamanioPerro.objects.all()
+    etapas_vida_perro = EtapaVidaPerro.objects.all()
+    cliente = request.user.cliente
+    context = {"tamanios": tamanios_perro, "etapas": etapas_vida_perro}
+    if request.method == "POST":
+        nombre = request.POST.get("nombre")
+        descripcion = request.POST.get("descripcion")
+        tamanio_perro_id = request.POST.get("tamanio_perro_id")
+        etapa_vida_perro_id = request.POST.get("etapa_vida_perro_id")
+        sexo = request.POST.get("sexo")
+        castrado = request.POST.get("castrado")
+        
+        publicacion = buscar_adopcion_por_nombre_y_cliente(cliente, nombre)
+        
+        if publicacion is None:
+            agregar_adopcion(
+               cliente, nombre, descripcion, tamanio_perro_id, etapa_vida_perro_id, sexo, castrado
+            )
+            messages.success(request, "Publicacion agregada con exito.")
+            return redirect("mis_adopciones")
+        else:
+            agregar_mensaje_error(request, f"Publicacion con nombre: {nombre}, ya publicada.")
+            return redirect("agregar_publicacion_adopcion")
+    else:
+        return render(
+            request,
+            "agregar_publicacion_adopcion.html", context
+        )
+
+@login_required
+def listar_publicaciones_de_adopciones(request):
+    adopciones = listar_adopciones()
+    return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
+    
+@login_required
+def mis_adopciones(request):
+    cliente = request.user.cliente
+    adopciones = filtrar_adopciones_por_cliente(cliente)
+    return render(request, "mis_adopciones.html", {"adopciones": adopciones})    

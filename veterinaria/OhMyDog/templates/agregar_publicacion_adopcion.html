@@ -1,0 +1,82 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Agregar Publicacion de Adopcion{%endblock%} 
+
+{% block content %}
+
+<div class="container containerPrincipal">
+	<div class="card" style="border-radius: 1rem">
+		<div class="container py-5">
+			<h1 class="text-center mb-4">Agregar Publicacion de Adopcion</h1>
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<form method="post">
+						{% csrf_token %}
+						<div class="mb-3">
+							<label for="nombre" class="form-label">Nombre</label>
+							<input
+								type="text"
+								class="form-control"
+								id="nombre"
+								name="nombre"
+								placeholder="Ingrese el nombre del perro"
+								required
+							/>
+						</div>
+                        <div class="mb-3">
+							<label for="descripcion" class="form-label">Descripcion</label>
+							<input
+								type="text"
+								class="form-control"
+								id="descripcion"
+								name="descripcion"
+								placeholder="Ingrese una descripcion"
+								required
+							/>
+						</div>
+						<div class="mb-3">
+							<label for="" class="form-label">Tamaño</label>
+							<select id="tamnio_perro_id" name="tamanio_perro_id">
+								{% for tamanio in tamanios %}
+								<option value="{{tamanio.id}}">
+									{{ tamanio.nombre }}
+								</option>
+								{% endfor %}
+							</select>
+						</div>
+                        <div class="mb-3">
+							<label for="" class="form-label">Etapa de la vida</label>
+							<select id="etapa_vida_perro_id" name="etapa_vida_perro_id">
+								{% for etapa in etapas %}
+								<option value="{{etapa.id}}">
+									{{ etapa.nombre }}
+								</option>
+								{% endfor %}
+							</select>
+						</div>
+                        <div class="mb-3">
+                            <label for="sexo" class="form-label">Sexo</label>
+                            <select id="sexo" name="sexo">
+                                <option value="M">Macho</option>
+                                <option value="H">Hembra</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="castrado" class="form-label">Castrado</label>
+                            <select id="castrado" name="castrado">
+                                <option value="S">Si</option>
+                                <option value="N">No</option>
+                            </select>
+                        </div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">
+								Publicar
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock%}

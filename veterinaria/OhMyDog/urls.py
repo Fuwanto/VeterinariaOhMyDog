@@ -19,6 +19,9 @@ from OhMyDog.views.clientes import (
     datos_de_mi_perro,
     borrar_perro,
     borrar_cliente,
+    mis_adopciones,
+    agregar_publicacion_adopcion,
+    listar_publicaciones_de_adopciones
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -82,4 +85,7 @@ urlpatterns = [
     path("agregar_vacunacion/", agregar_vacunacion, name="agregar_vacunacion"),
     path("listado_de_atenciones_cliente", atenciones_de_un_perro_cliente, name="listado_de_atenciones_cliente"),
     path('listado_de_atenciones', atenciones_de_un_perro_veterinario, name="listado_de_atenciones"),
+    path('mis_adopciones', mis_adopciones, name="mis_adopciones"),
+    path('agregar_publicacion_adopcion', agregar_publicacion_adopcion, name="agregar_publicacion_adopcion"),
+    path("listar_publicaciones_de_adopciones", listar_publicaciones_de_adopciones, name="listar_publicaciones_de_adopciones"),
 ]
