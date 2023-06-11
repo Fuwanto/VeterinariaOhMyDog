@@ -13,6 +13,7 @@ from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import (
 )
 from django.contrib import messages
 from OhMyDog.modelos.atenciones.atenciones import Atencion
+from decimal import Decimal
 
 
 def agregar_atencion_clinica(request):
@@ -93,19 +94,27 @@ def agregar_castracion(request):
 def agregar_vacunacion(request):
     perro = None
     perro_id = None
-    tipo_dosis = TipoDeDosisVacunacion.objects.all()
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
-        observacion = request.POST.get("observacion")
-        dosis = request.POST.get("dosis")
         vacuna = request.POST.get("vacuna")
+        fabricante = request.POST.get("fabricante")
+        num_serie = request.POST.get("serie")
+        num_lote = request.POST.get("lote")
+        dosis = request.POST.get("dosis")
+        dosis = Decimal(dosis).quantize(Decimal("0.00"))
+        observaciones = request.POST.get("observaciones")
+
+        print(vacuna)
+        print(vacuna)
+        print(vacuna)
+        print(vacuna)
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_vacunacion_init(perro, fecha, vacuna, dosis, observacion)
+        agregar_vacunacion_init(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones)
         messages.success(request, f"Vacunacion registrada con exito. ")
 
-    context = {"perro": perro, "tipo_dosis": tipo_dosis}
+    context = {"perro": perro}
     return render(request, "agregar_vacunacion.html", context)

@@ -25,39 +25,68 @@
 							/>
 						</div>
 						<div class="mb-3">
-							<label for="vacuna" class="form-label"
-								>Vacuna</label
-							>
+							<label for="vacuna" class="form-label">Vacuna</label>
+							<select class="form-select" id="vacuna" name="vacuna">
+								<option selected value="Antiviral">Antiviral</option>
+								<option value="Antirrabica">Antirrabica</option>
+							</select>
+
+						</div>
+						<div class="mb-3">
+							<label for="fabricante" class="form-label">Fabricante</label>
 							<input
 								type="text"
 								class="form-control"
-								id="vacuna"
-								name="vacuna"
-								placeholder="Ingrese la vacuna aplicada"
-								required
+								id="fabricante"
+								name="fabricante"
+								placeholder="Ingrese el fabricante de la vacuna"
+								required								
+							/>
+						</div>
+						<div class="mb-3">
+							<label for="serie" class="form-label">Número de serie</label>
+							<input
+								type="text"
+								class="form-control"
+								id="serie"
+								name="serie"
+								placeholder="Ingrese el número de serie de la vacuna"
+								required								
+							/>
+						</div>
+						<div class="mb-3">
+							<label for="lote" class="form-label">Número de lote</label>
+							<input
+								type="text"
+								class="form-control"
+								id="lote"
+								name="lote"
+								placeholder="Ingrese el número de lote de la vacuna"
+								required								
 							/>
 						</div>
 						<div class="mb-3">
 							<label for="dosis" class="form-label">Dosis</label>
-							<select id="dosis" name="dosis">
-								{% for dosis in tipo_dosis %}
-								<option value="{{dosis.id}}">
-									{{ dosis.nombre }}
-								</option>
-								{% endfor %}
-							</select>
+							<input
+								type="number"
+								step="0.01"
+								class="form-control"
+								id="dosis"
+								name="dosis"
+								placeholder="Ingrese la dosis en miligramos"
+								required
+							/>
 						</div>
 						<div class="mb-3">
-							<label for="Observaciones" class="form-label"
+							<label for="observaciones" class="form-label"
 								>Observaciones</label
 							>
 							<input
 								type="text"
 								class="form-control"
-								id="observacion"
-								name="observacion"
+								id="observaciones"
+								name="observaciones"
 								placeholder="Observaciones sobre la atención"
-								required
 							/>
 						</div>
 						<div class="mb-3">

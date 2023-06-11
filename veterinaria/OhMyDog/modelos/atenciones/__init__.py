@@ -33,12 +33,13 @@ def agregar_castracion_init(perro, fecha, observacion):
     atencion.save()
 
 
-def agregar_vacunacion_init(perro, fecha, vacuna, dosis_id, observacion):
-    dosis = TipoDeDosisVacunacion.objects.get(id=dosis_id)
+def agregar_vacunacion_init(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones):
     tipo_atencion = TipoDeAtencion.objects.get(id=3)
-    atencion = Atencion(perro=perro, fecha=fecha, observacion=observacion, tipo_atencion=tipo_atencion)
+    atencion = Atencion(perro=perro, fecha=fecha, observacion=observaciones, tipo_atencion=tipo_atencion)
     atencion.save()
-    vacunacion = Vacunacion(atencion=atencion, vacuna=vacuna, dosis=dosis)
+    vacunacion = Vacunacion(
+        atencion=atencion, vacuna=vacuna, fabricante=fabricante, num_serie=num_serie, num_lote=num_lote, dosis=dosis
+    )
     vacunacion.save()
 
 
