@@ -1,50 +1,95 @@
 {% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Agregar Mis adopciones{%endblock %} 
+{% block title %}OhMyDog - Mis adopciones{%endblock %} 
 
 {% block content %}
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+    .vertical-line {
+        border-right: 1px solid #dee2e6;
+        height: 100%;
+    }
+</style>
+
+<h1 style="text-align:center">Mis adopciones</h1>
 <div class="container bootstrap snippets bootdey">
     <a type="button" class="btn btn-primary" href="{% url 'agregar_publicacion_adopcion' %}" 
-        style="margin-bottom: 20px;">
-        Agregar Adopcion
+    style="margin-bottom: 20px;">
+    Agregar adopción
     </a>
     {% if adopciones %} 
-	    {% for adopcion in adopciones %}
-            <div class="row">
-                <div class="post-list">
-                    <div class="row justify-content-center" 
-                        style="border: 1px solid red; border-radius: 10px;
-                                width: 80%;
-                                margin: 0 auto;"
-                    >
-                        <div class="col-sm-4">
-                            <h4>
-                                <a hre="#" class="username">Autor: {{adopcion.cliente.nombre}}</a>
-                            </h4>
-                            <h5> 
-                            <i class="label"></i>
-                                {{adopcion.nombre}}
-                            </h5>
-                            <p class="description">Etapa de vida: {{adopcion.etapa_vida_perro.nombre}}</p>
-                            <p class="description">Tamaño: {{adopcion.tamanio_perro.nombre}}</p>
-                            <p class="description">Sexo: {{adopcion.sexo}}</p>
-                            <p class="description">Castrado: {{adopcion.castrado}}</p>
-                            <p class="description">Descripción: {{adopcion.descripcion}}</p>
+        {% for adopcion in adopciones %}
+        {% if forloop.counter0|divisibleby:2 %}
+        <div class="row">
+        {% endif %}
+        <div class="col-sm-6">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h1 class="card-title text-center">{{ adopcion.nombre }}</h1>
+                    <div class="row">
+                        <div class="col-auto vertical-line">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>Descripción</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Etapa de vida</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Tamaño</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Sexo</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Castrado</th>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="col-sm-4" data-no-turbolink="">
-                            <a class="btn btn-info btn-download btn-round pull-right makeLoading" href="#">
-                            <i class="fa fa-share"></i> Marcar como adoptado
-                            </a>            
+                        <div class="col">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>{{ adopcion.descripcion }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ adopcion.etapa_vida_perro.nombre }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ adopcion.tamanio_perro.nombre }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ adopcion.sexo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ adopcion.castrado }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text"><small class="text-muted">Autor: {{ adopcion.cliente.nombre }}</small></p>
+                        </div>
+                        <div class="col text-end">
+                            <button type="button" class="btn btn-warning" href="#">Marcar como adoptado</button>
                         </div>
                     </div>
                 </div>
             </div>
-        {%endfor%}
+        </div>
+        {% if forloop.counter|divisibleby:2 or forloop.last %}
+        </div>
+        {% endif %}
+        {% endfor %}
     {% else %}
         <p>No se encontraron adopciones</p>
-    {%endif%}
-<div>
+    {% endif %}
+</div>
 
 {% endblock %}
