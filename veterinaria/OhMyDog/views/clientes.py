@@ -18,8 +18,10 @@ from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.adopciones import Adopcion
 from OhMyDog.modelos.publicaciones import (
-    filtrar_adopciones_por_cliente, agregar_adopcion, buscar_adopcion_por_nombre_y_cliente,
-    listar_adopciones
+    filtrar_adopciones_por_cliente,
+    agregar_adopcion,
+    buscar_adopcion_por_nombre_y_cliente,
+    listar_adopciones,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -57,9 +59,7 @@ def mis_datos(request):
         else:
             try:
                 cliente = Cliente.objects.get(email=email)
-                agregar_mensaje_error(
-                    request, "El mail ingresado ya se encuentra registrado."
-                )
+                agregar_mensaje_error(request, "El mail ingresado ya se encuentra registrado.")
                 return redirect("mis_datos")
             except cliente.DoesNotExist:
                 modificar_mail(email, request.user.cliente)
@@ -100,9 +100,7 @@ def agregar_perro(request, cliente_id):
         perro = buscar_perro_por_nombre_y_dueño(nombre, cliente)
 
         if perro is None:
-            registrar_perro(
-                cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo
-            )
+            registrar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
             messages.success(request, "Perro registrado con exito.")
             return redirect("home")
         else:
@@ -162,31 +160,28 @@ def agregar_publicacion_adopcion(request):
         etapa_vida_perro_id = request.POST.get("etapa_vida_perro_id")
         sexo = request.POST.get("sexo")
         castrado = request.POST.get("castrado")
-        
+
         publicacion = buscar_adopcion_por_nombre_y_cliente(cliente, nombre)
-        
+
         if publicacion is None:
-            agregar_adopcion(
-               cliente, nombre, descripcion, tamanio_perro_id, etapa_vida_perro_id, sexo, castrado
-            )
+            agregar_adopcion(cliente, nombre, descripcion, tamanio_perro_id, etapa_vida_perro_id, sexo, castrado)
             messages.success(request, "Publicacion agregada con exito.")
             return redirect("mis_adopciones")
         else:
             agregar_mensaje_error(request, f"Publicacion con nombre: {nombre}, ya publicada.")
             return redirect("agregar_publicacion_adopcion")
     else:
-        return render(
-            request,
-            "agregar_publicacion_adopcion.html", context
-        )
+        return render(request, "agregar_publicacion_adopcion.html", context)
+
 
 @login_required
 def listar_publicaciones_de_adopciones(request):
     adopciones = listar_adopciones()
     return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
-    
+
+
 @login_required
 def mis_adopciones(request):
     cliente = request.user.cliente
     adopciones = filtrar_adopciones_por_cliente(cliente)
-    return render(request, "mis_adopciones.html", {"adopciones": adopciones})    
+    return render(request, "mis_adopciones.html", {"adopciones": adopciones})
