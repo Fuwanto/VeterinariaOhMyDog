@@ -1,63 +1,57 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from OhMyDog.modelos.perros import buscar_perro_por_id
 from OhMyDog.modelos.atenciones import (
-    agregar_atencion_clinica_init,
-    agregar_consulta_init,
-    agregar_desparacitacion_init,
-    agregar_castracion_init,
-    agregar_vacunacion_init,
-)
-from datetime import datetime, date
-from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import (
-    TipoDeDosisVacunacion,
+    crear_atencion_clinica,
+    crear_consulta,
+    crear_desparasitacion,
+    crear_castracion,
+    crear_vacunacion,
 )
 from django.contrib import messages
-from OhMyDog.modelos.atenciones.atenciones import Atencion
 from decimal import Decimal
 
 
 def agregar_atencion_clinica(request):
-    perro = None
-    perro_id = None
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
+        context = {"perro": perro}
+        return render(request, "agregar_atencion_clinica.html", context)
+
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_atencion_clinica_init(perro, fecha, observacion)
+        crear_atencion_clinica(perro, fecha, observacion)
         messages.success(request, f"Atencion clinica registrada con exito. ")
-
-    context = {"perro": perro}
-    return render(request, "agregar_atencion_clinica.html", context)
+        redirect("home")
 
 
 def agregar_consulta(request):
-    perro = None
-    perro_id = None
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
+        context = {"perro": perro}
+        return render(request, "agregar_consulta.html", context)
+
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_consulta_init(perro, fecha, observacion)
+        crear_consulta(perro, fecha, observacion)
         messages.success(request, f"Consulta registrada con exito. ")
-
-    context = {"perro": perro}
-    return render(request, "agregar_consulta.html", context)
+        redirect("home")
 
 
 def agregar_desparacitacion(request):
-    perro = None
-    perro_id = None
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
+        context = {"perro": perro}
+        return render(request, "agregar_desparacitacion.html", context)
+
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
         diagnostico = request.POST.get("diagnostico")
@@ -66,37 +60,35 @@ def agregar_desparacitacion(request):
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_desparacitacion_init(perro, fecha, diagnostico, farmaco, dosis, observacion)
+        crear_desparasitacion(perro, fecha, diagnostico, farmaco, dosis, observacion)
         messages.success(request, f"Desparacitacion registrada con exito. ")
-
-    context = {"perro": perro}
-    return render(request, "agregar_desparacitacion.html", context)
+        redirect("home")
 
 
 def agregar_castracion(request):
-    perro = None
-    perro_id = None
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
+        context = {"perro": perro}
+        return render(request, "agregar_castracion.html", context)
+
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_castracion_init(perro, fecha, observacion)
+        crear_castracion(perro, fecha, observacion)
         messages.success(request, f"Castracion registrada con exito. ")
-
-    context = {"perro": perro}
-    return render(request, "agregar_castracion.html", context)
+        redirect("home")
 
 
 def agregar_vacunacion(request):
-    perro = None
-    perro_id = None
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
+        context = {"perro": perro}
+        return render(request, "agregar_vacunacion.html", context)
+
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
         vacuna = request.POST.get("vacuna")
@@ -106,15 +98,8 @@ def agregar_vacunacion(request):
         dosis = request.POST.get("dosis")
         dosis = Decimal(dosis).quantize(Decimal("0.00"))
         observaciones = request.POST.get("observaciones")
-
-        print(vacuna)
-        print(vacuna)
-        print(vacuna)
-        print(vacuna)
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        agregar_vacunacion_init(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones)
+        crear_vacunacion(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones)
         messages.success(request, f"Vacunacion registrada con exito. ")
-
-    context = {"perro": perro}
-    return render(request, "agregar_vacunacion.html", context)
+        redirect("home")

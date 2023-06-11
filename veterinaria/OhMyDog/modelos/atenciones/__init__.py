@@ -6,19 +6,19 @@ from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDe
 from OhMyDog.modelos.perros import modificar_tiene_castracion
 
 
-def agregar_atencion_clinica_init(perro, fecha, observacion):
+def crear_atencion_clinica(perro, fecha, observacion):
     tipo_atencion = TipoDeAtencion.objects.get(id=5)
     atencion = Atencion(perro=perro, fecha=fecha, observacion=observacion, tipo_atencion=tipo_atencion)
     atencion.save()
 
 
-def agregar_consulta_init(perro, fecha, observacion):
+def crear_consulta(perro, fecha, observacion):
     tipo_atencion = TipoDeAtencion.objects.get(id=1)
     atencion = Atencion(perro=perro, fecha=fecha, observacion=observacion, tipo_atencion=tipo_atencion)
     atencion.save()
 
 
-def agregar_desparacitacion_init(perro, fecha, diagnostico, farmaco, dosis, observacion):
+def crear_desparasitacion(perro, fecha, diagnostico, farmaco, dosis, observacion):
     tipo_atencion = TipoDeAtencion.objects.get(id=4)
     atencion = Atencion(perro=perro, fecha=fecha, observacion=observacion, tipo_atencion=tipo_atencion)
     atencion.save()
@@ -26,14 +26,14 @@ def agregar_desparacitacion_init(perro, fecha, diagnostico, farmaco, dosis, obse
     desparacitacion.save()
 
 
-def agregar_castracion_init(perro, fecha, observacion):
+def crear_castracion(perro, fecha, observacion):
     tipo_atencion = TipoDeAtencion.objects.get(id=2)
     modificar_tiene_castracion(perro.id)
     atencion = Atencion(perro=perro, fecha=fecha, observacion=observacion, tipo_atencion=tipo_atencion)
     atencion.save()
 
 
-def agregar_vacunacion_init(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones):
+def crear_vacunacion(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones):
     tipo_atencion = TipoDeAtencion.objects.get(id=3)
     atencion = Atencion(perro=perro, fecha=fecha, observacion=observaciones, tipo_atencion=tipo_atencion)
     atencion.save()
