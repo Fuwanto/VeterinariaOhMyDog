@@ -4,7 +4,7 @@
 <div
 	class="container containerPrincipal"
 >
-	<form method="GET" action="{% url 'buscar_clientes' %}">
+	<form method="GET" action="{% url 'clientes' %}">
 		<input
 			type="text"
 			name="email"
@@ -60,12 +60,12 @@
 									</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="{% url 'listado_de_perros_cliente' cliente.id %}">
+									<a class="dropdown-item" href="{% url 'listar_perros_cliente' cliente.id %}">
 										Listado de perros
 									</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="{% url 'agregar_perro' cliente.id %}">
+									<a class="dropdown-item" href="{% url 'registrar_perro' cliente.id %}">
 										Agregar perro
 									</a>
 								</li>

@@ -30,14 +30,6 @@ def deshabilitar_cliente(id):
     return cliente
 
 
-def modificar_cliente():
-    pass
-
-
-def buscar_cliente_por():
-    pass
-
-
 def listar_clientes_habilitados():
     return Cliente.objects.filter(habilitado=True)
 

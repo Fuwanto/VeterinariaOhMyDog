@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from OhMyDog.modelos.clientes import (
-    listar_clientes,
     Cliente,
     deshabilitar_cliente,
     perros_cliente,
@@ -16,7 +15,6 @@ from OhMyDog.modelos.perros import (
 )
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
-from OhMyDog.modelos.publicaciones.adopciones import Adopcion
 from OhMyDog.modelos.publicaciones import (
     filtrar_adopciones_por_cliente,
     agregar_adopcion,
@@ -32,14 +30,9 @@ from OhMyDog.models import modificar_mail
 from OhMyDog.views.utils import agregar_mensaje_error
 
 
-def buscar_clientes(request):
+def listar_clientes(request):
     email = request.GET.get("email", "")
     clientes = buscar_clientes_contienen_mail(email)
-    return render(request, "listado_clientes.html", {"clientes": clientes})
-
-
-def todos_los_clientes(request):
-    clientes = listar_clientes()
     return render(request, "listado_clientes.html", {"clientes": clientes})
 
 
@@ -80,13 +73,13 @@ def datos_de_un_cliente(request, cliente_id):
 
 
 @user_passes_test(superuser_check)
-def listado_de_perros_cliente(request, cliente_id):
+def listar_perros_cliente(request, cliente_id):
     perros = perros_cliente(cliente_id)
     return render(request, "listado_de_perros_cliente.html", {"perros": perros})
 
 
 @user_passes_test(superuser_check)
-def agregar_perro(request, cliente_id):
+def registrar_perro(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     if request.method == "POST":
         nombre = request.POST.get("nombre_perro")
@@ -105,7 +98,7 @@ def agregar_perro(request, cliente_id):
             return redirect("home")
         else:
             agregar_mensaje_error(request, f"Perro {nombre} ya registrado.")
-            return redirect(f"/clientes/{cliente.id}/agregar_perro")
+            return redirect(f"/clientes/{cliente.id}/registrar_perro")
     else:
         return render(
             request,

@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import logout, login, authenticate
 from django.core.mail import send_mail
 from django.contrib import messages
