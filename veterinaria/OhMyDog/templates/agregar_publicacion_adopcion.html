@@ -36,7 +36,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="" class="form-label">Tamaño</label>
-							<select id="tamnio_perro_id" name="tamanio_perro_id">
+							<select class="form-select" id="tamnio_perro_id" name="tamanio_perro_id">
 								{% for tamanio in tamanios %}
 								<option value="{{tamanio.id}}">
 									{{ tamanio.nombre }}
@@ -46,7 +46,7 @@
 						</div>
                         <div class="mb-3">
 							<label for="" class="form-label">Etapa de la vida</label>
-							<select id="etapa_vida_perro_id" name="etapa_vida_perro_id">
+							<select class="form-select" id="etapa_vida_perro_id" name="etapa_vida_perro_id">
 								{% for etapa in etapas %}
 								<option value="{{etapa.id}}">
 									{{ etapa.nombre }}
@@ -56,14 +56,14 @@
 						</div>
                         <div class="mb-3">
                             <label for="sexo" class="form-label">Sexo</label>
-                            <select id="sexo" name="sexo">
+                            <select class="form-select" id="sexo" name="sexo">
                                 <option value="M">Macho</option>
                                 <option value="H">Hembra</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="castrado" class="form-label">Castrado</label>
-                            <select id="castrado" name="castrado">
+                            <select class="form-select" id="castrado" name="castrado">
                                 <option value="S">Si</option>
                                 <option value="N">No</option>
                             </select>

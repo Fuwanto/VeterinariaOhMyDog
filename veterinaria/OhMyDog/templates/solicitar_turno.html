@@ -18,7 +18,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="perro" class="form-label">Perro</label>
-							<select id="perro_id" name="perro_id">
+							<select class="form-select" id="perro_id" name="perro_id">
 								<option value="">Ninguno</option>
 								{% for perro in perros %}
 								<option value="{{perro.id}}">
@@ -29,7 +29,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="tipo_de_atencion" class="form-label">Tipo de atención</label>
-							<select id="tipo_de_atencion" name="tipo_de_atencion">
+							<select class="form-select" id="tipo_de_atencion" name="tipo_de_atencion">
 								{% for atencion in atenciones %}
 								<option value="{{atencion.id}}">
 									{{ atencion.nombre }}
@@ -39,7 +39,7 @@
 						</div>
 						<div class="mb-3">
 							<label for="franja_horaria" class="form-label">Franja horaria</label>
-							<select id="franja_horaria" name="franja_horaria">
+							<select class="form-select" id="franja_horaria" name="franja_horaria">
 								{% for franja_horaria in franjas_horarias %}
 								<option value="{{franja_horaria.id}}">
 									{{ franja_horaria.nombre }}
