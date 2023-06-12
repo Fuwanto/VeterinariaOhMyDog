@@ -27,6 +27,8 @@ def buscar_perro_por_nombre_y_dueño(nombre, dueño):
     except:
         return None
 
+def buscar_perros_por_dueño_habilitados(dueño):
+    return Perro.objects.filter(dueño=dueño, habilitado=True)
 
 def buscar_perro_por_id(id):
     perro = Perro.objects.get(id=id)

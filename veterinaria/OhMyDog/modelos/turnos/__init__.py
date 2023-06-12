@@ -2,7 +2,7 @@ from django.db.models.query_utils import *  #  incluye funciones útiles para co
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from OhMyDog.modelos.turnos.turnos import Turno
-from datetime import datetime,date
+from datetime import datetime,date,timedelta
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria 
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.estadosDelTurno.estadosDelTurno import EstadoDelTurno
@@ -72,8 +72,32 @@ def cliente_tiene_turno_en_fecha (cliente, fecha):
         return None
     
 
-        
-       
+def solicitar_turno_siguiente_vacunacion(perro, vacuna, fecha):
+    diferencia_anios = date.today().year - perro.fecha_de_nacimiento.year
+    diferencia_meses = date.today().month - perro.fecha_de_nacimiento.month
+    edad_en_meses = (diferencia_anios * 12) + diferencia_meses
+    formato = "%Y-%m-%d"
+    fecha_solicitada = datetime.strptime(fecha, formato).date()
+    franja_horaria = FranjaHoraria.objects.get(id=1)
+    tipo_atencion = TipoDeAtencion.objects.get(id=3)
+    notas = "Turno para la siguiente vacuna Antirrabica de su perro"
+    if (vacuna == "Antirrabica"):
+        notas = "Turno para la siguiente vacuna Antirrabica de su perro"
+        if edad_en_meses < 2:
+            fecha_del_turno = fecha_solicitada + timedelta(days=21) 
+        else:
+            fecha_del_turno = date(fecha_solicitada.year + 1, fecha_solicitada.month, fecha_solicitada.day)
+    else:
+        fecha_del_turno = date(fecha_solicitada.year + 1, fecha_solicitada.month, fecha_solicitada.day)
+        notas= "Turno para la siguiente vacuna Antiviral de su perro"
+    turno = Turno(cliente = perro.dueño, fecha_del_turno = fecha_del_turno, 
+            fecha_de_solicitud = fecha_solicitada, franja_horaria=franja_horaria, tipo_atencion=tipo_atencion,
+            estado = get_object_or_404(EstadoDelTurno, id = 1), notas = notas, perro = perro)
+    turno.save()
+
+
+    
+
 
 
 

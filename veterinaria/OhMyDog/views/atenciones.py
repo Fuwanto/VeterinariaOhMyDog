@@ -12,6 +12,7 @@ from OhMyDog.modelos.atenciones import (
 )
 from django.contrib import messages
 from decimal import Decimal
+from OhMyDog.modelos.turnos import solicitar_turno_siguiente_vacunacion
 
 
 def agregar_atencion_clinica(request):
@@ -106,6 +107,7 @@ def agregar_vacunacion(request):
         observaciones = request.POST.get("observaciones")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
+        solicitar_turno_siguiente_vacunacion(perro, vacuna, fecha)
         crear_vacunacion(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones)
         messages.success(request, f"Vacunacion registrada con exito. ")
         return redirect("home")
