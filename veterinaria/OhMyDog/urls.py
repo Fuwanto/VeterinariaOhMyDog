@@ -21,6 +21,8 @@ from OhMyDog.views.clientes import (
     mis_adopciones,
     agregar_publicacion_adopcion,
     listar_publicaciones_de_adopciones,
+    marcar_como_adoptado,
+    marcar_como_me_interesa
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -107,6 +109,8 @@ publicaciones = [
         listar_publicaciones_de_adopciones,
         name="listar_publicaciones_de_adopciones",
     ),
+    path("marcar_como_adoptado/<int:adopcion_id>", marcar_como_adoptado, name="marcar_como_adoptado"),
+    path("marcar_como_me_interesa", marcar_como_me_interesa, name="marcar_como_me_interesa")
 ]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
