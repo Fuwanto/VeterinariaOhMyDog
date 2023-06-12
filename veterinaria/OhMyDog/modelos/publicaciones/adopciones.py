@@ -20,6 +20,7 @@ class Adopcion(models.Model):
     sexos = [("M", "Macho"), ("H", "Hembra")]
     sexo = models.CharField(max_length=1, choices=sexos, blank=False)
     castrado = models.CharField(max_length=1, choices=[("S", "Si"), ("N", "No")], blank=False)
+    adoptado = models.BooleanField(default=False)
 
 
     def __str__(self):

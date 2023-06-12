@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from OhMyDog.modelos.publicaciones.adopciones import Adopcion
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
@@ -29,3 +30,8 @@ def agregar_adopcion(cliente, nombre, descripcion, tamanio_perro_id, etapa_vida_
 
 def listar_adopciones():
     return Adopcion.objects.all()
+
+def adoptar(adopcion_id):
+    adopcion = get_object_or_404(Adopcion, id=adopcion_id)
+    adopcion.adoptado = True
+    adopcion.save()

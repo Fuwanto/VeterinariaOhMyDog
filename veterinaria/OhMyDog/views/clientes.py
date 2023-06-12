@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.mail import send_mail
 from OhMyDog.modelos.clientes import (
     Cliente,
     deshabilitar_cliente,
@@ -20,6 +22,7 @@ from OhMyDog.modelos.publicaciones import (
     agregar_adopcion,
     buscar_adopcion_por_nombre_y_cliente,
     listar_adopciones,
+    adoptar,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -167,7 +170,6 @@ def agregar_publicacion_adopcion(request):
         return render(request, "agregar_publicacion_adopcion.html", context)
 
 
-@login_required
 def listar_publicaciones_de_adopciones(request):
     adopciones = listar_adopciones()
     return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
@@ -178,3 +180,29 @@ def mis_adopciones(request):
     cliente = request.user.cliente
     adopciones = filtrar_adopciones_por_cliente(cliente)
     return render(request, "mis_adopciones.html", {"adopciones": adopciones})
+
+@login_required
+def marcar_como_adoptado(request, adopcion_id):
+    adoptar(adopcion_id)
+    messages.success(request, "Publicación marcada como adoptada con exito!")
+    return redirect("mis_adopciones")
+
+
+def marcar_como_me_interesa(request):
+    if request.method == 'POST':
+        email_interesado = request.POST.get('email')
+        telefono = request.POST.get('telefono')
+        nombre = request.POST.get('nombre')
+        nombre_perro = request.POST.get('nombre_perro')
+        email_autor = request.POST.get('email_autor')
+
+        asunto = 'Nuevo interesado en Adoptar'
+        mensaje = f'{nombre} esta interesado en adoptar a {nombre_perro}. Contacto:\n\nEmail: {email_interesado}\nTeléfono: {telefono}\nNombre: {nombre}'
+        remitente = settings.EMAIL_HOST_USER
+        destinatario = [email_autor]
+        
+        print(asunto, mensaje, remitente, destinatario)
+        send_mail(asunto, mensaje, remitente, destinatario)
+        messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
+        return redirect("listar_publicaciones_de_adopciones")
+    return redirect("listar_publicaciones_de_adopciones")
