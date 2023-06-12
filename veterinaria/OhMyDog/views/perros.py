@@ -15,8 +15,9 @@ def datos_de_un_perro(request, perro_id):
 
     return render(request, "datos_de_un_perro.html", {"perro": perro})
 
-def atenciones_de_un_perro_cliente (request):
-    if request.method == 'POST':
+
+def atenciones_de_un_perro_cliente(request):
+    if request.method == "POST":
         perro_id = request.POST.get("perro_id")
         perro = buscar_perro_por_id(perro_id)
         atenciones = buscar_atenciones_por_perro(perro)
@@ -26,22 +27,19 @@ def atenciones_de_un_perro_cliente (request):
         atencion_filtro = request.GET.get("atencion_filtro")
         fecha_filtro = request.GET.get("fecha_filtro")
         atenciones = buscar_atenciones_por_perro(perro)
-        if not atencion_filtro is "":
-            TipoDeAtencion.objects.get(id = atencion_filtro)
-            atenciones = atenciones.filter(tipo_atencion = atencion_filtro )
-        if not fecha_filtro is "":
-            atenciones = atenciones.filter(fecha = fecha_filtro)
+        if atencion_filtro != "":
+            TipoDeAtencion.objects.get(id=atencion_filtro)
+            atenciones = atenciones.filter(tipo_atencion=atencion_filtro)
+        if fecha_filtro != "":
+            atenciones = atenciones.filter(fecha=fecha_filtro)
     tipos_atencion = TipoDeAtencion.objects.all()
-    context = {
-    'atenciones': atenciones,
-    'tipo_atencion': tipos_atencion,
-    'perro': perro
-    }
+    context = {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro}
 
     return render(request, "listado_de_atenciones_por_perro_cliente.html", context)
 
+
 def atenciones_de_un_perro_veterinario(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
         atenciones = buscar_atenciones_por_perro(perro)
@@ -52,18 +50,11 @@ def atenciones_de_un_perro_veterinario(request):
         atencion_filtro = request.GET.get("atencion_filtro")
         fecha_filtro = request.GET.get("fecha_filtro")
         atenciones = buscar_atenciones_por_perro(perro)
-        if not atencion_filtro is "" and not atencion_filtro is None:
-            TipoDeAtencion.objects.get(id = atencion_filtro)
-            atenciones = atenciones.filter(tipo_atencion = atencion_filtro )
-        if not fecha_filtro is "" and not atencion_filtro is None:
-            atenciones = atenciones.filter(fecha = fecha_filtro)
+        if atencion_filtro != "" and atencion_filtro is not None:
+            TipoDeAtencion.objects.get(id=atencion_filtro)
+            atenciones = atenciones.filter(tipo_atencion=atencion_filtro)
+        if fecha_filtro != "" and atencion_filtro is not None:
+            atenciones = atenciones.filter(fecha=fecha_filtro)
     tipos_atencion = TipoDeAtencion.objects.all()
-    context = {
-    'atenciones': atenciones,
-    'tipo_atencion': tipos_atencion,
-    'perro': perro
-    }
+    context = {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro}
     return render(request, "listado_de_atenciones_por_perro.html", context)
-
-
-
