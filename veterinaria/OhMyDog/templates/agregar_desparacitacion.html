@@ -1,6 +1,6 @@
-{% extends 'layout.html' %} 
+{% extends 'layout.html' %}
 
-{% block title %}OhMyDog - Agregar desparacitación{%endblock %} 
+{% block title %}OhMyDog - Agregar desparacitación{%endblock %}
 
 {% block content %}
 
@@ -13,75 +13,48 @@
 					<form method="post">
 						{% csrf_token %}
 						<div class="mb-3">
-							<label for="fecha_de_atencion" class="form-label"
-								>Fecha de atención</label
-							>
-							<input
-								type="date"
-								class="form-control"
-								id="fecha_de_atencion"
-								name="fecha_de_atencion"
-								required
-							/>
+							<label for="fecha_de_atencion" class="form-label">Fecha de atención</label>
+							<input type="date" class="form-control" id="fecha_de_atencion" name="fecha_de_atencion"
+								required />
 						</div>
 
 						<div class="mb-3">
-							<label for="diagnostico" class="form-label"
-								>Diagnóstico</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="diagnostico"
-								name="diagnostico"
-								placeholder="Ingrese el diagnóstico"
-								required
-							/>
+							<label for="diagnostico" class="form-label">Diagnóstico</label>
+							<input type="text" class="form-control" id="diagnostico" name="diagnostico"
+								placeholder="Ingrese el diagnóstico" required />
 						</div>
 						<div class="mb-3">
-							<label for="farmaco" class="form-label"
-								>Fármaco</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="farmaco"
-								name="farmaco"
-								placeholder="Ingrese el fármaco utilizado"
-								required
-							/>
+							<label for="farmaco" class="form-label">Fármaco</label>
+							<input type="text" class="form-control" id="farmaco" name="farmaco"
+								placeholder="Ingrese el fármaco utilizado" required />
+						</div>
+						<div class="mb-3">
+							<label for="fabricante" class="form-label">Fabricante</label>
+							<input type="text" class="form-control" id="fabricante" name="fabricante"
+								placeholder="Ingrese el fabricante del farmaco" required />
+						</div>
+						<div class="mb-3">
+							<label for="serie" class="form-label">Número de serie</label>
+							<input type="text" class="form-control" id="serie" name="serie"
+								placeholder="Ingrese el número de serie del farmaco" required />
+						</div>
+						<div class="mb-3">
+							<label for="lote" class="form-label">Número de lote</label>
+							<input type="text" class="form-control" id="lote" name="lote"
+								placeholder="Ingrese el número de lote del farmaco" required />
 						</div>
 						<div class="mb-3">
 							<label for="dosis" class="form-label">Dosis</label>
-							<input
-								type="text"
-								class="form-control"
-								id="dosis"
-								name="dosis"
-								placeholder="Ingrese la dosis recetada"
-								required
-							/>
+							<input type="text" class="form-control" id="dosis" name="dosis"
+								placeholder="Ingrese la dosis recetada" required />
 						</div>
 						<div class="mb-3">
-							<label for="Observaciones" class="form-label"
-								>Observaciones</label
-							>
-							<input
-								type="text"
-								class="form-control"
-								id="observacion"
-								name="observacion"
-								placeholder="Observaciones sobre la atención"
-								required
-							/>
+							<label for="Observaciones" class="form-label">Observaciones</label>
+							<input type="text" class="form-control" id="observacion" name="observacion"
+								placeholder="Observaciones sobre la atención" required />
 						</div>
 						<div class="mb-3">
-							<input
-								type="hidden"
-								id="perro"
-								name="perro"
-								value="{{ perro.id }}"
-							/>
+							<input type="hidden" id="perro" name="perro" value="{{ perro.id }}" />
 						</div>
 						<div class="text-center">
 							<button type="submit" class="btn btn-primary">

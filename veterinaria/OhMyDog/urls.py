@@ -34,6 +34,7 @@ from OhMyDog.views.atenciones import (
     agregar_desparacitacion,
     agregar_castracion,
     agregar_vacunacion,
+    mostrar_datos_atencion,
 )
 from OhMyDog.views.perros import (
     datos_de_un_perro,
@@ -58,6 +59,11 @@ datos = [
     path("mis_perros/<int:perro_id>/", datos_de_mi_perro, name="datos_de_mi_perro"),
     path("clientes/<int:cliente_id>/", datos_de_un_cliente, name="datos_de_un_cliente"),
     path("perros/<int:perro_id>/", datos_de_un_perro, name="datos_de_un_perro"),
+    path("datos_atencion_clinica", mostrar_datos_atencion, name="datos_atencion_clinica"),
+    path("datos_consulta", mostrar_datos_atencion, name="datos_consulta"),
+    path("datos_vacunacion", mostrar_datos_atencion, name="datos_vacunacion"),
+    path("datos_castracion", mostrar_datos_atencion, name="datos_castracion"),
+    path("datos_desparacitacion", mostrar_datos_atencion, name="datos_desparacitacion"),
 ]
 
 formularios = [

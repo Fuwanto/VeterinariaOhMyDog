@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% block title %}OhMyDog - Datos del perro{{perro.id}}{%endblock %}
+
+{% block content %}
+
+<body>
+    <div class="containerPequeño">
+        <div class="card cardPequeño" id="mis_datos">
+            <h1>Castracion</h1>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Perro</th>
+                        <td>{{ atencion.perro }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Fecha</th>
+                        <td>{{ atencion.fecha }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Observaciones</th>
+                        <td>{{ atencion.observacion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if user.is_staff %}
+            <button type="button" id="modificar_datos" class="btn btn-primary">Modificar mis datos</button>
+            {%endif%}
+        </div>
+
+        <div class="card" id="formulario_modificar_datos" style="display: none;">
+            <h1>Castracion</h1>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Perro</th>
+                            <td>{{ atencion.perro }}</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <th scope="row">Fecha</th>
+                            <td>{{ atencion.fecha }}</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <th scope="row">Observaciones</th>
+                            <td>
+                                <input type="text" id="observaciones" size=60 name="observaciones"
+                                    value="{{ atencion.observacion }}" required><br>
+                                <input type="hidden" id="atencion_id" name="atencion_id" value="{{ atencion.id }}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary" type="submit"
+                    style="background-color: rgb(96, 219, 87); color: rgb(255, 255, 255);">Guardar cambios</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById("modificar_datos").addEventListener("click", function () {
+            var modificar = document.getElementById("formulario_modificar_datos");
+            var datos = document.getElementById("mis_datos");
+            if (modificar.style.display === "none") {
+                datos.style.display = "none";
+                modificar.style.display = "block";
+            } else {
+                modificar.style.display = "none";
+                datos.style.display = "block";
+            }
+        });
+    </script>
+</body>
+{%endblock%}

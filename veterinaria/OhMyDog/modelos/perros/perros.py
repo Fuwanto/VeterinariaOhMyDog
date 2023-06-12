@@ -19,4 +19,4 @@ class Perro(models.Model):
     tiene_castracion = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.nombre}, Dueño: {self.dueño}"
+        return f"{self.nombre}, {self.raza}."

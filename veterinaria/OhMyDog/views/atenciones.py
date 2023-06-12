@@ -6,6 +6,9 @@ from OhMyDog.modelos.atenciones import (
     crear_desparasitacion,
     crear_castracion,
     crear_vacunacion,
+    buscar_atencion_por_id,
+    buscar_vacunacion_por_atencion_id,
+    buscar_desparacitacion_por_atencion_id,
 )
 from django.contrib import messages
 from decimal import Decimal
@@ -25,7 +28,7 @@ def agregar_atencion_clinica(request):
         perro = buscar_perro_por_id(perro_id)
         crear_atencion_clinica(perro, fecha, observacion)
         messages.success(request, f"Atencion clinica registrada con exito. ")
-        redirect("home")
+        return redirect("home")
 
 
 def agregar_consulta(request):
@@ -42,7 +45,7 @@ def agregar_consulta(request):
         perro = buscar_perro_por_id(perro_id)
         crear_consulta(perro, fecha, observacion)
         messages.success(request, f"Consulta registrada con exito. ")
-        redirect("home")
+        return redirect("home")
 
 
 def agregar_desparacitacion(request):
@@ -56,13 +59,16 @@ def agregar_desparacitacion(request):
         fecha = request.POST.get("fecha_de_atencion")
         diagnostico = request.POST.get("diagnostico")
         farmaco = request.POST.get("farmaco")
+        fabricante = request.POST.get("fabricante")
+        num_serie = request.POST.get("serie")
+        num_lote = request.POST.get("lote")
         dosis = request.POST.get("dosis")
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        crear_desparasitacion(perro, fecha, diagnostico, farmaco, dosis, observacion)
+        crear_desparasitacion(perro, fecha, diagnostico, farmaco, fabricante,num_serie, num_lote, dosis, observacion)
         messages.success(request, f"Desparacitacion registrada con exito. ")
-        redirect("home")
+        return redirect("home")
 
 
 def agregar_castracion(request):
@@ -79,7 +85,7 @@ def agregar_castracion(request):
         perro = buscar_perro_por_id(perro_id)
         crear_castracion(perro, fecha, observacion)
         messages.success(request, f"Castracion registrada con exito. ")
-        redirect("home")
+        return redirect("home")
 
 
 def agregar_vacunacion(request):
@@ -102,4 +108,21 @@ def agregar_vacunacion(request):
         perro = buscar_perro_por_id(perro_id)
         crear_vacunacion(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones)
         messages.success(request, f"Vacunacion registrada con exito. ")
-        redirect("home")
+        return redirect("home")
+
+def mostrar_datos_atencion (request):
+    atencion_id = request.POST.get('atencion_id')
+    observaciones = request.POST.get('observaciones')
+    atencion = buscar_atencion_por_id(atencion_id)
+    vacunacion = buscar_vacunacion_por_atencion_id(atencion_id)
+    despacitacion = buscar_desparacitacion_por_atencion_id(atencion_id)
+    if not observaciones is None:
+        atencion.observacion = observaciones
+        atencion.save()
+    context = {
+        'atencion': atencion,
+        'vacunacion': vacunacion,
+        'desparacitacion': despacitacion,
+    }
+    return render(request, f"{atencion.url_mostrar_datos}.html", context)
+

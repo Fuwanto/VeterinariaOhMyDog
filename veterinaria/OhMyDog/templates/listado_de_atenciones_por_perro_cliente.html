@@ -31,8 +31,7 @@
                     <th scope="col">ID</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Tipo de Atencion</th>
-                    <th scope="col">Observaciones</th>
-
+                    <th scope="col">Acciones</th>
 
                 </tr>
             </thead>
@@ -43,7 +42,17 @@
                     <td>{{ atencion.id }}</td>
                     <td>{{ atencion.fecha }}</td>
                     <td>{{ atencion.tipo_atencion.nombre }}</td>
-                    <td>{{ atencion.observacion}}</td>
+                    <td>
+                        <form method="POST" action="{{ atencion.url_mostrar_datos }}">
+                            {% csrf_token %}
+                            <input type="hidden" id="atencion_id" name="atencion_id" value="{{ atencion.id }}">
+                            <button type="submit" class="btn btn-secondary" style="background-color: rgb(157, 209, 59)"
+                                data-bs-toggle="modal">
+                                Mostrar
+                                detalle
+                            </button>
+                        </form>
+                    </td>
                 <tr>
                     {%endfor%}
                     {% else %}
