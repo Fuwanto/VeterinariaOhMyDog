@@ -46,7 +46,6 @@ def atenciones_de_un_perro_veterinario(request):
         
     else:
         perro_id = request.GET.get("perro")
-        print(perro_id)
         perro = buscar_perro_por_id(perro_id)
         atencion_filtro = request.GET.get("atencion_filtro")
         fecha_filtro = request.GET.get("fecha_filtro")
@@ -56,7 +55,6 @@ def atenciones_de_un_perro_veterinario(request):
             atenciones = atenciones.filter(tipo_atencion=atencion_filtro)
         if fecha_filtro != "" and atencion_filtro is not None:
             atenciones = atenciones.filter(fecha=fecha_filtro)
-    print(atenciones)
     tipos_atencion = TipoDeAtencion.objects.all()
     context = {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro}
     return render(request, "listado_de_atenciones_por_perro.html", context)
