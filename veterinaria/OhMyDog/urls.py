@@ -22,7 +22,8 @@ from OhMyDog.views.clientes import (
     agregar_publicacion_adopcion,
     listar_publicaciones_de_adopciones,
     marcar_como_adoptado,
-    marcar_como_me_interesa
+    marcar_como_me_interesa,
+    eliminar_adopcion
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -110,6 +111,7 @@ publicaciones = [
         name="listar_publicaciones_de_adopciones",
     ),
     path("marcar_como_adoptado/<int:adopcion_id>", marcar_como_adoptado, name="marcar_como_adoptado"),
+    path("eliminar_adopcion/<int:adopcion_id>", eliminar_adopcion, name="eliminar_adopcion"),
     path("marcar_como_me_interesa", marcar_como_me_interesa, name="marcar_como_me_interesa")
 ]
 

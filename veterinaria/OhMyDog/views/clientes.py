@@ -23,6 +23,7 @@ from OhMyDog.modelos.publicaciones import (
     buscar_adopcion_por_nombre_y_cliente,
     listar_adopciones,
     adoptar,
+    eliminar_publicacion_adopcion
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -206,3 +207,10 @@ def marcar_como_me_interesa(request):
         messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
         return redirect("listar_publicaciones_de_adopciones")
     return redirect("listar_publicaciones_de_adopciones")
+
+
+@login_required
+def eliminar_adopcion(request, adopcion_id):
+    eliminar_publicacion_adopcion(adopcion_id)
+    messages.success(request, "Publicación eliminada con exito!")
+    return redirect("mis_adopciones")

@@ -21,7 +21,7 @@
         border: 2px solid blue; /* Cambiar el color y el ancho del borde */
         border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        text-align: center; /* Centrar los botones de marcar y cancelar */
+        text-align: center; /* Centrar los botones */
       }
   
       #popup button {
@@ -68,7 +68,45 @@
       // Agregar el cuadro emergente al cuerpo del documento
       document.body.appendChild(popup);
     }
-  </script>
+</script>
+
+<script>
+    function confirmarEliminacion(event) {
+      event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+
+      // Crear el cuadro emergente de confirmación
+      var popup = document.createElement("div");
+      popup.id = "popup";
+
+      // Crear el mensaje de confirmación
+      var mensaje = document.createElement("p");
+      mensaje.textContent = "¿Estás seguro de que deseas eliminar esta publicación?";
+
+      // Crear los botones de confirmación
+      var botonAceptar = document.createElement("button");
+      botonAceptar.textContent = "Eliminar";
+      botonAceptar.addEventListener("click", function() {
+        // Si el usuario hace clic en "Eliminar", redireccionar a la URL del enlace
+        window.location.href = event.target.href;
+        document.body.removeChild(popup); // Eliminar el cuadro emergente
+      });
+
+      var botonCancelar = document.createElement("button");
+      botonCancelar.textContent = "Cancelar";
+      botonCancelar.addEventListener("click", function() {
+        // Si el usuario hace clic en "Cancelar", no hacer nada
+        document.body.removeChild(popup); // Eliminar el cuadro emergente
+      });
+
+      // Agregar el mensaje y los botones al cuadro emergente
+      popup.appendChild(mensaje);
+      popup.appendChild(botonAceptar);
+      popup.appendChild(botonCancelar);
+
+      // Agregar el cuadro emergente al cuerpo del documento
+      document.body.appendChild(popup);
+    }
+</script>
 
 <h1 style="text-align:center">Mis adopciones</h1>
 <div class="container bootstrap snippets bootdey">
@@ -136,16 +174,21 @@
                             <p class="card-text"><small class="text-muted">Autor: {{ adopcion.cliente.nombre }}</small></p>
                         </div>
                         {%if not adopcion.adoptado%}
-                        <div class="col text-end">
-                            <a type="button" class="btn btn-warning" onclick="confirmarAdopcion(event);"
-                                href="{%url 'marcar_como_adoptado' adopcion.id %}">Marcar como adoptado
-                            </a>
-                        </div>
+                            <div class="col text-end">
+                                <a type="button" class="btn btn-success" onclick="confirmarAdopcion(event);"
+                                    href="{%url 'marcar_como_adoptado' adopcion.id %}">Marcar como adoptado
+                                </a>
+                            </div>
                         {%else%}
                             <div class="col text-end">
                                 <p class="text-success">ADOPTADO</p>
                             </div>
                         {%endif%}
+                            <div class="col text-end">
+                                <a type="button" class="btn btn-danger" onclick="confirmarEliminacion(event);"
+                                    href="{%url 'eliminar_adopcion' adopcion.id %}">Eliminar
+                                </a>
+                            </div>
                     </div>
                 </div>
 

@@ -101,92 +101,187 @@
 
         document.body.appendChild(popup);
     }
-  </script>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Obtén todas las tarjetas de adopción
+        var adopciones = $("#adopcionesContainer .card");
+
+        // Función para filtrar las tarjetas de adopción y mostrar/ocultar el mensaje de no adopciones
+        function filtrarAdopciones() {
+            // Obtener los valores seleccionados de los campos desplegables
+            var sexo = $("#seleccionSexo").val();
+            var tamanio = $("#seleccionTamanio").val();
+            var etapaVida = $("#seleccionEtapaVida").val();
+            var castrado = $("#seleccionCastrado").val();
+
+            // Filtrar las tarjetas de adopción según los criterios seleccionados
+            var adopcionesFiltradas = adopciones.filter(function() {
+                var adopcion = $(this);
+                var adopcionSexo = adopcion.find(".sexo").text();
+                var adopcionTamanio = adopcion.find(".tamanio").text();
+                var adopcionEtapaVida = adopcion.find(".etapa-vida").text();
+                var adopcionCastrado = adopcion.find(".castrado").text();
+
+                // Comprobar si la adopción cumple con los filtros seleccionados
+                return (
+                    (sexo === "" || adopcionSexo === sexo) &&
+                    (tamanio === "" || adopcionTamanio === tamanio) &&
+                    (etapaVida === "" || adopcionEtapaVida === etapaVida) &&
+                    (castrado === "" || adopcionCastrado === castrado)
+                );
+            });
+
+            // Ocultar todas las tarjetas de adopción
+            adopciones.hide();
+
+            // Mostrar las tarjetas de adopción que cumplen con los filtros
+            if (adopcionesFiltradas.length > 0) {
+                adopcionesFiltradas.show();
+                $("#mensajeNoAdopciones").hide();
+            } else {
+                $("#mensajeNoAdopciones").show();
+            }
+        }
+
+        // Controlador de eventos para cambios en los campos desplegables
+        $("#seleccionSexo, #seleccionTamanio, #seleccionEtapaVida, #seleccionCastrado").change(filtrarAdopciones);
+    });
+</script>
+
+
+
+
+
 
 <h1 style="text-align:center">Publicaciones de adopciones</h1>
-<div class="container bootstrap snippets bootdey">
-    {% if adopciones %} 
-        {% for adopcion in adopciones %}
-        {% if forloop.counter0|divisibleby:2 %}
-        <div class="row">
-        {% endif %}
-        <div class="col-sm-6">
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h1 class="card-title text-center">{{ adopcion.nombre }}</h1>
-                    <div class="row">
-                        <div class="col-auto vertical-line">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <th>Descripción</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Etapa de vida</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Tamaño</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Sexo</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Castrado</th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col">
-                            <table class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <td>{{ adopcion.descripcion }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ adopcion.etapa_vida_perro.nombre }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ adopcion.tamanio_perro.nombre }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ adopcion.sexo }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ adopcion.castrado }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row">
-                        <p class="card-text"><small class="text-muted">Autor: {{ adopcion.cliente.nombre }}</small></p>
-                    </div>
-                    {%if not adopcion.adoptado%}
-                    <div class="col text-end">
-                        <a type="button" class="btn btn-warning" id="me_interesa" 
-                            onclick="mostrarPopupContacto(event, '{{ adopcion.nombre }}', '{{adopcion.cliente.email}}');"
-                            href="{% url 'marcar_como_me_interesa' %}">Me interesa
-                        </a>
-                    </div>
-                    {%else%}
-                        <div class="col text-end">
-                            <p class="text-success">ADOPTADO</p>
-                        </div>
-                    {%endif%}
-                </div>
-            </div>
+<div id="filtros" class="container bootstrap snippets bootdey">
+    <div class="row mb-3">
+        <div class="col">
+            <label for="seleccionSexo">Sexo:</label>
+            <select id="seleccionSexo">
+                <option value="">Todos</option>
+                <option value="H">Hembra</option>
+                <option value="M">Macho</option>
+            </select>
         </div>
-        {% if forloop.counter|divisibleby:2 or forloop.last %}
+        <div class="col">
+            <label for="seleccionTamanio">Tamaño:</label>
+            <select id="seleccionTamanio">
+                <option value="">Todos</option>
+                <option value="Mini">Mini</option>
+                <option value="Pequeño">Pequeño</option>
+                <option value="Mediano">Mediano</option>
+                <option value="Grande">Grande</option>
+                <option value="Gigante">Gigante</option>
+            </select>
         </div>
-        {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>No se encontraron adopciones</p>
-    {% endif %}
+        <div class="col">
+            <label for="seleccionEtapaVida">Etapa de vida:</label>
+            <select id="seleccionEtapaVida">
+                <option value="">Todos</option>
+                <option value="Cachorro">Cachorro</option>
+                <option value="Adulto">Adulto</option>
+                <option value="Anciano">Anciano</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="seleccionCastrado">Castrado:</label>
+            <select id="seleccionCastrado">
+                <option value="">Todos</option>
+                <option value="S">Si</option>
+                <option value="N">No</option>
+            </select>
+        </div>
+    </div>
 </div>
 
-
+<div class="container bootstrap snippets bootdey">
+    {% if adopciones%}
+        {% for adopcion in adopciones%}
+            {% if forloop.counter0|divisibleby:2 %}
+            <div class="row">
+            {% endif %}
+            <div class="col-sm-6" id="adopcionesContainer">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">{{ adopcion.nombre }}</h1>
+                        <div class="row">
+                            <div class="col-auto vertical-line">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <th>Descripción</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Etapa de vida</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Tamaño</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Sexo</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Castrado</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ adopcion.descripcion }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="etapa-vida">{{ adopcion.etapa_vida_perro.nombre }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tamanio">{{ adopcion.tamanio_perro.nombre }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="sexo">{{ adopcion.sexo }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="castrado">{{ adopcion.castrado }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <p class="card-text"><small class="text-muted">Autor: {{ adopcion.cliente.nombre }}</small></p>
+                        </div>
+                        {%if not adopcion.adoptado%}
+                        <div class="col text-end">
+                            <a type="button" class="btn btn-warning" id="me_interesa" 
+                                onclick="mostrarPopupContacto(event, '{{ adopcion.nombre }}', '{{adopcion.cliente.email}}');"
+                                href="{% url 'marcar_como_me_interesa' %}">Me interesa
+                            </a>
+                        </div>
+                        {%else%}
+                            <div class="col text-end">
+                                <p class="text-success">ADOPTADO</p>
+                            </div>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 or forloop.last %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p id="mensajeNoAdopciones" style="text-align: center">No se encontraron adopciones</p>
+    {% endif %}
+    <p id="mensajeNoAdopciones" style="display: none; text-align: center">
+        No se encontraron adopciones con esas caracteristicas.
+    </p>
+</div>
 
 {% endblock %}

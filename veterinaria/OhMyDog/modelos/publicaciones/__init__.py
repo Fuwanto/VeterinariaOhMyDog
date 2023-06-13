@@ -35,3 +35,8 @@ def adoptar(adopcion_id):
     adopcion = get_object_or_404(Adopcion, id=adopcion_id)
     adopcion.adoptado = True
     adopcion.save()
+    
+    
+def eliminar_publicacion_adopcion(adopcion_id):
+    adopcion = get_object_or_404(Adopcion, id=adopcion_id)
+    adopcion.delete()
