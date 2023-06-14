@@ -9,11 +9,77 @@
 		.btn-adopciones {
 			background-color: #B69D86; /* Color inicial del botón */
 			border-radius: 10px; /* Radio de los bordes redondeados */
+			padding: 5px 10px;
 		}
 
 		.btn-adopciones:hover {
 			background-color: #9D8A78; /* Color al pasar el mouse por encima */
 		}
+
+		.btn-busquedas {
+			background-color: #1D59A8; /* Color inicial del botón */
+			border-radius: 10px; /* Radio de los bordes redondeados */
+			padding: 5px 10px;
+		}
+
+		.btn-busquedas:hover {
+			background-color: #3D7ACB; /* Color al pasar el mouse por encima */
+		}
+
+		.btn-perdidos {
+			background-color: #8D3A3A; /* Color inicial del botón */
+			border-radius: 10px; /* Radio de los bordes redondeados */
+			padding: 5px 10px;
+		}
+
+		.btn-perdidos:hover {
+			background-color: #B26060; /* Color al pasar el mouse por encima */
+		}
+
+		.btn-cruzas {
+			background-color: #BB2782; /* Color inicial del botón */
+			border-radius: 10px; /* Radio de los bordes redondeados */
+			padding: 5px 10px;
+		}
+
+		.btn-cruzas:hover {
+			background-color: #DD59AA; /* Color al pasar el mouse por encima */
+		}
+
+		.btn-cuidadores {
+			background-color: #02964F; /* Color inicial del botón */
+			border-radius: 10px; /* Radio de los bordes redondeados */
+			padding: 5px 10px;
+		}
+
+		.btn-cuidadores:hover {
+			background-color: #00BF63 /* Color al pasar el mouse por encima */
+		}
+
+		.btn-paseadores {
+			background-color: #B2A15B; /* Color inicial del botón */
+			border-radius: 10px; /* Radio de los bordes redondeados */
+			padding: 5px 10px;
+		}
+
+		.btn-paseadores:hover {
+			background-color: #D6BE5E; /* Color al pasar el mouse por encima */
+		}
+
+		.img-botones{
+			border-radius: 15%;
+		}
+
+		.img-anuncio{
+			margin-bottom: 10px;
+			padding: 3px 7px;
+			border-radius: 8%;
+			width: 731px; 
+			height: 98px;
+		}
+
+
+
 	</style>
 </head>
 
@@ -26,7 +92,7 @@
 		
 	>
 		<img
-			src="http://imgfz.com/i/RWx6eN8.png"
+			src="http://imgfz.com/i/0l8PYwx.png"
 			height="544"
 			width="1980"
 			style="
@@ -35,6 +101,7 @@
 				background-color: rgb(255, 255, 255);
 				margin-top: 0px;
 				text-decoration-color: rgb(35, 36, 36);
+				border-radius: 10%
 			"
 		/>
 
@@ -49,31 +116,28 @@
 			<h4>
 				<a type="button" class="btn-adopciones"
 					href="{% url 'listar_publicaciones_de_adopciones' %}">
-					<img src="http://imgfz.com/i/tA8nC9r.gif" style="border-radius: 17%;" />
+					<img class="img-botones" src="http://imgfz.com/i/jF1CJMV.gif"/>
 				</a>
 			</h4>
-			<img src="http://imgfz.com/i/4DICYmA.png"
-					height="128" width="128" style="width: 731px; height: 98px; border-radius: 8%;" />
+			<img class="img-anuncio" src="http://imgfz.com/i/hO90cpb.png"/>
 
 
 			<h4>
-				<a type="button" class="btn btn-primary"
+				<a type="button" class="btn-perdidos"
 					href="perdidos">
-					<img src="http://imgfz.com/i/nOUV2dY.png"/>
+					<img class="img-botones" src="http://imgfz.com/i/fHdYw5T.gif"/>
 				</a>
 			</h4>
-			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
-					height="128" width="128" style="width: 731px; height: 98px" />
+			<img class="img-anuncio" src="http://imgfz.com/i/za4Fxnm.png" />
 
 
 			<h4>
-				<a type="button" class="btn btn-primary"
+				<a type="button" class="btn-busquedas"
 					href="busquedas">
-					<img src="http://imgfz.com/i/UgqIn2G.png"/>
+					<img class="img-botones" src="http://imgfz.com/i/MExPN0Q.gif"/>
 				</a>
 			</h4>
-			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
-					height="128" width="128" style="width: 731px; height: 98px" />
+			<img class="img-anuncio" src="http://imgfz.com/i/GV1PM29.png"/>
 
 			
 		</div>
@@ -81,35 +145,30 @@
 
 		<div class="col-lg-6">
 
-			
-
 			<h4>
-				<a type="button" class="btn btn-primary"
+				<a type="button" class="btn-paseadores"
 					href="paseadores">
-					<img src="http://imgfz.com/i/uOhtPQ0.png" />
+					<img class="img-botones" src="http://imgfz.com/i/1QxRmJN.gif" />
 				</a>
 			</h4>
-			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
-					height="128" width="128" style="width: 731px; height: 98px" />
+			<img class="img-anuncio" src="http://imgfz.com/i/C7ocX0D.png" />
 
 
 			<h4>
-				<a type="button" class="btn btn-primary"
+				<a type="button" class="btn-cuidadores"
 					href="cuidadores">
-					<img src="http://imgfz.com/i/MQchnok.png" />
+					<img class="img-botones" src="http://imgfz.com/i/h9fAxJ1.gif" />
 				</a>
 			</h4>
-			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
-					height="128" width="128" style="width: 731px; height: 98px" />
+			<img class="img-anuncio" src="http://imgfz.com/i/4voXpEP.png"/>
 			
 			<h4>
-				<a type="button" class="btn btn-primary"
+				<a type="button" class="btn-cruzas"
 					href="cruzas">
-					<img src="http://imgfz.com/i/EVrf8Qj.png"  />
+					<img class="img-botones" src="http://imgfz.com/i/Fhrc6pu.gif"  />
 				</a>
 			</h4>
-			<img src="https://bootsnipp.com/bootstrap-builder/libs/builder/icons/image.svg"
-					height="128" width="128" style="width: 731px; height: 98px" />
+			<img class="img-anuncio" src="http://imgfz.com/i/yWvHuYo.png"/>
 
 			
 		</div>
