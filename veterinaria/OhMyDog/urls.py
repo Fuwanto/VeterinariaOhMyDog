@@ -19,11 +19,17 @@ from OhMyDog.views.clientes import (
     borrar_perro,
     borrar_cliente,
     mis_adopciones,
+    mis_busquedas,
     agregar_publicacion_adopcion,
+    agregar_publicacion_busqueda,
     listar_publicaciones_de_adopciones,
+    listar_publicaciones_de_busquedas,
     marcar_como_adoptado,
     marcar_como_me_interesa,
-    eliminar_adopcion
+    tengo_informacion,
+    marcar_como_encontrado,
+    eliminar_adopcion,
+    eliminar_busqueda,
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -84,6 +90,7 @@ formularios = [
         name="agregar_desparacitacion",
     ),
     path("agregar_publicacion_adopcion", agregar_publicacion_adopcion, name="agregar_publicacion_adopcion"),
+    path("agregar_publicacion_busqueda", agregar_publicacion_busqueda, name="agregar_publicacion_busqueda"),
     path("registrar_cliente", registrar_cliente, name="registrar_cliente"),
     path("solicitar_turno", solicitar_turnos, name="solicitar_turno"),
     path("clientes/<int:cliente_id>/registrar_perro", registrar_perro, name="registrar_perro"),
@@ -105,14 +112,23 @@ listados = [
 
 publicaciones = [
     path("mis_adopciones", mis_adopciones, name="mis_adopciones"),
+    path("mis_busquedas", mis_busquedas, name="mis_busquedas"),
     path(
         "publicaciones/adopciones",
         listar_publicaciones_de_adopciones,
         name="listar_publicaciones_de_adopciones",
     ),
+    path(
+        "publicaciones/busquedas",
+        listar_publicaciones_de_busquedas,
+        name="listar_publicaciones_de_busquedas",
+    ),
     path("marcar_como_adoptado/<int:adopcion_id>", marcar_como_adoptado, name="marcar_como_adoptado"),
+    path("marcar_como_encontrado/<int:busqueda_id>", marcar_como_encontrado, name="marcar_como_encontrado"),
     path("eliminar_adopcion/<int:adopcion_id>", eliminar_adopcion, name="eliminar_adopcion"),
-    path("marcar_como_me_interesa", marcar_como_me_interesa, name="marcar_como_me_interesa")
+    path("eliminar_busqueda/<int:busqueda_id>", eliminar_busqueda, name="eliminar_busqueda"),
+    path("marcar_como_me_interesa", marcar_como_me_interesa, name="marcar_como_me_interesa"),
+    path("tengo_informacion", tengo_informacion, name="tengo_informacion"),
 ]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
