@@ -154,6 +154,14 @@
 <h1 style="text-align:center">Publicaciones de búsquedas</h1>
 
 <div class="container bootstrap snippets bootdey">
+    <form method="GET" action="{% url 'listar_publicaciones_de_busquedas' %}">
+        <input
+            type="text"
+            name="zona"
+            placeholder="Buscar por zona"
+        />
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
     {% if busquedas %}
         {% for busqueda in busquedas%}
             {% if forloop.counter0|divisibleby:2 %}

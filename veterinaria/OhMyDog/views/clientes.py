@@ -29,7 +29,7 @@ from OhMyDog.modelos.publicaciones import (
     eliminar_publicacion_adopcion,
     eliminar_publicacion_busqueda,
     filtrar_busquedas_por_cliente,
-    listar_busquedas,
+    listar_busquedas_por_zona,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -231,7 +231,8 @@ def mis_busquedas(request):
 
 
 def listar_publicaciones_de_busquedas(request):
-    busquedas = listar_busquedas()
+    zona = request.GET.get("zona", "")
+    busquedas = listar_busquedas_por_zona(zona)
     return render(request, "listar_publicaciones_de_busquedas.html", {"busquedas": busquedas})
 
 

@@ -72,8 +72,8 @@ def filtrar_busquedas_por_cliente(cliente):
     return Busqueda.objects.filter(cliente=cliente)
 
 
-def listar_busquedas():
-    return Busqueda.objects.all()
+def listar_busquedas_por_zona(zona):
+    return Busqueda.objects.filter(zona__icontains=zona)
 
 
 def eliminar_publicacion_busqueda(busqueda_id):
