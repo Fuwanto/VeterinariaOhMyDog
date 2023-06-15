@@ -209,7 +209,6 @@ def marcar_como_me_interesa(request):
         remitente = settings.EMAIL_HOST_USER
         destinatario = [email_autor]
 
-        print(asunto, mensaje, remitente, destinatario)
         send_mail(asunto, mensaje, remitente, destinatario)
         messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
         return redirect("listar_publicaciones_de_adopciones")
@@ -252,15 +251,12 @@ def marcar_como_encontrado(request, busqueda_id):
 
 @login_required
 def agregar_publicacion_busqueda(request):
-    cliente = request.user.cliente
     if request.method == "POST":
+        cliente = request.user.cliente
         nombre = request.POST.get("nombre")
         descripcion = request.POST.get("descripcion")
         zona = request.POST.get("zona")
         foto = request.FILES["foto"]
-        print(foto)
-        print("DFGDFGFDGHFDGHFG")
-        print(foto.name)
         publicacion = buscar_busqueda_por_nombre_archivo_y_cliente(cliente, foto.name)
 
         if publicacion is None:
