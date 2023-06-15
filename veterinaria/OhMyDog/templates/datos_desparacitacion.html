@@ -1,13 +1,13 @@
 {% extends 'layout.html' %}
 
-{% block title %}OhMyDog - Datos del perro{{perro.id}}{%endblock %}
+{% block title %}OhMyDog - Datos de la desparasitación{%endblock %}
 
 {% block content %}
 
 <body>
     <div class="containerPequeño">
         <div class="card cardPequeño" id="mis_datos">
-            <h1>Desparacitacion</h1>
+            <h1>Desparacitación</h1>
             <table class="table">
                 <tbody>
                     <tr>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="card" id="formulario_modificar_datos" style="display: none;">
-            <h1>Desparacitacion</h1>
+            <h1>Desparacitación</h1>
             <form method="post">
                 {% csrf_token %}
                 <table class="table">

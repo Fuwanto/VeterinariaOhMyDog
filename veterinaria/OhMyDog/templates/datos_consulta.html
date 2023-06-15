@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}OhMyDog - Datos del perro{{perro.id}}{%endblock %}
+{% block title %}OhMyDog - Datos de la consulta{%endblock %}
 
 {% block content %}
 
@@ -30,7 +30,7 @@
         </div>
 
         <div class="card" id="formulario_modificar_datos" style="display: none;">
-            <h1>Atencion Clinica</h1>
+            <h1>Consulta</h1>
             <form method="post">
                 {% csrf_token %}
                 <table class="table">
