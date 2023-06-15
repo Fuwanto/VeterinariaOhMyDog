@@ -1,0 +1,62 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Agregar publicación de búsqueda{%endblock%} 
+
+{% block content %}
+
+<div class="container containerPrincipal">
+	<div class="card" style="border-radius: 1rem">
+		<div class="container py-5">
+			<h1 class="text-center mb-4">Agregar publicación de búsqueda</h1>
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<form method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="mb-3">
+							<label for="nombre" class="form-label">Nombre</label>
+							<input
+								type="text"
+								class="form-control"
+								id="nombre"
+								name="nombre"
+								placeholder="Ingrese el nombre del perro que se perdió"
+								required
+							/>
+						</div>
+                        <div class="mb-3">
+							<label for="descripcion" class="form-label">Descripción</label>
+							<input
+								type="text"
+								class="form-control"
+								id="descripcion"
+								name="descripcion"
+								placeholder="Ingrese una descripción"
+							/>
+						</div>
+                        <div class="mb-3">
+							<label for="zona" class="form-label">Zona</label>
+							<input
+								type="text"
+								class="form-control"
+								id="zona"
+								name="zona"
+								placeholder="Ingrese la zona donde se perdió"
+								required
+							/>
+						</div>
+                        <div class="mb-3">
+							<label for="foto" class="form-label">Foto del perro</label>
+                            <input class="form-control" type="file" name="foto" id="foto">
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">
+								Publicar
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock%}

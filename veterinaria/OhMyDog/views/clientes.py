@@ -20,10 +20,16 @@ from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones import (
     filtrar_adopciones_por_cliente,
     agregar_adopcion,
+    agregar_busqueda,
     buscar_adopcion_por_nombre_y_cliente,
+    buscar_busqueda_por_nombre_archivo_y_cliente,
     listar_adopciones,
     adoptar,
-    eliminar_publicacion_adopcion
+    se_encontro,
+    eliminar_publicacion_adopcion,
+    eliminar_publicacion_busqueda,
+    filtrar_busquedas_por_cliente,
+    listar_busquedas,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -182,6 +188,7 @@ def mis_adopciones(request):
     adopciones = filtrar_adopciones_por_cliente(cliente)
     return render(request, "mis_adopciones.html", {"adopciones": adopciones})
 
+
 @login_required
 def marcar_como_adoptado(request, adopcion_id):
     adoptar(adopcion_id)
@@ -190,18 +197,18 @@ def marcar_como_adoptado(request, adopcion_id):
 
 
 def marcar_como_me_interesa(request):
-    if request.method == 'POST':
-        email_interesado = request.POST.get('email')
-        telefono = request.POST.get('telefono')
-        nombre = request.POST.get('nombre')
-        nombre_perro = request.POST.get('nombre_perro')
-        email_autor = request.POST.get('email_autor')
+    if request.method == "POST":
+        email_interesado = request.POST.get("email")
+        telefono = request.POST.get("telefono")
+        nombre = request.POST.get("nombre")
+        nombre_perro = request.POST.get("nombre_perro")
+        email_autor = request.POST.get("email_autor")
 
-        asunto = 'Nuevo interesado en Adoptar'
-        mensaje = f'{nombre} esta interesado en adoptar a {nombre_perro}. Contacto:\n\nEmail: {email_interesado}\nTeléfono: {telefono}\nNombre: {nombre}'
+        asunto = "Nuevo interesado en Adoptar"
+        mensaje = f"{nombre} esta interesado en adoptar a {nombre_perro}. Contacto:\n\nEmail: {email_interesado}\nTeléfono: {telefono}\nNombre: {nombre}"
         remitente = settings.EMAIL_HOST_USER
         destinatario = [email_autor]
-        
+
         print(asunto, mensaje, remitente, destinatario)
         send_mail(asunto, mensaje, remitente, destinatario)
         messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
@@ -214,3 +221,72 @@ def eliminar_adopcion(request, adopcion_id):
     eliminar_publicacion_adopcion(adopcion_id)
     messages.success(request, "Publicación eliminada con exito!")
     return redirect("mis_adopciones")
+
+
+@login_required
+def mis_busquedas(request):
+    cliente = request.user.cliente
+    busquedas = filtrar_busquedas_por_cliente(cliente)
+    return render(request, "mis_busquedas.html", {"busquedas": busquedas})
+
+
+def listar_publicaciones_de_busquedas(request):
+    busquedas = listar_busquedas()
+    return render(request, "listar_publicaciones_de_busquedas.html", {"busquedas": busquedas})
+
+
+@login_required
+def eliminar_busqueda(request, busqueda_id):
+    eliminar_publicacion_busqueda(busqueda_id)
+    messages.success(request, "Publicación eliminada con exito!")
+    return redirect("mis_busquedas")
+
+
+@login_required
+def marcar_como_encontrado(request, busqueda_id):
+    se_encontro(busqueda_id)
+    messages.success(request, "Publicación marcada como encontrado con exito!")
+    return redirect("mis_busquedas")
+
+
+@login_required
+def agregar_publicacion_busqueda(request):
+    cliente = request.user.cliente
+    if request.method == "POST":
+        nombre = request.POST.get("nombre")
+        descripcion = request.POST.get("descripcion")
+        zona = request.POST.get("zona")
+        foto = request.FILES["foto"]
+        print(foto)
+        print("DFGDFGFDGHFDGHFG")
+        print(foto.name)
+        publicacion = buscar_busqueda_por_nombre_archivo_y_cliente(cliente, foto.name)
+
+        if publicacion is None:
+            agregar_busqueda(cliente, nombre, descripcion, zona, foto)
+            messages.success(request, "Publicacion agregada con exito.")
+            return redirect("mis_busquedas")
+        else:
+            agregar_mensaje_error(request, f"Publicacion con archivo: {foto.name}, ya publicada.")
+            return redirect("agregar_publicacion_busqueda")
+    else:
+        return render(request, "agregar_publicacion_busqueda.html")
+
+
+def tengo_informacion(request):
+    if request.method == "POST":
+        email_interesado = request.POST.get("email")
+        telefono = request.POST.get("telefono")
+        nombre = request.POST.get("nombre")
+        nombre_perro = request.POST.get("nombre_perro")
+        email_autor = request.POST.get("email_autor")
+
+        asunto = "Nueva persona con información"
+        mensaje = f"{nombre} tiene información sobre el perro perdido {nombre_perro}. Contacto:\n\nEmail: {email_interesado}\nTeléfono: {telefono}\nNombre: {nombre}"
+        remitente = settings.EMAIL_HOST_USER
+        destinatario = [email_autor]
+
+        send_mail(asunto, mensaje, remitente, destinatario)
+        messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
+        return redirect("listar_publicaciones_de_busquedas")
+    return redirect("listar_publicaciones_de_busquedas")
