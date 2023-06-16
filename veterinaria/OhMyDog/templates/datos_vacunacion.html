@@ -12,7 +12,15 @@
                 <tbody>
                     <tr>
                         <th scope="row">Perro</th>
-                        <td>{{ atencion.perro }}</td>
+                        <td>{{ atencion.perro.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Raza</th>
+                        <td>{{ atencion.perro.raza }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Cliente</th>
+                        <td>{{ atencion.perro.dueño.email }}</td>
                     </tr>
                     <tr>
                         <th scope="row">Fecha</th>
@@ -45,7 +53,7 @@
                 </tbody>
             </table>
             {% if user.is_staff %}
-            <button type="button" id="modificar_datos" class="btn btn-primary">Modificar mis datos</button>
+            <button type="button" id="modificar_datos" class="btn btn-primary">Modificar observacion</button>
             {%endif%}
         </div>
 
@@ -57,7 +65,15 @@
                     <tbody>
                         <tr>
                             <th scope="row">Perro</th>
-                            <td>{{ atencion.perro }}</td>
+                            <td>{{ atencion.perro.nombre }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Raza</th>
+                            <td>{{ atencion.perro.raza }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cliente</th>
+                            <td>{{ atencion.perro.dueño.email }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Fecha</th>
