@@ -5,24 +5,30 @@
     <p>
 
     </p>
-    <div>
-        <form method="GET" action="{% url 'listado_de_atenciones' %}">
+    <form method="get" action="{% url 'listado_de_atenciones' %}">
+        <div id="filtros" class="container bootstrap snippets bootdey">
             <input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
-            <label for="Tipo de Atencion" class="form-label">Tipo de Atencion</label>
-            <select id="atencion_filtro" name="atencion_filtro">
-                <option value="">- - -
-                </option>
-                {% for atencion in tipo_atencion %}
-                <option value="{{atencion.id}}">
-                    {{ atencion.nombre }}
-                </option>
-                {% endfor %}
-            </select>
-            <label for="Fecha de Atencion" class="form-label">Fecha de Atencion</label>
-            <input type="date" class="form-label" id="fecha_filtro" name="fecha_filtro">
-            <button class="btn btn-primary" type="submit">Buscar</button>
-        </form>
-    </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="Tipo de Atencion" class="form-label">Tipo de Atencion</label>
+                    <select class="form-select" id="atencion_filtro" name="atencion_filtro">
+                        <option value="">- - -
+                        </option>
+                        {% for atencion in tipo_atencion %}
+                            <option value="{{ atencion.id }}" >
+                                {{ atencion.nombre }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="Fecha de Atencion" class="form-label">Fecha de Atencion</label>
+                    <input type="date" class="form-select" id="fecha_filtro" name="fecha_filtro">
+                </div>
+                </div>
+                     <button class="btn btn-primary" type="submit">Buscar</button>
+                </div>
+    </form>
 
     <div class="card">
         <h1>Atenciones</h1>
