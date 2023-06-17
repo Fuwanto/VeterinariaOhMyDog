@@ -1,0 +1,125 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Agregar paseador|cuidador al mapa{%endblock %} 
+
+{% block content %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Mapa Paseadores|Cuidadores</title>
+        <!--PARA QUE CARGUE EL MAPA QUE GUARDA COORDENADAS NECESITA EL CSS Y EL Js-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+        
+        <style>
+                /* Centrar todos los elementos del contenedor */
+            #contenedor-principal {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh; /* Ajusta la altura según sea necesario */
+            }
+
+            /* Establecer el tamaño del contenedor del mapa */
+            #map-container {
+                height: 100vh; /* Ajusta la altura según sea necesario */
+                width: 100%; /* Ajusta el ancho según sea necesario */
+                align-items: center;
+                justify-content: center;
+
+            }
+
+            /* Establecer una cuadrícula de dos columnas */
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr 3fr; /* Divide en dos columnas de igual ancho */
+                grid-gap: 20px; /* Ajusta el espacio entre las columnas según sea necesario */
+                align-items: start; /* Alinea los elementos al inicio de la columna */
+            }
+
+
+            /* Estilos adicionales para los campos de entrada */
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #msg-ubi {
+                display: block;
+                color: green;
+                padding: 2px;
+              }
+        </style>
+        
+    </head>
+<body>
+    <div class="grid-container">
+        <div class="card" id="contenedor-principal">
+            <form id="coordenadas-form" method="POST" action="{% url 'agregar_paseador_cuidador_al_mapa' %}">
+                {% csrf_token %}
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" required>
+                <br>
+                <label for="email">Correo electrónico:</label>
+                <input type="email" name="email" id="email" required>
+                <br>
+                <label for="franja_horaria">Franja horaria:</label>
+                <input type="text" name="franja_horaria" id="franja_horaria" required>
+                <br>
+                <label for="Tipo" class="form-label">Tipo</label>
+                <select class="form-select" id="tipo" name="tipo">
+                    <option selected value="P">Paseador</option>
+                    <option value="C">Cuidador</option>
+                </select>
+                <br>
+
+                <label>Haz click sobre el mapa para guardar la ubicación:</label>
+                <label id="msg-ubi" style="display: none">Ubicación guardada.</label>
+
+                <input type="text" name="latitud" style="display: none" id="latitud" required>
+                <input type="text" name="longitud" style="display: none" id="longitud" required>
+                
+                <button type="submit" class="btn btn-success">Agregar Paseador|Cuidador</button>
+            </form>
+        </div>
+        <div class="card">
+            <div id="map-container">
+                <!--ACA SE MUESTRA EL MAPA-->
+            </div>
+        </div>
+
+        <script>
+            var contenedorMapa = document.getElementById('map-container');
+
+            var mapa = L.map(contenedorMapa, {
+                center: [-34.9214, -57.9544],
+                zoom: 12,
+              });
+
+            mapa.setMaxBounds(contenedorMapa.getBoundingClientRect());
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+              }).addTo(mapa);
+            
+            var marker;
+            function onMapClick(e) {
+                if (marker) {
+                    mapa.removeLayer(marker);
+                }
+                marker = L.marker(e.latlng).addTo(mapa);
+                document.getElementById('latitud').value = e.latlng.lat;
+                document.getElementById('longitud').value = e.latlng.lng;
+                document.getElementById("msg-ubi").style.display = "block";
+            }
+    
+            mapa.on('click', onMapClick);
+
+        </script>
+</div>
+</body>
+</html>
+{% endblock%}

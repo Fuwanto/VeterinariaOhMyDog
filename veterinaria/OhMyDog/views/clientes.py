@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
+import folium # para los mapas
 from OhMyDog.modelos.clientes import (
     Cliente,
     deshabilitar_cliente,
@@ -30,6 +31,10 @@ from OhMyDog.modelos.publicaciones import (
     eliminar_publicacion_busqueda,
     filtrar_busquedas_por_cliente,
     listar_busquedas_por_zona,
+    todos_los_paseadores,
+    todos_los_cuidadores,
+    agregar_paseador_cuidador,
+    buscar_paseador_cuidador_por_email,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -287,3 +292,74 @@ def tengo_informacion(request):
         messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
         return redirect("listar_publicaciones_de_busquedas")
     return redirect("listar_publicaciones_de_busquedas")
+
+
+"""FUNCIONES PARA MAPAS"""
+
+def mapa_incial():
+    # Crear un mapa de Folium centrado en una ubicación específica
+    # location=[longitud, latitud]
+    return folium.Map(location=[-34.9214, -57.9544], zoom_start=12)
+
+def generar_punto_paseador_cuidador(paseador_cuidador):
+    # Agrega un botón dependiendo de la condición
+    return folium.Marker(
+        location=[float(paseador_cuidador.latitud), float(paseador_cuidador.longitud)],
+        popup=f"""<strong>Email:</strong>{paseador_cuidador.email}<br>
+            <strong>Nombre:</strong>{paseador_cuidador.nombre}<br>
+            <strong>Franja Horaria:</strong>{paseador_cuidador.franja_horaria}
+            """,
+        tooltip="Haz clic aquí para más detalles"
+    )
+
+def cargar_mapa_paseadores():
+    paseadores = todos_los_paseadores()
+    
+    mi_mapa = mapa_incial()
+    
+    for paseador in paseadores:
+        # Agregar un marcador con información personalizada
+        generar_punto_paseador_cuidador(paseador).add_to(mi_mapa)
+        
+    return mi_mapa._repr_html_()
+
+def cargar_mapa_cuidadores():
+    cuidadores  = todos_los_cuidadores()
+    
+    mi_mapa = mapa_incial()
+    
+    for cuidador in cuidadores:
+        # Agregar un marcador con información personalizada
+        generar_punto_paseador_cuidador(cuidador).add_to(mi_mapa)
+        
+    return mi_mapa._repr_html_()
+
+""" /FUNCIONES PARA MAPAS"""
+
+
+
+def visualizar_mapa_paseadores(request):
+    return render(request, 'visualizar_mapa_paseadores.html', {'mapa': cargar_mapa_paseadores()})
+
+def visualizar_mapa_cuidadores(request):
+    return render(request, 'visualizar_mapa_paseadores.html', {'mapa': cargar_mapa_cuidadores()})
+
+
+def agregar_paseador_cuidador_al_mapa(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        franja_horaria = request.POST.get('franja_horaria')
+        latitud = request.POST.get('latitud')
+        longitud = request.POST.get('longitud')
+        tipo = request.POST.get('tipo')
+        
+        trabajador = buscar_paseador_cuidador_por_email(email)
+        if trabajador is None:
+            # Agregar el nuevo paseador
+            agregar_paseador_cuidador(nombre, email, latitud, longitud, franja_horaria, tipo)
+            messages.success(request, "Agregado con exito!")
+        else:
+            messages.warning(request, f"Paseador {email} ya ha sido agregado con anterioridad!")
+    
+    return render(request, 'agregar_paseador_cuidador.html') 

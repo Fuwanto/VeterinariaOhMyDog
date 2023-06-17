@@ -3,6 +3,8 @@ from OhMyDog.modelos.publicaciones.adopciones import Adopcion
 from OhMyDog.modelos.publicaciones.busquedas import Busqueda
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
+from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
+
 
 """
         ADOPCIONES
@@ -92,3 +94,40 @@ def buscar_busqueda_por_nombre_archivo_y_cliente(cliente, nombre_archivo):
         return Busqueda.objects.get(cliente=cliente, foto__contains=nombre_archivo)
     except:
         return None
+
+
+"""
+        PASEADORES | Cuidadores
+"""
+
+def todos_los_paseadores():
+    return PaseadorCuidador.objects.filter(tipo="P")
+
+def todos_los_cuidadores():
+    return PaseadorCuidador.objects.filter(tipo="C")
+
+def agregar_paseador_cuidador(nombre, email, latitud, longitud, franja_horaria,tipo):
+    paseador_cuidador = PaseadorCuidador(
+        nombre=nombre, 
+        email=email, 
+        latitud=latitud, 
+        longitud=longitud, 
+        franja_horaria=franja_horaria,
+        tipo=tipo
+    )
+    paseador_cuidador.save()
+    return 
+
+def buscar_paseador_cuidador_por_email(email):
+    try:
+        return PaseadorCuidador.objects.get(email=email)
+    except:
+        return None
+    
+def eliminar_paseador(paseador_id):
+    paseador = get_object_or_404(PaseadorCuidador, id=paseador_id)
+    paseador.delete()
+    
+def eliminar_cuidador(cuidador_id):
+    cuidador = get_object_or_404(PaseadorCuidador, id=cuidador_id)
+    cuidador.delete()

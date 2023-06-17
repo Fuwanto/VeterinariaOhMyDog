@@ -73,6 +73,26 @@
 									<li class="nav-item">
 										<a class="nav-link" href="{% url 'solicitudes_de_turnos' %}">Solicitudes de turnos</a>
 									</li>
+									<li class="nav-item dropdown">
+										<a
+											class="nav-link dropdown-toggle"
+											role="button"
+											data-bs-toggle="dropdown" 
+											aria-expanded="false"
+										>
+											Publicaciones
+										</a>
+										<ul
+											class="dropdown-menu"
+											aria-labelledby="navbarDropdown"
+										>
+											<li>
+												<a class="dropdown-item" href="{%url 'agregar_paseador_cuidador_al_mapa' %}"
+													>Paseadores | Cuidadores</a
+												>
+											</li>
+										</ul>
+								</li>
 								{% else %}
 									<li class="nav-item">
 										<a class="nav-link" href="{% url 'home' %}">Home</a>

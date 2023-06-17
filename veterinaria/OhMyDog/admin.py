@@ -13,7 +13,7 @@ from OhMyDog.modelos.atenciones.vacunacion import Vacunacion
 from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDeDosisVacunacion
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
-
+from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
 
 admin.site.register(Cliente)
 admin.site.register(EstadoDelTurno)
@@ -28,3 +28,4 @@ admin.site.register(Vacunacion)
 admin.site.register(TipoDeDosisVacunacion)
 admin.site.register(TamanioPerro)
 admin.site.register(EtapaVidaPerro)
+admin.site.register(PaseadorCuidador)
