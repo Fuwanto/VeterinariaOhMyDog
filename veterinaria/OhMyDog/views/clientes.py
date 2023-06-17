@@ -126,14 +126,14 @@ def registrar_perro(request, cliente_id):
 @user_passes_test(superuser_check)
 def borrar_perro(request, perro_id):
     deshabilitar_perro(perro_id)
-    messages.success(request, "Perro eliminado con exito.")
+    messages.success(request, "Perro deshabilitado con éxito.")
     return redirect("clientes")
 
 
 @user_passes_test(superuser_check)
 def borrar_cliente(request, cliente_id):
     deshabilitar_cliente(cliente_id)
-    messages.success(request, "Cliente eliminado con exito")
+    messages.success(request, "Cliente deshabilitado con éxito.")
     return redirect("clientes")
 
 
