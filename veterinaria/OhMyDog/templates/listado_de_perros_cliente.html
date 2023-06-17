@@ -96,7 +96,7 @@
 								<li>
 									<a class="dropdown-item eliminar-perro" data-bs-toggle="modal"
 										data-bs-target="#confirmModal" href="{% url 'borrar_perro' perro.id %}">
-										Eliminar perro
+										Deshabilitar perro
 									</a>
 								</li>
 							</ul>
@@ -123,11 +123,11 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="confirmModalLabel">Eliminar perro</h5>
+				<h5 class="modal-title" id="confirmModalLabel">Deshabilitar perro</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<p>¿Está seguro que quiere eliminar el perro?</p>
+				<p>¿Está seguro que quiere deshabilitar el perro?</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
