@@ -100,34 +100,30 @@ def buscar_busqueda_por_nombre_archivo_y_cliente(cliente, nombre_archivo):
         PASEADORES | Cuidadores
 """
 
+
 def todos_los_paseadores():
     return PaseadorCuidador.objects.filter(tipo="P")
+
 
 def todos_los_cuidadores():
     return PaseadorCuidador.objects.filter(tipo="C")
 
-def agregar_paseador_cuidador(nombre, email, latitud, longitud, franja_horaria,tipo):
+
+def agregar_paseador_cuidador(nombre, email, latitud, longitud, franja_horaria, tipo):
     paseador_cuidador = PaseadorCuidador(
-        nombre=nombre, 
-        email=email, 
-        latitud=latitud, 
-        longitud=longitud, 
-        franja_horaria=franja_horaria,
-        tipo=tipo
+        nombre=nombre, email=email, latitud=latitud, longitud=longitud, franja_horaria=franja_horaria, tipo=tipo
     )
     paseador_cuidador.save()
-    return 
+    return
+
 
 def buscar_paseador_cuidador_por_email(email):
     try:
         return PaseadorCuidador.objects.get(email=email)
     except:
         return None
-    
-def eliminar_paseador(paseador_id):
-    paseador = get_object_or_404(PaseadorCuidador, id=paseador_id)
-    paseador.delete()
-    
-def eliminar_cuidador(cuidador_id):
-    cuidador = get_object_or_404(PaseadorCuidador, id=cuidador_id)
-    cuidador.delete()
+
+
+def eliminar_paseador_cuidador(paseador_cuidador_id):
+    paseador_cuidador = get_object_or_404(PaseadorCuidador, id=paseador_cuidador_id)
+    paseador_cuidador.delete()
