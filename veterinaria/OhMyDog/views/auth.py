@@ -97,13 +97,13 @@ def cambiar_contraseña(request):
             return render(request, "cambiar_contraseña.html")
 
         if contraseña_nueva != contraseña_nueva_repetida:
-            agregar_mensaje_error(request, "Las contraseñas no coinciden")
+            agregar_mensaje_error(request, "La nueva contraseña confirmada no coincide con la nueva contraseña")
             return render(request, "cambiar_contraseña.html")
 
         if contraseña_nueva == request.user.mail or contraseña_nueva == request.user.cliente.telefono:
             agregar_mensaje_error(
                 request,
-                "La contraseña nueva no puede ser igual a su informacion personal",
+                "La contraseña nueva no puede ser igual a su información personal",
             )
             return render(request, "cambiar_contraseña.html")
 
@@ -112,12 +112,12 @@ def cambiar_contraseña(request):
             return render(request, "cambiar_contraseña.html")
 
         if contraseña_nueva.isdigit():
-            agregar_mensaje_error(request, "La contraseña no puede ser totalmente numerica")
+            agregar_mensaje_error(request, "La contraseña no puede ser totalmente numérica")
             return render(request, "cambiar_contraseña.html")
 
         actualizar_contraseña(request.user.id, make_password(contraseña_nueva))
         alternar_primer_acceso(request.user.id)
-        messages.success(request, "La contraseña ha sido cambiada correctamente")
+        messages.success(request, "La contraseña ha sido cambiada correctamente!")
         return redirect("login")
     else:
         return render(request, "cambiar_contraseña.html")
