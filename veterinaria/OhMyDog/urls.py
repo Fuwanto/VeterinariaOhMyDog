@@ -150,5 +150,6 @@ publicaciones = [
     path("eliminar_publicacion_P/<int:paseador_cuidador_id>", eliminar_publicacion_P, name="eliminar_publicacion_P"),
     
 ]   
+]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
