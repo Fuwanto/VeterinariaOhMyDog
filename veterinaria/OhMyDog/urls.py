@@ -113,12 +113,19 @@ listados = [
     ),
     path("listado_de_atenciones_cliente", atenciones_de_un_perro_cliente, name="listado_de_atenciones_cliente"),
     path("listado_de_atenciones", atenciones_de_un_perro_veterinario, name="listado_de_atenciones"),
-    path("filtrar_listado_atenciones_cliente", filtrar_listado_atenciones_cliente, name="filtrar_listado_atenciones_cliente"),
-    path("filtrar_listado_atenciones_veterinario", filtrar_listado_atenciones_veterinario, name="filtrar_listado_atenciones_veterinario"),
+    path(
+        "filtrar_listado_atenciones_cliente",
+        filtrar_listado_atenciones_cliente,
+        name="filtrar_listado_atenciones_cliente",
+    ),
+    path(
+        "filtrar_listado_atenciones_veterinario",
+        filtrar_listado_atenciones_veterinario,
+        name="filtrar_listado_atenciones_veterinario",
+    ),
     path("solicitudes_de_turnos", solicitudes_de_turnos, name="solicitudes_de_turnos"),
     path("mis_turnos", mis_turnos, name="mis_turnos"),
     path("mis_perros", mis_perros, name="mis_perros"),
-    
 ]
 
 publicaciones = [
@@ -148,8 +155,6 @@ publicaciones = [
     ),
     path("eliminar_publicacion_C/<int:paseador_cuidador_id>", eliminar_publicacion_C, name="eliminar_publicacion_C"),
     path("eliminar_publicacion_P/<int:paseador_cuidador_id>", eliminar_publicacion_P, name="eliminar_publicacion_P"),
-    
-]   
 ]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
