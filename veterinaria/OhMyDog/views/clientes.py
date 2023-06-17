@@ -35,6 +35,8 @@ from OhMyDog.modelos.publicaciones import (
     todos_los_cuidadores,
     agregar_paseador_cuidador,
     buscar_paseador_cuidador_por_email,
+    eliminar_cuidador,
+    eliminar_paseador,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -301,36 +303,43 @@ def mapa_incial():
     # location=[longitud, latitud]
     return folium.Map(location=[-34.9214, -57.9544], zoom_start=12)
 
-def generar_punto_paseador_cuidador(paseador_cuidador):
+def generar_punto_paseador_cuidador(paseador_cuidador, user):
     # Agrega un botón dependiendo de la condición
+    eliminar_url = "#"
+    oculto = "none"
+    if user.is_staff:
+        eliminar_url = "/eliminar_publicacion_" + f"{paseador_cuidador.tipo}" + "/" + f"{paseador_cuidador.id}"
+        oculto = "block"
+    popup_html = f"""<strong>Email:</strong> {paseador_cuidador.email}<br>
+    <strong>Nombre:</strong> {paseador_cuidador.nombre}<br>
+    <strong>Franja Horaria:</strong> {paseador_cuidador.franja_horaria}<br>
+    <a href="{eliminar_url}" class="button" style="display:{oculto}">Eliminar</a>"""
+    
     return folium.Marker(
         location=[float(paseador_cuidador.latitud), float(paseador_cuidador.longitud)],
-        popup=f"""<strong>Email:</strong>{paseador_cuidador.email}<br>
-            <strong>Nombre:</strong>{paseador_cuidador.nombre}<br>
-            <strong>Franja Horaria:</strong>{paseador_cuidador.franja_horaria}
-            """,
+        popup=popup_html,
         tooltip="Haz clic aquí para más detalles"
     )
 
-def cargar_mapa_paseadores():
+def cargar_mapa_paseadores(user):
     paseadores = todos_los_paseadores()
     
     mi_mapa = mapa_incial()
     
     for paseador in paseadores:
         # Agregar un marcador con información personalizada
-        generar_punto_paseador_cuidador(paseador).add_to(mi_mapa)
+        generar_punto_paseador_cuidador(paseador, user).add_to(mi_mapa)
         
     return mi_mapa._repr_html_()
 
-def cargar_mapa_cuidadores():
+def cargar_mapa_cuidadores(user):
     cuidadores  = todos_los_cuidadores()
     
     mi_mapa = mapa_incial()
     
     for cuidador in cuidadores:
         # Agregar un marcador con información personalizada
-        generar_punto_paseador_cuidador(cuidador).add_to(mi_mapa)
+        generar_punto_paseador_cuidador(cuidador, user).add_to(mi_mapa)
         
     return mi_mapa._repr_html_()
 
@@ -339,10 +348,10 @@ def cargar_mapa_cuidadores():
 
 
 def visualizar_mapa_paseadores(request):
-    return render(request, 'visualizar_mapa_paseadores.html', {'mapa': cargar_mapa_paseadores()})
+    return render(request, 'visualizar_mapa_paseadores_cuidadores.html', {'mapa': cargar_mapa_paseadores(request.user)})
 
 def visualizar_mapa_cuidadores(request):
-    return render(request, 'visualizar_mapa_paseadores.html', {'mapa': cargar_mapa_cuidadores()})
+    return render(request, 'visualizar_mapa_paseadores_cuidadores.html', {'mapa': cargar_mapa_cuidadores(request.user)})
 
 
 def agregar_paseador_cuidador_al_mapa(request):
@@ -363,3 +372,15 @@ def agregar_paseador_cuidador_al_mapa(request):
             messages.warning(request, f"Paseador {email} ya ha sido agregado con anterioridad!")
     
     return render(request, 'agregar_paseador_cuidador.html') 
+
+
+def eliminar_publicacion_C(request, paseador_cuidador_id):
+    eliminar_cuidador(paseador_cuidador_id)
+    messages.success(request, "Cuidador eliminado con exito!")
+    return redirect("visualizar_mapa_cuidadores")
+
+
+def eliminar_publicacion_P(request, paseador_cuidador_id):
+    eliminar_paseador(paseador_cuidador_id)
+    messages.success(request, "Paseador eliminado con exito!")
+    return redirect("visualizar_mapa_paseadores")

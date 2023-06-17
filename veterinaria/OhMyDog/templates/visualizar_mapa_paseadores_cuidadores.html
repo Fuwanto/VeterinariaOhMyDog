@@ -1,6 +1,6 @@
 {% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Cuidadores{%endblock %} 
+{% block title %}OhMyDog - Paseadores | Cuidadores{%endblock %} 
 
 {% block content %}
 <html>
@@ -27,6 +27,18 @@
             }
 
         </style>
+        <script>
+            function confirmarEliminacion(event) {
+                // Lógica para confirmar la eliminación, si es necesario
+                if (!confirm("¿Estás seguro de que deseas eliminar este paseador?")) {
+                    event.preventDefault(); // Cancelar la acción si el usuario no confirma
+                }
+            }
+
+            function recargarPagina() {
+                location.reload(); // Recargar la página
+            }
+        </script>
     </head>
 <body>
     <div class="contenedor-principal">
@@ -36,6 +48,7 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
 {% endblock%}

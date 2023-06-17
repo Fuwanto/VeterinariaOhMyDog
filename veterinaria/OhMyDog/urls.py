@@ -32,7 +32,9 @@ from OhMyDog.views.clientes import (
     eliminar_busqueda,
     visualizar_mapa_paseadores,
     agregar_paseador_cuidador_al_mapa,
-    visualizar_mapa_cuidadores
+    visualizar_mapa_cuidadores,
+    eliminar_publicacion_P,
+    eliminar_publicacion_C,
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -135,6 +137,8 @@ publicaciones = [
     path("visualizar_mapa_paseadores", visualizar_mapa_paseadores, name="visualizar_mapa_paseadores"),
     path("visualizar_mapa_cuidadores", visualizar_mapa_cuidadores, name="visualizar_mapa_cuidadores"),
     path("agregar_paseador_cuidador_al_mapa", agregar_paseador_cuidador_al_mapa, name="agregar_paseador_cuidador_al_mapa"),
-]
+    path("eliminar_publicacion_C/<int:paseador_cuidador_id>", eliminar_publicacion_C, name="eliminar_publicacion_C"),
+    path("eliminar_publicacion_P/<int:paseador_cuidador_id>", eliminar_publicacion_P, name="eliminar_publicacion_P"),
+]   
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
