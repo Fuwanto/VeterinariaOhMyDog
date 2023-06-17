@@ -75,11 +75,11 @@
 											Registrar vacunación
 										</button>
 									</form>
-									<form method="GET" action="{% url 'agregar_desparacitacion' %}">
+									<form method="GET" action="{% url 'agregar_desparasitacion' %}">
 										{% csrf_token %}
 										<input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
 										<button type="submit" class="dropdown-item">
-											Registrar desparacitación
+											Registrar desparasitación
 										</button>
 									</form>
 									{% if not perro.tiene_castracion %}

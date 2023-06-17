@@ -46,7 +46,7 @@ from OhMyDog.views.turnos import (
 from OhMyDog.views.atenciones import (
     agregar_atencion_clinica,
     agregar_consulta,
-    agregar_desparacitacion,
+    agregar_desparasitacion,
     agregar_castracion,
     agregar_vacunacion,
     mostrar_datos_atencion,
@@ -80,7 +80,7 @@ datos = [
     path("datos_consulta", mostrar_datos_atencion, name="datos_consulta"),
     path("datos_vacunacion", mostrar_datos_atencion, name="datos_vacunacion"),
     path("datos_castracion", mostrar_datos_atencion, name="datos_castracion"),
-    path("datos_desparacitacion", mostrar_datos_atencion, name="datos_desparacitacion"),
+    path("datos_desparasitacion", mostrar_datos_atencion, name="datos_desparasitacion"),
 ]
 
 formularios = [
@@ -93,9 +93,9 @@ formularios = [
     path("agregar_vacunacion/", agregar_vacunacion, name="agregar_vacunacion"),
     path("agregar_consulta/", agregar_consulta, name="agregar_consulta"),
     path(
-        "agregar_desparacitacion/",
-        agregar_desparacitacion,
-        name="agregar_desparacitacion",
+        "agregar_desparasitacion/",
+        agregar_desparasitacion,
+        name="agregar_desparasitacion",
     ),
     path("agregar_publicacion_adopcion", agregar_publicacion_adopcion, name="agregar_publicacion_adopcion"),
     path("agregar_publicacion_busqueda", agregar_publicacion_busqueda, name="agregar_publicacion_busqueda"),

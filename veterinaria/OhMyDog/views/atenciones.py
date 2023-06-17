@@ -8,7 +8,7 @@ from OhMyDog.modelos.atenciones import (
     crear_vacunacion,
     buscar_atencion_por_id,
     buscar_vacunacion_por_atencion_id,
-    buscar_desparacitacion_por_atencion_id,
+    buscar_desparasitacion_por_atencion_id,
 )
 from django.contrib import messages
 from decimal import Decimal
@@ -49,12 +49,12 @@ def agregar_consulta(request):
         return redirect("home")
 
 
-def agregar_desparacitacion(request):
+def agregar_desparasitacion(request):
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
         context = {"perro": perro}
-        return render(request, "agregar_desparacitacion.html", context)
+        return render(request, "agregar_desparasitacion.html", context)
 
     if request.method == "POST":
         fecha = request.POST.get("fecha_de_atencion")
@@ -67,8 +67,8 @@ def agregar_desparacitacion(request):
         observacion = request.POST.get("observacion")
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        crear_desparasitacion(perro, fecha, diagnostico, farmaco, fabricante,num_serie, num_lote, dosis, observacion)
-        messages.success(request, f"Desparacitacion registrada con exito. ")
+        crear_desparasitacion(perro, fecha, diagnostico, farmaco, fabricante, num_serie, num_lote, dosis, observacion)
+        messages.success(request, f"Desparasitación registrada con exito. ")
         return redirect("home")
 
 
@@ -112,19 +112,19 @@ def agregar_vacunacion(request):
         messages.success(request, f"Vacunacion registrada con exito. ")
         return redirect("home")
 
-def mostrar_datos_atencion (request):
-    atencion_id = request.POST.get('atencion_id')
-    observaciones = request.POST.get('observaciones')
+
+def mostrar_datos_atencion(request):
+    atencion_id = request.POST.get("atencion_id")
+    observaciones = request.POST.get("observaciones")
     atencion = buscar_atencion_por_id(atencion_id)
     vacunacion = buscar_vacunacion_por_atencion_id(atencion_id)
-    despacitacion = buscar_desparacitacion_por_atencion_id(atencion_id)
+    desparasitacion = buscar_desparasitacion_por_atencion_id(atencion_id)
     if not observaciones is None:
         atencion.observacion = observaciones
         atencion.save()
     context = {
-        'atencion': atencion,
-        'vacunacion': vacunacion,
-        'desparacitacion': despacitacion,
+        "atencion": atencion,
+        "vacunacion": vacunacion,
+        "desparasitacion": desparasitacion,
     }
     return render(request, f"{atencion.url_mostrar_datos}.html", context)
-
