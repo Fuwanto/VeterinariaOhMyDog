@@ -12,7 +12,7 @@ from OhMyDog.modelos.clientes import (
 )
 from OhMyDog.modelos.perros import (
     buscar_perro_por_nombre_y_dueño,
-    registrar_perro,
+    registrar_perro as agregar_perro,
     Perro,
     deshabilitar_perro,
 )
@@ -109,11 +109,11 @@ def registrar_perro(request, cliente_id):
         perro = buscar_perro_por_nombre_y_dueño(nombre, cliente)
 
         if perro is None:
-            registrar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
+            agregar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
             messages.success(request, "Perro registrado con exito.")
             return redirect("home")
         else:
-            agregar_mensaje_error(request, f"Perro {nombre} ya registrado.")
+            agregar_mensaje_error(request, f"El cliente ya tiene un perro llamado {nombre}")
             return redirect(f"/clientes/{cliente.id}/registrar_perro")
     else:
         return render(
@@ -187,6 +187,7 @@ def listar_publicaciones_de_adopciones(request):
     adopciones = listar_adopciones()
     return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
 
+
 def filtrar_listado_adopciones(request):
     adopciones = listar_adopciones()
     seleccion_sexo = request.GET.get("seleccionSexo")
@@ -197,13 +198,14 @@ def filtrar_listado_adopciones(request):
         adopciones = adopciones.filter(sexo=seleccion_sexo)
     if seleccion_tamaño != "":
         tamanio_filtro = TamanioPerro.objects.get(nombre=seleccion_tamaño)
-        adopciones = adopciones.filter(tamanio_perro = tamanio_filtro)
+        adopciones = adopciones.filter(tamanio_perro=tamanio_filtro)
     if seleccion_etapa_vida != "":
         etapa_vida_filtro = EtapaVidaPerro.objects.get(nombre=seleccion_etapa_vida)
-        adopciones = adopciones.filter(etapa_vida_perro = etapa_vida_filtro)
+        adopciones = adopciones.filter(etapa_vida_perro=etapa_vida_filtro)
     if seleccion_castrado != "":
         adopciones = adopciones.filter(castrado=seleccion_castrado)
     return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
+
 
 @login_required
 def mis_adopciones(request):
