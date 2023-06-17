@@ -380,10 +380,10 @@ def agregar_paseador_cuidador_al_mapa(request):
 def eliminar_publicacion_C(request, paseador_cuidador_id):
     eliminar_paseador_cuidador(paseador_cuidador_id)
     messages.success(request, "Cuidador eliminado con exito!")
-    return redirect("visualizar_mapa")
+    return redirect("visualizar_mapa_cuidadores")
 
 
 def eliminar_publicacion_P(request, paseador_cuidador_id):
     eliminar_paseador_cuidador(paseador_cuidador_id)
     messages.success(request, "Paseador eliminado con exito!")
-    return redirect("visualizar_mapa")
+    return redirect("visualizar_mapa_paseadores")
