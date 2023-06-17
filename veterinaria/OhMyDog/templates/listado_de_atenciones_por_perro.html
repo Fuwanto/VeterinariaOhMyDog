@@ -5,14 +5,14 @@
     <p>
 
     </p>
-    <form method="get" action="{% url 'listado_de_atenciones' %}">
+    <form method="get" action="{% url 'filtrar_listado_atenciones_veterinario' %}">
         <div id="filtros" class="container bootstrap snippets bootdey">
             <input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
             <div class="row mb-3">
                 <div class="col">
-                    <label for="Tipo de Atencion" class="form-label">Tipo de Atencion</label>
+                    <label for="Tipo de Atencion" >Tipo de Atencion:</label>
                     <select class="form-select" id="atencion_filtro" name="atencion_filtro">
-                        <option value="">- - -
+                        <option value="">Todos
                         </option>
                         {% for atencion in tipo_atencion %}
                             <option value="{{ atencion.id }}" >
@@ -22,10 +22,11 @@
                     </select>
                 </div>
                 <div class="col">
-                    <label for="Fecha de Atencion" class="form-label">Fecha de Atencion</label>
+                    <label for="Fecha de Atencion">Fecha de Atencion:</label>
                     <input type="date" class="form-select" id="fecha_filtro" name="fecha_filtro">
                 </div>
                 </div>
+                <div style="padding-bottom: 5px;">
                      <button class="btn btn-primary" type="submit">Buscar</button>
                 </div>
     </form>
