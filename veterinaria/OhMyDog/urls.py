@@ -141,9 +141,11 @@ publicaciones = [
     path("eliminar_busqueda/<int:busqueda_id>", eliminar_busqueda, name="eliminar_busqueda"),
     path("marcar_como_me_interesa", marcar_como_me_interesa, name="marcar_como_me_interesa"),
     path("tengo_informacion", tengo_informacion, name="tengo_informacion"),
-    path("visualizar_mapa_paseadores", visualizar_mapa_paseadores, name="visualizar_mapa_paseadores"),
-    path("visualizar_mapa_cuidadores", visualizar_mapa_cuidadores, name="visualizar_mapa_cuidadores"),
-    path("agregar_paseador_cuidador_al_mapa", agregar_paseador_cuidador_al_mapa, name="agregar_paseador_cuidador_al_mapa"),
+    path("mapa_paseadores", visualizar_mapa_paseadores, name="visualizar_mapa_paseadores"),
+    path("mapa_cuidadores", visualizar_mapa_cuidadores, name="visualizar_mapa_cuidadores"),
+    path(
+        "agregar_paseador_cuidador_al_mapa", agregar_paseador_cuidador_al_mapa, name="agregar_paseador_cuidador_al_mapa"
+    ),
     path("eliminar_publicacion_C/<int:paseador_cuidador_id>", eliminar_publicacion_C, name="eliminar_publicacion_C"),
     path("eliminar_publicacion_P/<int:paseador_cuidador_id>", eliminar_publicacion_P, name="eliminar_publicacion_P"),
     
