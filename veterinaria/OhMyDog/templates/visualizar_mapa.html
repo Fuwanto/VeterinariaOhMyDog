@@ -1,0 +1,31 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - {{tipo}}{%endblock %} 
+
+{% block content %}
+<style>
+    /* Centrar todos los elementos del contenedor */
+    #contenedor-principal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Ajusta la altura según sea necesario */
+    }
+    /* Establecer el tamaño del contenedor del mapa */
+    #map-container {
+        height: 100vh; /* Ajusta la altura según sea necesario */
+        width: 100%; /* Ajusta el ancho según sea necesario */
+        align-items: center;
+        justify-content: center;
+
+    }
+</style>
+<div class="contenedor-principal">
+    <div class="card">
+        <div id="map-container">
+            {{ mapa|safe }}
+        </div>
+    </div>
+</div>
+{% endblock%}

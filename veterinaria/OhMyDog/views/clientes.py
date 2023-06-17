@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
-import folium # para los mapas
+import folium  # para los mapas
 from OhMyDog.modelos.clientes import (
     Cliente,
     deshabilitar_cliente,
@@ -296,9 +296,12 @@ def tengo_informacion(request):
     return redirect("listar_publicaciones_de_busquedas")
 
 
-"""FUNCIONES PARA MAPAS"""
+"""
+VIEWS PARA MAPAS
+"""
 
-def mapa_incial():
+
+def mapa_inicial():
     # Crear un mapa de Folium centrado en una ubicación específica
     # location=[longitud, latitud]
     return folium.Map(location=[-34.9214, -57.9544], zoom_start=12)
@@ -323,9 +326,9 @@ def generar_punto_paseador_cuidador(paseador_cuidador, user):
 
 def cargar_mapa_paseadores(user):
     paseadores = todos_los_paseadores()
-    
-    mi_mapa = mapa_incial()
-    
+
+    mi_mapa = mapa_inicial()
+
     for paseador in paseadores:
         # Agregar un marcador con información personalizada
         generar_punto_paseador_cuidador(paseador, user).add_to(mi_mapa)
@@ -335,16 +338,13 @@ def cargar_mapa_paseadores(user):
 def cargar_mapa_cuidadores(user):
     cuidadores  = todos_los_cuidadores()
     
-    mi_mapa = mapa_incial()
+    mi_mapa = mapa_inicial()
     
     for cuidador in cuidadores:
         # Agregar un marcador con información personalizada
         generar_punto_paseador_cuidador(cuidador, user).add_to(mi_mapa)
         
     return mi_mapa._repr_html_()
-
-""" /FUNCIONES PARA MAPAS"""
-
 
 
 def visualizar_mapa_paseadores(request):
@@ -355,14 +355,14 @@ def visualizar_mapa_cuidadores(request):
 
 
 def agregar_paseador_cuidador_al_mapa(request):
-    if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        email = request.POST.get('email')
-        franja_horaria = request.POST.get('franja_horaria')
-        latitud = request.POST.get('latitud')
-        longitud = request.POST.get('longitud')
-        tipo = request.POST.get('tipo')
-        
+    if request.method == "POST":
+        nombre = request.POST.get("nombre")
+        email = request.POST.get("email")
+        franja_horaria = request.POST.get("franja_horaria")
+        latitud = request.POST.get("latitud")
+        longitud = request.POST.get("longitud")
+        tipo = request.POST.get("tipo")
+
         trabajador = buscar_paseador_cuidador_por_email(email)
         if trabajador is None:
             # Agregar el nuevo paseador
