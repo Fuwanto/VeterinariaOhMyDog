@@ -1,6 +1,6 @@
 {% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Agregar paseador|cuidador al mapa{%endblock %} 
+{% block title %}OhMyDog - Agregar paseador o cuidador al mapa{%endblock %} 
 
 {% block content %}
 <html>
@@ -59,14 +59,14 @@
         <div class="card" id="contenedor-principal">
             <form id="coordenadas-form" method="POST" action="{% url 'agregar_paseador_cuidador_al_mapa' %}">
                 {% csrf_token %}
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" required>
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" required>
                 <br>
-                <label for="email">Correo electrónico:</label>
-                <input type="email" name="email" id="email" required>
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" name="email" id="email" class="form-control" required>
                 <br>
-                <label for="franja_horaria">Franja horaria:</label>
-                <input type="text" name="franja_horaria" id="franja_horaria" required>
+                <label for="franja_horaria" class="form-label">Franja horaria</label>
+                <input type="text" name="franja_horaria" id="franja_horaria" class="form-control" required>
                 <br>
                 <label for="Tipo" class="form-label">Tipo</label>
                 <select class="form-select" id="tipo" name="tipo">
@@ -75,13 +75,13 @@
                 </select>
                 <br>
 
-                <label>Haz click sobre el mapa para guardar la ubicación:</label>
+                <label class="form-label">Haz click sobre el mapa para guardar la ubicación:</label>
                 <label id="msg-ubi" style="display: none">Ubicación guardada.</label>
 
                 <input type="text" name="latitud" style="display: none" id="latitud" required>
                 <input type="text" name="longitud" style="display: none" id="longitud" required>
                 
-                <button type="submit" class="btn btn-success">Agregar Paseador|Cuidador</button>
+                <button type="submit" class="btn btn-success">Agregar Paseador o Cuidador</button>
             </form>
         </div>
         <div class="card">
