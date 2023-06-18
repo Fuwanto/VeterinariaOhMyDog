@@ -5,25 +5,24 @@
     <p>
 
     </p>
-    <form method="get" action="{% url 'listado_de_atenciones_cliente' %}">
+    <form method="get" action="{% url 'filtrar_listado_atenciones_cliente' %}">
         <div id="filtros" class="container bootstrap snippets bootdey">
             <input type="hidden" id="perro" name="perro" value="{{ perro.id }}">
             <div class="row mb-3">
                 <div class="col">
                     <label for="Tipo de Atencion" class="form-label">Tipo de Atencion</label>
                     <select class="form-select" id="atencion_filtro" name="atencion_filtro">
-                        <option value="">- - -
-                        </option>
-                        {% for atencion in tipo_atencion %}
-                            <option value="{{ atencion.id }}" >
-                                {{ atencion.nombre }}
-                            </option>
-                        {% endfor %}
+                        <option value="">Todos</option>
+                        <option value="Atencion Clinica"{% if "Atencion Clinica" == seleccion_tipo_atencion %}selected{% endif %}>Atencion Clinica</option>
+                        <option value="Consulta"        {% if "Consulta" == seleccion_tipo_atencion %}selected{% endif %}>Consulta</option>
+                        <option value="Castracion"      {% if "Castracion" == seleccion_tipo_atencion %}selected{% endif %}>Castracion</option>
+                        <option value="Vacunacion"      {% if "Vacunacion" == seleccion_tipo_atencion %}selected{% endif %}>Vacunacion</option>
+                        <option value="Desparacitacion" {% if "Desparacitacion" == seleccion_tipo_atencion %}selected{% endif %}>Desparacitacion</option>
                     </select>
                 </div>
                 <div class="col">
                     <label for="Fecha de Atencion" class="form-label">Fecha de Atencion</label>
-                    <input type="date" class="form-select" id="fecha_filtro" name="fecha_filtro">
+                    <input type="date" class="form-select" id="fecha_filtro" name="fecha_filtro" value={{ seleccion_fecha }}>
                 </div>
                 </div>
                      <button class="btn btn-primary" type="submit">Buscar</button>

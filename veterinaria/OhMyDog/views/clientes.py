@@ -191,20 +191,23 @@ def listar_publicaciones_de_adopciones(request):
 def filtrar_listado_adopciones(request):
     adopciones = listar_adopciones()
     seleccion_sexo = request.GET.get("seleccionSexo")
-    seleccion_tamaño = request.GET.get("seleccionTamanio")
+    seleccion_tamanio = request.GET.get("seleccionTamanio")
     seleccion_etapa_vida = request.GET.get("seleccionEtapaVida")
     seleccion_castrado = request.GET.get("seleccionCastrado")
     if seleccion_sexo != "":
         adopciones = adopciones.filter(sexo=seleccion_sexo)
-    if seleccion_tamaño != "":
-        tamanio_filtro = TamanioPerro.objects.get(nombre=seleccion_tamaño)
+    if seleccion_tamanio != "":
+        tamanio_filtro = TamanioPerro.objects.get(nombre=seleccion_tamanio)
         adopciones = adopciones.filter(tamanio_perro=tamanio_filtro)
     if seleccion_etapa_vida != "":
         etapa_vida_filtro = EtapaVidaPerro.objects.get(nombre=seleccion_etapa_vida)
         adopciones = adopciones.filter(etapa_vida_perro=etapa_vida_filtro)
     if seleccion_castrado != "":
         adopciones = adopciones.filter(castrado=seleccion_castrado)
-    return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
+    return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones, 
+                "seleccion_sexo": seleccion_sexo, "seleccion_tamanio": seleccion_tamanio, 
+                "seleccion_etapa_vida": seleccion_etapa_vida, "seleccion_castrado": seleccion_castrado}
+        )
 
 
 @login_required

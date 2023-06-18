@@ -43,12 +43,13 @@ def filtrar_listado_atenciones(request):
     perro_id = request.GET.get("perro")
     perro = buscar_perro_por_id(perro_id)
     atenciones = buscar_atenciones_por_perro(perro)
-    atencion_filtro = request.GET.get("atencion_filtro")
-    fecha_filtro = request.GET.get("fecha_filtro")
-    if atencion_filtro != "" and atencion_filtro is not None:
-        TipoDeAtencion.objects.get(id=atencion_filtro)
-        atenciones = atenciones.filter(tipo_atencion=atencion_filtro)
-    if fecha_filtro != "" and atencion_filtro is not None:
-        atenciones = atenciones.filter(fecha=fecha_filtro)
+    seleccion_tipo_atencion = request.GET.get("atencion_filtro")
+    seleccion_fecha = request.GET.get("fecha_filtro")
+    if seleccion_tipo_atencion != "" and seleccion_tipo_atencion is not None:
+        tipo_atencion = TipoDeAtencion.objects.get(nombre = seleccion_tipo_atencion)
+        atenciones = atenciones.filter(tipo_atencion=tipo_atencion)
+    if seleccion_fecha != "" and seleccion_fecha is not None:
+        atenciones = atenciones.filter(fecha=seleccion_fecha)
     tipos_atencion = TipoDeAtencion.objects.all()
-    return {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro}
+    return {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro, 
+            "seleccion_tipo_atencion": seleccion_tipo_atencion, "seleccion_fecha": seleccion_fecha}
