@@ -4,14 +4,6 @@
 
 {% block content %}   
 <style>
-        /* Centrar todos los elementos del contenedor */
-    #contenedor-principal {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh; /* Ajusta la altura según sea necesario */
-    }
 
     /* Establecer el tamaño del contenedor del mapa */
     #map-container {
@@ -26,6 +18,18 @@
 <div class="contenedor-principal">
     <div class="card">
         <div id="map-container">
+            <link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link rel="icon" href="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/32x32/plain/dog.png">
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"
+	></script>
             {{ mapa|safe }}
         </div>
     </div>
