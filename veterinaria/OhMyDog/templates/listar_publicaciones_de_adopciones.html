@@ -30,7 +30,78 @@
       border-radius: 4px;
     }
 </style>
+<script>
+    function mostrarPopupContacto(event, nombrePerro, emailAutor) {
+        event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
 
+        var popup = document.createElement("div");
+        popup.id = "popup";
+
+        var formulario = document.createElement("form");
+        formulario.action = event.target.href;
+        formulario.method = "POST";
+
+        var campoEmail = document.createElement("input");
+        campoEmail.type = "email";
+        campoEmail.name = "email";
+        campoEmail.placeholder = "Email";
+        campoEmail.required = true;
+
+        var campoTelefono = document.createElement("input");
+        campoTelefono.type = "tel";
+        campoTelefono.name = "telefono";
+        campoTelefono.placeholder = "Teléfono";
+        campoTelefono.required = true;
+
+        var campoNombre = document.createElement("input");
+        campoNombre.type = "text";
+        campoNombre.name = "nombre";
+        campoNombre.placeholder = "Nombre";
+        campoNombre.required = true;
+
+        var botonEnviar = document.createElement("button");
+        botonEnviar.type = "submit";
+        botonEnviar.textContent = "Enviar";
+
+        var botonCancelar = document.createElement("button");
+        botonCancelar.type = "button";
+        botonCancelar.textContent = "Cancelar";
+        botonCancelar.addEventListener("click", function() {
+          document.body.removeChild(popup); // Eliminar el cuadro emergente
+        });
+
+        // Crear campo oculto para enviar el valor del nombrePerro
+        var campoAdopcionNombre = document.createElement("input");
+        campoAdopcionNombre.type = "hidden";
+        campoAdopcionNombre.name = "nombre_perro";
+        campoAdopcionNombre.value = nombrePerro;
+
+        // Crear campo oculto para enviar el valor de emailAutor
+        var campoEmailAutor = document.createElement("input");
+        campoEmailAutor.type = "hidden";
+        campoEmailAutor.name = "email_autor";
+        campoEmailAutor.value = emailAutor;
+
+         // Agregar el token CSRF al formulario
+        var tokenCSRF = document.createElement("input");
+        tokenCSRF.type = "hidden";
+        tokenCSRF.name = "csrfmiddlewaretoken";
+        tokenCSRF.value = "{{ csrf_token }}"; // Agrega el valor del token CSRF
+
+        formulario.appendChild(campoEmail);
+        formulario.appendChild(campoTelefono);
+        formulario.appendChild(campoNombre);
+        formulario.appendChild(botonEnviar);
+        formulario.appendChild(tokenCSRF); // Agregar el token CSRF al formulario
+        formulario.appendChild(campoAdopcionNombre);
+        formulario.appendChild(campoEmailAutor);
+        formulario.appendChild(botonCancelar);
+
+        popup.appendChild(formulario);
+
+        document.body.appendChild(popup);
+    }
+</script>
 
 <h1 style="text-align:center">Publicaciones de adopciones</h1>
 <form method="get" action="{% url 'filtrar_listado_adopciones' %}">
@@ -150,7 +221,7 @@
                         </div>
                         {%else%}
                             <div class="col text-end">
-                                <p class="text-success">ADOPTADO</p>
+                                <p class="text-success" style="font-weight:bold">Adoptado</p>
                             </div>
                         {%endif%}
                     </div>
