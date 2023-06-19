@@ -15,11 +15,28 @@
 -   Agregar una castración
 -   Deshabilitar un perro
 -   Deshabilitar un cliente
+-   Listar todas las atenciones de un perro
+-   Ver detalle de atención (veterinario)
+-   Ver detalle de atención (cliente)
+-   Modificar observación de una atención
+-   Listar atenciones filtradas por tipo de atención
+-   Listar atenciones filtradas por fecha
+-   Agregar publicación de adopción
+-   Listar mis publicaciones de adopciones
+-   Listar todas las publicaciones de adopciones
+-   Marcar una publicación de adopción como "Me interesa"
+-   Marcar mi publicación de adopción como "Adoptado"
+-   Filtrar listado de adopciones
+-   Eliminar publicación de adopción
+-   Agregar publicación de búsqueda
+-   Listar todas las publicaciones de búsquedas
+-   Listar mis publicaciones de búsquedas
+-   Eliminar publicación de búsqueda
+-   Indicar que se tiene información sobre una búsqueda
 
 # Historias sin testear:
 
 -   Agregar una vacunación
--   Todas desde Listar todas las atenciones de mi perro hasta la última
 
 # Cosas a hacer:
 
