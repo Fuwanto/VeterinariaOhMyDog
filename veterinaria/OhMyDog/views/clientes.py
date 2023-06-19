@@ -49,7 +49,7 @@ from OhMyDog.views.utils import agregar_mensaje_error
 def listar_clientes(request):
     email = request.GET.get("email", "")
     clientes = buscar_clientes_contienen_mail(email)
-    return render(request, "listado_clientes.html", {"clientes": clientes})
+    return render(request, "listado_clientes.html", {"clientes": clientes, "email": email})
 
 
 @login_required
@@ -260,7 +260,7 @@ def mis_busquedas(request):
 def listar_publicaciones_de_busquedas(request):
     zona = request.GET.get("zona", "")
     busquedas = listar_busquedas_por_zona(zona)
-    return render(request, "listar_publicaciones_de_busquedas.html", {"busquedas": busquedas})
+    return render(request, "listar_publicaciones_de_busquedas.html", {"busquedas": busquedas, "zona": zona})
 
 
 @login_required
