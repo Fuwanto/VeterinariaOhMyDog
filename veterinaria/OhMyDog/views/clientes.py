@@ -356,7 +356,7 @@ def cargar_mapa_paseadores(user):
         # Agregar un marcador con información personalizada
         generar_punto_paseador_cuidador(paseador, user).add_to(mi_mapa)
 
-    return mi_mapa._repr_html_()
+    return mi_mapa.get_root().render()
 
 
 def cargar_mapa_cuidadores(user):
@@ -368,7 +368,7 @@ def cargar_mapa_cuidadores(user):
         # Agregar un marcador con información personalizada
         generar_punto_paseador_cuidador(cuidador, user).add_to(mi_mapa)
 
-    return mi_mapa._repr_html_()
+    return mi_mapa.get_root().render()
 
 
 def visualizar_mapa_paseadores(request):
