@@ -10,7 +10,7 @@ from OhMyDog.modelos.perros.perros import Perro
 from django.core.mail import send_mail
 from django.conf import settings
 
-def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,perro_id,tipo_atencion_id,notas):
+def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,perro_id,tipo_atencion_id):
     franja_horaria = get_object_or_404(FranjaHoraria, id=franja_horaria_id)
     tipo_atencion = get_object_or_404(TipoDeAtencion, id=tipo_atencion_id)
     try:
@@ -19,7 +19,7 @@ def solicitar_turno(cliente, fecha_del_turno, franja_horaria_id,perro_id,tipo_at
         perro = None
     turno = Turno(cliente = cliente, fecha_del_turno = fecha_del_turno, fecha_de_solicitud = datetime.today(),
                     franja_horaria= franja_horaria, tipo_atencion = tipo_atencion,
-                    estado = get_object_or_404(EstadoDelTurno, id = 1), notas = notas,
+                    estado = get_object_or_404(EstadoDelTurno, id = 1),
                     perro = perro)
     turno.save()
     return turno
@@ -80,19 +80,16 @@ def solicitar_turno_siguiente_vacunacion(perro, vacuna, fecha):
     fecha_solicitada = datetime.strptime(fecha, formato).date()
     franja_horaria = FranjaHoraria.objects.get(id=1)
     tipo_atencion = TipoDeAtencion.objects.get(id=3)
-    notas = "Turno para la siguiente vacuna Antirrabica de su perro"
     if (vacuna == "Antirrabica"):
-        notas = "Turno para la siguiente vacuna Antirrabica de su perro"
         if edad_en_meses < 2:
             fecha_del_turno = fecha_solicitada + timedelta(days=21) 
         else:
             fecha_del_turno = date(fecha_solicitada.year + 1, fecha_solicitada.month, fecha_solicitada.day)
     else:
         fecha_del_turno = date(fecha_solicitada.year + 1, fecha_solicitada.month, fecha_solicitada.day)
-        notas= "Turno para la siguiente vacuna Antiviral de su perro"
     turno = Turno(cliente = perro.dueño, fecha_del_turno = fecha_del_turno, 
             fecha_de_solicitud = fecha_solicitada, franja_horaria=franja_horaria, tipo_atencion=tipo_atencion,
-            estado = get_object_or_404(EstadoDelTurno, id = 1), notas = notas, perro = perro)
+            estado = get_object_or_404(EstadoDelTurno, id = 1), perro = perro)
     turno.save()
 
 

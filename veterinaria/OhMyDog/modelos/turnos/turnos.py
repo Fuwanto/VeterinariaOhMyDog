@@ -23,7 +23,6 @@ class Turno(models.Model):
         TipoDeAtencion, null=False, on_delete=models.CASCADE
     )
     estado = models.ForeignKey(EstadoDelTurno, null=False, on_delete=models.CASCADE)
-    notas = models.TextField(null=True)
     observaciones = models.TextField(null=True)
 
     def __str__(self):

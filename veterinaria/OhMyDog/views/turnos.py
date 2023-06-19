@@ -22,7 +22,6 @@ def solicitar_turnos(request):
     perros = buscar_perros_por_dueño_habilitados(request.user.cliente)
     hoy = date.today()
     hoy = hoy + timedelta(days=1)
-
     context = {
         "atenciones": atenciones,
         "franjas_horarias": franjas_horarias,
@@ -39,7 +38,6 @@ def solicitar_turnos(request):
             if fecha_solicitada > date.today():
                 franja_horaria = request.POST.get("franja_horaria")
                 tipo_atencion = request.POST.get("tipo_de_atencion")
-                notas = request.POST.get("notas")
                 perro_id = request.POST.get("perro_id")
                 solicitar_turno(
                     request.user.cliente,
@@ -47,7 +45,6 @@ def solicitar_turnos(request):
                     franja_horaria,
                     perro_id,
                     tipo_atencion,
-                    notas,
                 )
                 messages.success(request, f"Turno solicitado con exito. ")
                 return redirect("home")
