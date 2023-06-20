@@ -345,7 +345,7 @@ def generar_punto_paseador_cuidador(paseador_cuidador, user):
     popup_html = f"""<strong>Email:</strong> {paseador_cuidador.email}<br>
     <strong>Nombre:</strong> {paseador_cuidador.nombre}<br>
     <strong>Franja Horaria:</strong> {paseador_cuidador.franja_horaria}<br>
-    <a href="{eliminar_url}" class="button" style="display:{oculto}">Eliminar</a>"""
+    <a href="{eliminar_url}" class="btn btn-danger" style="display:{oculto}; color: white">Eliminar</a>"""
 
     return folium.Marker(
         location=[float(paseador_cuidador.latitud), float(paseador_cuidador.longitud)],

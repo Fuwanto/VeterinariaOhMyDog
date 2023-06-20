@@ -1,22 +1,33 @@
-{% extends 'layout.html' %} 
+{% extends 'layout.html' %}
 
-{% block title %}OhMyDog - {{tipo}}{%endblock %} 
+{% block title %}OhMyDog - {{ tipo }}{% endblock %}
 
-{% block content %}   
+{% block content %}
 <style>
-
     /* Establecer el tamaño del contenedor del mapa */
     #map-container {
-        height: 100vh; /* Ajusta la altura según sea necesario */
-        width: 100%; /* Ajusta el ancho según sea necesario */
+        display: flex;
         align-items: center;
         justify-content: center;
-
+        height: 70vh; /* Ajusta la altura según sea necesario */
+    }
+    
+    /* Ajustar el ancho del contenedor principal */
+    .contenedor-principal {
+        max-width: 100%; /* Ajusta el ancho máximo según sea necesario */
+        margin: 0 auto; /* Centra horizontalmente el contenedor principal */
     }
 
 </style>
 <div class="contenedor-principal">
+
+    <h1 style="text-align: center">Mapa de {{tipo}}<h2>
     <div class="card">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}     
         <div id="map-container">
             <link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -34,4 +45,4 @@
         </div>
     </div>
 </div>
-{% endblock%}
+{% endblock %}
