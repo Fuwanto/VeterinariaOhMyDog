@@ -204,10 +204,17 @@ def filtrar_listado_adopciones(request):
         adopciones = adopciones.filter(etapa_vida_perro=etapa_vida_filtro)
     if seleccion_castrado != "":
         adopciones = adopciones.filter(castrado=seleccion_castrado)
-    return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones, 
-                "seleccion_sexo": seleccion_sexo, "seleccion_tamanio": seleccion_tamanio, 
-                "seleccion_etapa_vida": seleccion_etapa_vida, "seleccion_castrado": seleccion_castrado}
-        )
+    return render(
+        request,
+        "listar_publicaciones_de_adopciones.html",
+        {
+            "adopciones": adopciones,
+            "seleccion_sexo": seleccion_sexo,
+            "seleccion_tamanio": seleccion_tamanio,
+            "seleccion_etapa_vida": seleccion_etapa_vida,
+            "seleccion_castrado": seleccion_castrado,
+        },
+    )
 
 
 @login_required
@@ -394,7 +401,7 @@ def agregar_paseador_cuidador_al_mapa(request):
             agregar_paseador_cuidador(nombre, email, latitud, longitud, franja_horaria, tipo)
             messages.success(request, "Agregado con exito!")
         else:
-            messages.warning(request, f"Paseador {email} ya ha sido agregado con anterioridad!")
+            agregar_mensaje_error(request, f"Ya existe un cuidador o paseador con email {email}!")
 
     return render(request, "agregar_paseador_cuidador.html")
 
