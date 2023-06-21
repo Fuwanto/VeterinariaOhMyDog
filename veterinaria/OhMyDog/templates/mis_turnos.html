@@ -13,8 +13,8 @@
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
-					<th scope="col">Cliente</th>
 					<th scope="col">Fecha</th>
+					<th scope="col">Perro </th>
 					<th scope="col">Franja Horaria</th>
 					<th scope="col">Atención</th>
 					<th scope="col">Estado</th>
@@ -25,8 +25,8 @@
 				{% for turno in turnos %}
 				<tr>
 					<td>{{ turno.id }}</td>
-					<td>{{ turno.cliente.nombre }}</td>
 					<td>{{ turno.fecha_del_turno }}</td>
+					<td>{{ turno.perro.nombre }}</td>
 					<td>{{ turno.franja_horaria.nombre }}</td>
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>

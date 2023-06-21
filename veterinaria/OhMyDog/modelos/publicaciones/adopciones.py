@@ -24,4 +24,4 @@ class Adopcion(models.Model):
 
 
     def __str__(self):
-        return f"Cliente: {self.cliente_id}, Nombre: {self.nombre}, Descripcion: {self.descripcion}, {self.tamanioPerro.id}, Tamaño del perro: {self.tamanio_perro.id}, Etapa de vida del perro: {self.etapa_vida_perro}, Sexo: {self.sexo}, Castrado: {self.castrado}"
+        return f"Cliente: {self.cliente_id}, Nombre: {self.nombre}, Descripcion: {self.descripcion}, {self.tamanio_perro.id}, Tamaño del perro: {self.tamanio_perro.id}, Etapa de vida del perro: {self.etapa_vida_perro}, Sexo: {self.sexo}, Castrado: {self.castrado}"
