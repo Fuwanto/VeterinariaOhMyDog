@@ -158,10 +158,18 @@
                                         <td>{{ adopcion.tamanio_perro.nombre }}</td>
                                     </tr>
                                     <tr>
-                                        <td>{{ adopcion.sexo }}</td>
+                                        {%if adopcion.sexo == "M"%}
+                                            <td class="sexo">Macho</td>
+                                        {%else%}
+                                            <td class="sexo">Hembra</td>
+                                        {% endif %}
                                     </tr>
                                     <tr>
-                                        <td>{{ adopcion.castrado }}</td>
+                                        {%if adopcion.castrado == "S"%}
+                                            <td class="castrado">Si</td>
+                                        {% else %}
+                                            <td class="castrado">No</td>
+                                        {% endif %}
                                     </tr>
                                 </tbody>
                             </table>
