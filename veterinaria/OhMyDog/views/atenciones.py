@@ -11,6 +11,7 @@ from OhMyDog.modelos.atenciones import (
     buscar_desparasitacion_por_atencion_id,
 )
 from django.contrib import messages
+from datetime import date,timedelta
 from decimal import Decimal
 from OhMyDog.modelos.turnos import solicitar_turno_siguiente_vacunacion
 
@@ -19,7 +20,10 @@ def agregar_atencion_clinica(request):
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        context = {"perro": perro}
+        
+        hoy = date.today()
+        context = {"perro": perro,
+                   "max": hoy.strftime("%Y-%m-%d")}
         return render(request, "agregar_atencion_clinica.html", context)
 
     if request.method == "POST":
@@ -36,7 +40,9 @@ def agregar_consulta(request):
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        context = {"perro": perro}
+        hoy = date.today()
+        context = {"perro": perro,
+                   "max": hoy.strftime("%Y-%m-%d")}
         return render(request, "agregar_consulta.html", context)
 
     if request.method == "POST":
@@ -53,7 +59,9 @@ def agregar_desparasitacion(request):
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        context = {"perro": perro}
+        hoy = date.today()
+        context = {"perro": perro,
+                   "max": hoy.strftime("%Y-%m-%d")}
         return render(request, "agregar_desparasitacion.html", context)
 
     if request.method == "POST":
@@ -76,7 +84,9 @@ def agregar_castracion(request):
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        context = {"perro": perro}
+        hoy = date.today()
+        context = {"perro": perro,
+                   "max": hoy.strftime("%Y-%m-%d")}
         return render(request, "agregar_castracion.html", context)
 
     if request.method == "POST":
@@ -93,7 +103,9 @@ def agregar_vacunacion(request):
     if request.method == "GET":
         perro_id = request.GET.get("perro")
         perro = buscar_perro_por_id(perro_id)
-        context = {"perro": perro}
+        hoy = date.today()
+        context = {"perro": perro,
+                   "max": hoy.strftime("%Y-%m-%d")}
         return render(request, "agregar_vacunacion.html", context)
 
     if request.method == "POST":

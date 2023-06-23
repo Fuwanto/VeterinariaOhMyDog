@@ -18,6 +18,7 @@
 					<th scope="col">Franja Horaria</th>
 					<th scope="col">Atención</th>
 					<th scope="col">Estado</th>
+					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,11 +31,21 @@
 					<td>{{ turno.franja_horaria.nombre }}</td>
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>
+					{% if turno.observaciones is null %} 
+						<td>
+						</td>
+					{% else %}
+						<td>
+							<button type="button" class="btn btn-secondary rechazar-turno"
+								style="background-color: rgb(157, 209, 59)" ">Ver Observacion
+							</button>
+						</td>
+					{% endif %}
 				</tr>
 				{% endfor %} 
 				{%else%}
 				<tr>
-					<td colspan="6">
+					<td colspan="7">
 						<p>No hay turnos registrados</p>
 					</td>
 				</tr>	
@@ -43,4 +54,5 @@
 			</table>
 	</div>
 </div>
+
 {% endblock %}

@@ -14,12 +14,12 @@
 						<div class="mb-3">
 							<label for="fecha_solicitada" class="form-label">Fecha del turno</label>
 							<input type="date" class="form-control" id="fecha_solicitada" name="fecha_solicitada"
-								min="{{ min }}" required />
+								 required />
 						</div>
 						<div class="mb-3">
 							<label for="perro" class="form-label">Perro</label>
 							<select class="form-select" id="perro_id" name="perro_id">
-								<option value="">Ninguno</option>
+								<option value="">Otro</option>
 								{% for perro in perros %}
 								<option value="{{perro.id}}">
 									{{ perro.nombre }}
@@ -58,4 +58,6 @@
 		</div>
 	</div>
 </div>
+
+
 {%endblock%}
