@@ -1,5 +1,32 @@
 {% extends 'layout.html' %} {% block title %}OhMyDog - Mis turnos{% endblock %}
 {% block content %}
+<style>
+	.popup {
+		position: relative;
+		display: inline-block;
+	  }  
+	  .popup .popuptext {
+		visibility: hidden;
+		width: 200px;
+		background-color: #4B5563;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 8px;
+		position: absolute;
+		z-index: 1;
+		bottom: 125%;
+		left: 50%;
+		transform: translateX(-50%);
+		opacity: 0;
+		transition: opacity 0.3s;
+		font-weight: bold;
+	  } 
+	  .popup:hover .popuptext {
+		visibility: visible;
+		opacity: 1;
+	  }
+</style>
 <div class="container containerPrincipal">
 	<p>
 
@@ -18,11 +45,11 @@
 					<th scope="col">Franja Horaria</th>
 					<th scope="col">Atención</th>
 					<th scope="col">Estado</th>
-					<th scope="col">Acciones</th>
+					<th scope="col">Observaciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				{%if turnos %} 
+				{% if turnos %} 
 				{% for turno in turnos %}
 				<tr>
 					<td>{{ turno.id }}</td>
@@ -31,25 +58,23 @@
 					<td>{{ turno.franja_horaria.nombre }}</td>
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>
-					{% if turno.observaciones is null %} 
-						<td>
-						</td>
-					{% else %}
-						<td>
-							<button type="button" class="btn btn-secondary rechazar-turno"
-								style="background-color: rgb(157, 209, 59)" ">Ver Observacion
-							</button>
-						</td>
-					{% endif %}
+					<td>
+						<div class="popup">
+						  <button type="button" class="btn btn-secondary rechazar-turno"
+							style="background-color: rgb(157, 209, 59)">Ver observaciones
+						  </button>
+						  <span class="popuptext">{{turno.observaciones}}</span>
+						</div>
+					  </td>
 				</tr>
 				{% endfor %} 
-				{%else%}
+				{% else %}
 				<tr>
 					<td colspan="7">
 						<p>No hay turnos registrados</p>
 					</td>
 				</tr>	
-				{%endif%}
+				{% endif %}
 			</tbody>
 			</table>
 	</div>
