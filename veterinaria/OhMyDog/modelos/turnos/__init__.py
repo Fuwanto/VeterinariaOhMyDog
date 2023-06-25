@@ -1,6 +1,5 @@
 from django.db.models.query_utils import *  #  incluye funciones útiles para consultas de bases de datos en Django.
-from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404
 from OhMyDog.modelos.turnos.turnos import Turno
 from datetime import datetime, date, timedelta
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria

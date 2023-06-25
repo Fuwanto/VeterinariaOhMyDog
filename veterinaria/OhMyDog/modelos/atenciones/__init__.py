@@ -2,7 +2,6 @@ from OhMyDog.modelos.atenciones.atenciones import Atencion
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 from OhMyDog.modelos.atenciones.desparacitacion import Desparacitacion
 from OhMyDog.modelos.atenciones.vacunacion import Vacunacion
-from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDeDosisVacunacion
 from OhMyDog.modelos.perros import modificar_tiene_castracion
 
 

@@ -1,6 +1,5 @@
 from django.db import models
 from OhMyDog.modelos.atenciones.atenciones import Atencion
-from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDeDosisVacunacion
 
 
 class Vacunacion(models.Model):

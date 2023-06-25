@@ -17,12 +17,14 @@ def datos_de_un_perro(request, perro_id):
 
 
 def atenciones_de_un_perro_cliente(request):
-    context = atenciones_de_un_perro(request)   
+    context = atenciones_de_un_perro(request)
     return render(request, "listado_de_atenciones_por_perro_cliente.html", context)
+
 
 def atenciones_de_un_perro_veterinario(request):
     context = atenciones_de_un_perro(request)
     return render(request, "listado_de_atenciones_por_perro.html", context)
+
 
 def atenciones_de_un_perro(request):
     perro_id = request.GET.get("perro")
@@ -31,13 +33,16 @@ def atenciones_de_un_perro(request):
     tipos_atencion = TipoDeAtencion.objects.all()
     return {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro}
 
+
 def filtrar_listado_atenciones_cliente(request):
     context = filtrar_listado_atenciones(request)
     return render(request, "listado_de_atenciones_por_perro_cliente.html", context)
 
+
 def filtrar_listado_atenciones_veterinario(request):
     context = filtrar_listado_atenciones(request)
     return render(request, "listado_de_atenciones_por_perro.html", context)
+
 
 def filtrar_listado_atenciones(request):
     perro_id = request.GET.get("perro")
@@ -46,10 +51,15 @@ def filtrar_listado_atenciones(request):
     seleccion_tipo_atencion = request.GET.get("atencion_filtro")
     seleccion_fecha = request.GET.get("fecha_filtro")
     if seleccion_tipo_atencion != "" and seleccion_tipo_atencion is not None:
-        tipo_atencion = TipoDeAtencion.objects.get(nombre = seleccion_tipo_atencion)
+        tipo_atencion = TipoDeAtencion.objects.get(nombre=seleccion_tipo_atencion)
         atenciones = atenciones.filter(tipo_atencion=tipo_atencion)
     if seleccion_fecha != "" and seleccion_fecha is not None:
         atenciones = atenciones.filter(fecha=seleccion_fecha)
     tipos_atencion = TipoDeAtencion.objects.all()
-    return {"atenciones": atenciones, "tipo_atencion": tipos_atencion, "perro": perro, 
-            "seleccion_tipo_atencion": seleccion_tipo_atencion, "seleccion_fecha": seleccion_fecha}
+    return {
+        "atenciones": atenciones,
+        "tipo_atencion": tipos_atencion,
+        "perro": perro,
+        "seleccion_tipo_atencion": seleccion_tipo_atencion,
+        "seleccion_fecha": seleccion_fecha,
+    }
