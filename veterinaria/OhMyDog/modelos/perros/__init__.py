@@ -1,9 +1,11 @@
 from django.db.models.query_utils import *  #  incluye funciones útiles para consultas de bases de datos en Django.
-from django.shortcuts import render, redirect, get_object_or_404
 from OhMyDog.modelos.perros.perros import Perro
+from django.shortcuts import get_object_or_404
+from OhMyDog.modelos.clientes.clientes import Cliente
 
 
-def registrar_perro(dueño, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo):
+def registrar_perro(dueño_id, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo):
+    dueño = get_object_or_404(Cliente, id=dueño_id)
     perro = Perro(
         dueño=dueño,
         nombre=nombre,
@@ -27,8 +29,10 @@ def buscar_perro_por_nombre_y_dueño(nombre, dueño):
     except:
         return None
 
+
 def buscar_perros_por_dueño_habilitados(dueño):
     return Perro.objects.filter(dueño=dueño, habilitado=True)
+
 
 def buscar_perro_por_id(id):
     perro = Perro.objects.get(id=id)

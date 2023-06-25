@@ -1,19 +1,19 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 from OhMyDog.modelos.clientes import (
-    Cliente,
     deshabilitar_cliente,
     perros_cliente,
     perros_habilitados_cliente,
     buscar_clientes_contienen_mail,
     buscar_cliente_por_mail,
+    buscar_cliente_por_id,
+    cliente_tiene_perro,
 )
 from OhMyDog.modelos.perros import (
-    buscar_perro_por_nombre_y_dueño,
     registrar_perro as agregar_perro,
-    Perro,
     deshabilitar_perro,
+    buscar_perro_por_id,
 )
 from OhMyDog.views.auth import user_passes_test, superuser_check
 from django.contrib import messages
@@ -35,11 +35,8 @@ def mis_datos(request):
     cliente = request.user.cliente
     if request.method == "POST":
         email = request.POST.get("email")
-        print(email)
         nombre = request.POST.get("nombre")
-        print(nombre)
         telefono = request.POST.get("telefono")
-        print(telefono)
         if cliente.email == email:
             cliente.nombre = nombre
             cliente.telefono = telefono
@@ -48,7 +45,7 @@ def mis_datos(request):
             return redirect("mis_datos")
         else:
             cliente = buscar_cliente_por_mail(email)
-            if not cliente is None:
+            if cliente is not None:
                 agregar_mensaje_error(request, "El mail ingresado ya se encuentra registrado.")
                 return redirect("mis_datos")
             else:
@@ -66,7 +63,7 @@ def mis_datos(request):
 
 @user_passes_test(superuser_check)
 def datos_de_un_cliente(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
+    cliente = buscar_cliente_por_id(cliente_id)
     return render(request, "datos_de_un_cliente.html", {"cliente": cliente})
 
 
@@ -78,7 +75,6 @@ def listar_perros_cliente(request, cliente_id):
 
 @user_passes_test(superuser_check)
 def registrar_perro(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
     if request.method == "POST":
         nombre = request.POST.get("nombre_perro")
         raza = request.POST.get("raza")
@@ -88,15 +84,13 @@ def registrar_perro(request, cliente_id):
         fecha_de_nacimiento = request.POST.get("fecha_de_nacimiento")
         descripcion = request.POST.get("descripcion")
 
-        perro = buscar_perro_por_nombre_y_dueño(nombre, cliente)
-
-        if perro is None:
-            agregar_perro(cliente, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
+        if not cliente_tiene_perro(cliente_id, nombre):
+            agregar_perro(cliente_id, nombre, raza, peso, descripcion, fecha_de_nacimiento, sexo)
             messages.success(request, "Perro registrado con exito.")
             return redirect("home")
         else:
             agregar_mensaje_error(request, f"El cliente ya tiene un perro llamado {nombre}")
-            return redirect(f"/clientes/{cliente.id}/registrar_perro")
+            return redirect(f"/clientes/{cliente_id}/registrar_perro")
     else:
         return render(
             request,
@@ -134,5 +128,5 @@ def mis_turnos(request):
 
 @login_required
 def datos_de_mi_perro(request, perro_id):
-    perro = get_object_or_404(Perro, id=perro_id)
+    perro = buscar_perro_por_id(perro_id)
     return render(request, "datos_de_mi_perro.html", {"perro": perro})

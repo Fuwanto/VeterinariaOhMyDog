@@ -17,6 +17,10 @@ def buscar_cliente_por_mail(email):
         return None
 
 
+def buscar_cliente_por_id(id):
+    return Cliente.objects.get(id=id)
+
+
 def buscar_clientes_contienen_mail(email):
     return Cliente.objects.filter(email__icontains=email)
 
@@ -50,3 +54,8 @@ def perros_cliente(id):
 def perros_habilitados_cliente(id):
     cliente = Cliente.objects.get(id=id)
     return cliente.perros.filter(habilitado=True)
+
+
+def cliente_tiene_perro(cliente_id, nombre_perro):
+    cliente = buscar_cliente_por_id(cliente_id)
+    return cliente.perros.filter(nombre=nombre_perro).exists()
