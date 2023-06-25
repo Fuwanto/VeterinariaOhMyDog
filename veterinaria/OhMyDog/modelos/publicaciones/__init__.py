@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from OhMyDog.modelos.publicaciones.adopciones import Adopcion
+from OhMyDog.modelos.clientes.clientes import Cliente
 from OhMyDog.modelos.publicaciones.busquedas import Busqueda
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
@@ -38,8 +39,13 @@ def agregar_adopcion(cliente, nombre, descripcion, tamanio_perro_id, etapa_vida_
     return adopcion
 
 
-def listar_adopciones():
+def listar_todas_adopciones():
     return Adopcion.objects.all()
+
+
+def listar_adopciones_no_mias(cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    return Adopcion.objects.exclude(cliente=cliente)
 
 
 def adoptar(adopcion_id):
@@ -76,6 +82,11 @@ def filtrar_busquedas_por_cliente(cliente):
 
 def listar_busquedas_por_zona(zona):
     return Busqueda.objects.filter(zona__icontains=zona)
+
+
+def listar_busquedas_no_mias_y_por_zona(cliente_id, zona):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    return Busqueda.objects.filter(zona__icontains=zona).exclude(cliente=cliente)
 
 
 def eliminar_publicacion_busqueda(busqueda_id):
