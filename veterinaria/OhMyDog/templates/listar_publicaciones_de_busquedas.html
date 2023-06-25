@@ -207,12 +207,24 @@
                             <p class="card-text"><small class="text-muted">Autor: {{ busqueda.cliente.nombre }}</small></p>
                         </div>
                         {%if not busqueda.encontrado%}
-                        <div class="col text-end">
-                            <a type="button" class="btn btn-warning" id="me_interesa" 
-                                onclick="mostrarPopupContacto(event, '{{ busqueda.nombre }}', '{{busqueda.cliente.email}}');"
-                                href="{% url 'tengo_informacion' %}">Tengo información
-                            </a>
-                        </div>
+                            {% if cliente %}
+                            <div class="col text-end">
+                                <form action="{% url 'tengo_informacion' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="key1" value="{{cliente.email}}">
+                                    <input type="hidden" name="key2" value="{{cliente.telefono}}">
+                                    <input type="hidden" name="key2" value="{{cliente.nombre}}">
+                                    <button type="submit" class="btn btn-warning">Tengo información</button>
+                                </form>                                  
+                            </div>
+                            {% else %}
+                            <div class="col text-end">
+                                <a type="button" class="btn btn-warning" id="me_interesa" 
+                                    onclick="mostrarPopupContacto(event, '{{ busqueda.nombre }}', '{{busqueda.cliente.email}}');"
+                                    href="{% url 'tengo_informacion' %}">Tengo información
+                                </a>
+                            </div>
+                            {% endif %}
                         {%else%}
                             <div class="col text-end">
                                 <p class="text-success" style="font-weight:bold">Encontrado</p>

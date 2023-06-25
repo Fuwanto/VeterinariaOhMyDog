@@ -28,9 +28,18 @@ def mis_adopciones(request):
 def listar_publicaciones_de_adopciones(request):
     if request.user.is_authenticated:
         adopciones = listar_adopciones_no_mias(request.user.cliente.id)
+        return render(
+            request,
+            "listar_publicaciones_de_adopciones.html",
+            {"adopciones": adopciones, "cliente": request.user.cliente},
+        )
     else:
         adopciones = listar_todas_adopciones()
-    return render(request, "listar_publicaciones_de_adopciones.html", {"adopciones": adopciones})
+        return render(
+            request,
+            "listar_publicaciones_de_adopciones.html",
+            {"adopciones": adopciones, "cliente": None},
+        )
 
 
 @login_required

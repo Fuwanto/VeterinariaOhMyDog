@@ -26,9 +26,16 @@ def listar_publicaciones_de_busquedas(request):
     zona = request.GET.get("zona", "")
     if request.user.is_authenticated:
         busquedas = listar_busquedas_no_mias_y_por_zona(request.user.cliente.id, zona)
+        return render(
+            request,
+            "listar_publicaciones_de_busquedas.html",
+            {"busquedas": busquedas, "zona": zona, "cliente": request.user.cliente},
+        )
     else:
         busquedas = listar_busquedas_por_zona(zona)
-    return render(request, "listar_publicaciones_de_busquedas.html", {"busquedas": busquedas, "zona": zona})
+        return render(
+            request, "listar_publicaciones_de_busquedas.html", {"busquedas": busquedas, "zona": zona, "cliente": None}
+        )
 
 
 @login_required

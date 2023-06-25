@@ -221,12 +221,24 @@
                             <p class="card-text"><small class="text-muted">Autor: {{ adopcion.cliente.nombre }}</small></p>
                         </div>
                         {%if not adopcion.adoptado%}
-                        <div class="col text-end">
-                            <a type="button" class="btn btn-warning" id="me_interesa" 
-                                onclick="mostrarPopupContacto(event, '{{ adopcion.nombre }}', '{{adopcion.cliente.email}}');"
-                                href="{% url 'marcar_como_me_interesa' %}">Me interesa
-                            </a>
-                        </div>
+                            {% if cliente %}
+                            <div class="col text-end">
+                                <form action="{% url 'marcar_como_me_interesa' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="key1" value="{{cliente.email}}">
+                                    <input type="hidden" name="key2" value="{{cliente.telefono}}">
+                                    <input type="hidden" name="key2" value="{{cliente.nombre}}">
+                                    <button type="submit" class="btn btn-warning">Me interesa</button>
+                                </form>                                  
+                            </div>
+                            {% else %}
+                            <div class="col text-end">
+                                <a type="button" class="btn btn-warning" id="me_interesa" 
+                                    onclick="mostrarPopupContacto(event, '{{ adopcion.nombre }}', '{{adopcion.cliente.email}}');"
+                                    href="{% url 'marcar_como_me_interesa' %}">Me interesa
+                                </a>
+                            </div>
+                            {% endif %}
                         {%else%}
                             <div class="col text-end">
                                 <p class="text-success" style="font-weight:bold">Adoptado</p>
