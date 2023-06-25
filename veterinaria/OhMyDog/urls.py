@@ -18,24 +18,6 @@ from OhMyDog.views.clientes import (
     datos_de_mi_perro,
     borrar_perro,
     borrar_cliente,
-    mis_adopciones,
-    mis_busquedas,
-    agregar_publicacion_adopcion,
-    agregar_publicacion_busqueda,
-    listar_publicaciones_de_adopciones,
-    filtrar_listado_adopciones,
-    listar_publicaciones_de_busquedas,
-    marcar_como_adoptado,
-    marcar_como_me_interesa,
-    tengo_informacion,
-    marcar_como_encontrado,
-    eliminar_adopcion,
-    eliminar_busqueda,
-    visualizar_mapa_paseadores,
-    agregar_paseador_cuidador_al_mapa,
-    visualizar_mapa_cuidadores,
-    eliminar_publicacion_P,
-    eliminar_publicacion_C,
 )
 from OhMyDog.views.turnos import (
     solicitar_turnos,
@@ -57,6 +39,30 @@ from OhMyDog.views.perros import (
     atenciones_de_un_perro_veterinario,
     filtrar_listado_atenciones_cliente,
     filtrar_listado_atenciones_veterinario,
+)
+from OhMyDog.views.paseadores_cuidadores import (
+    visualizar_mapa_paseadores,
+    agregar_paseador_cuidador_al_mapa,
+    visualizar_mapa_cuidadores,
+    eliminar_publicacion_paseador,
+    eliminar_publicacion_cuidador,
+)
+from OhMyDog.views.publicaciones_busquedas import (
+    tengo_informacion,
+    marcar_como_encontrado,
+    eliminar_busqueda,
+    listar_publicaciones_de_busquedas,
+    agregar_publicacion_busqueda,
+    mis_busquedas,
+)
+from OhMyDog.views.publicaciones_adopciones import (
+    mis_adopciones,
+    agregar_publicacion_adopcion,
+    listar_publicaciones_de_adopciones,
+    filtrar_listado_adopciones,
+    marcar_como_adoptado,
+    marcar_como_me_interesa,
+    eliminar_adopcion,
 )
 
 
@@ -153,8 +159,16 @@ publicaciones = [
     path(
         "agregar_paseador_cuidador_al_mapa", agregar_paseador_cuidador_al_mapa, name="agregar_paseador_cuidador_al_mapa"
     ),
-    path("eliminar_publicacion_C/<int:paseador_cuidador_id>", eliminar_publicacion_C, name="eliminar_publicacion_C"),
-    path("eliminar_publicacion_P/<int:paseador_cuidador_id>", eliminar_publicacion_P, name="eliminar_publicacion_P"),
+    path(
+        "eliminar_publicacion_C/<int:paseador_cuidador_id>",
+        eliminar_publicacion_cuidador,
+        name="eliminar_publicacion_C",
+    ),
+    path(
+        "eliminar_publicacion_P/<int:paseador_cuidador_id>",
+        eliminar_publicacion_paseador,
+        name="eliminar_publicacion_P",
+    ),
 ]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
