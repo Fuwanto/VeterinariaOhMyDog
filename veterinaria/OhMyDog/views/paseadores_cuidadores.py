@@ -3,8 +3,8 @@ from OhMyDog.modelos.publicaciones import (
     todos_los_paseadores,
     todos_los_cuidadores,
     agregar_paseador_cuidador,
-    buscar_paseador_cuidador_por_email,
     eliminar_paseador_cuidador,
+    existe_paseador_cuidador_mail,
 )
 from OhMyDog.views.utils import agregar_mensaje_error
 from django.contrib import messages
@@ -67,8 +67,7 @@ def agregar_paseador_cuidador_al_mapa(request):
         longitud = request.POST.get("longitud")
         tipo = request.POST.get("tipo")
 
-        trabajador = buscar_paseador_cuidador_por_email(email)
-        if trabajador is None:
+        if not existe_paseador_cuidador_mail(email):
             # Agregar el nuevo paseador
             agregar_paseador_cuidador(nombre, email, latitud, longitud, franja_horaria, tipo)
             messages.success(request, "Agregado con exito!")

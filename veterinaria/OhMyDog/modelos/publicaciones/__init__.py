@@ -135,6 +135,14 @@ def buscar_paseador_cuidador_por_email(email):
         return None
 
 
+def existe_paseador_cuidador_mail(email):
+    try:
+        paseador_cuidador = PaseadorCuidador.objects.get(email=email)
+        return True
+    except:
+        return False
+
+
 def eliminar_paseador_cuidador(paseador_cuidador_id):
     paseador_cuidador = get_object_or_404(PaseadorCuidador, id=paseador_cuidador_id)
     paseador_cuidador.delete()

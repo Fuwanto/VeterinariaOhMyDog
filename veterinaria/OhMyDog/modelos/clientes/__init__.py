@@ -59,3 +59,20 @@ def perros_habilitados_cliente(id):
 def cliente_tiene_perro(cliente_id, nombre_perro):
     cliente = buscar_cliente_por_id(cliente_id)
     return cliente.perros.filter(nombre=nombre_perro).exists()
+
+
+def existe_cliente_mail(email):
+    try:
+        cliente = Cliente.objects.get(email=email)
+        return True
+    except:
+        return False
+
+
+def modificar_datos(id, nombre, telefono, email=None):
+    cliente = Cliente.objects.get(id=id)
+    cliente.nombre = nombre
+    cliente.telefono = telefono
+    if email is not None:
+        cliente.email = email
+    cliente.save()

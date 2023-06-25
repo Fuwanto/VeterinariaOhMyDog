@@ -6,9 +6,10 @@ from OhMyDog.modelos.clientes import (
     perros_cliente,
     perros_habilitados_cliente,
     buscar_clientes_contienen_mail,
-    buscar_cliente_por_mail,
     buscar_cliente_por_id,
     cliente_tiene_perro,
+    existe_cliente_mail,
+    modificar_datos,
 )
 from OhMyDog.modelos.perros import (
     registrar_perro as agregar_perro,
@@ -38,23 +39,17 @@ def mis_datos(request):
         nombre = request.POST.get("nombre")
         telefono = request.POST.get("telefono")
         if cliente.email == email:
-            cliente.nombre = nombre
-            cliente.telefono = telefono
-            cliente.save()
+            modificar_datos(cliente.id, nombre, telefono)
             messages.success(request, f"Datos modificados correctamente")
             return redirect("mis_datos")
         else:
-            cliente = buscar_cliente_por_mail(email)
-            if cliente is not None:
+            if existe_cliente_mail(email):
                 agregar_mensaje_error(request, "El mail ingresado ya se encuentra registrado.")
                 return redirect("mis_datos")
             else:
                 cliente = request.user.cliente
                 modificar_mail(email, cliente)
-                cliente.nombre = nombre
-                cliente.telefono = telefono
-                cliente.email = email
-                cliente.save()
+                modificar_datos(cliente.id, nombre, telefono, email)
                 messages.success(request, f"Datos modificados correctamente")
                 return redirect("mis_datos")
 
