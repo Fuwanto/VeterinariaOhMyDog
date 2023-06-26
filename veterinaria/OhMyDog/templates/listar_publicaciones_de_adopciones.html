@@ -31,7 +31,7 @@
     }
 </style>
 <script>
-    function mostrarPopupContacto(event, nombrePerro, emailAutor) {
+    function mostrarPopupContacto(event, nombrePerro, emailAutor, adopcionId) {
         event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
 
         var popup = document.createElement("div");
@@ -81,6 +81,13 @@
         campoEmailAutor.type = "hidden";
         campoEmailAutor.name = "email_autor";
         campoEmailAutor.value = emailAutor;
+
+        // Crear campo oculto para enviar el Id de la publicacion
+
+        var campoIdPublicacion = document.createElement("input");
+        campoIdPublicacion.type = "hidden";
+        campoIdPublicacion.name = "adopcion_id";
+        campoIdPublicacion.value = adopcionId;
 
          // Agregar el token CSRF al formulario
         var tokenCSRF = document.createElement("input");
@@ -221,6 +228,7 @@
                             <p class="card-text"><small class="text-muted">Autor: {{ adopcion.cliente.nombre }}</small></p>
                         </div>
                         {%if not adopcion.adoptado%}
+                        {%if not adopcion.tiene_interes %}
                             {% if cliente %}
                             <div class="col text-end">
                                 <form action="{% url 'marcar_como_me_interesa' %}" method="POST">
@@ -228,17 +236,22 @@
                                     <input type="hidden" name="key1" value="{{cliente.email}}">
                                     <input type="hidden" name="key2" value="{{cliente.telefono}}">
                                     <input type="hidden" name="key2" value="{{cliente.nombre}}">
+                                    <input type="hidden" name="adopcion_id" value="{{adopcion.id}}">
                                     <button type="submit" class="btn btn-warning">Me interesa</button>
                                 </form>                                  
                             </div>
                             {% else %}
                             <div class="col text-end">
                                 <a type="button" class="btn btn-warning" id="me_interesa" 
-                                    onclick="mostrarPopupContacto(event, '{{ adopcion.nombre }}', '{{adopcion.cliente.email}}');"
+                                    onclick="mostrarPopupContacto(event, '{{ adopcion.nombre }}', '{{adopcion.cliente.email}}', '{{adopcion.id}}');"
                                     href="{% url 'marcar_como_me_interesa' %}">Me interesa
                                 </a>
                             </div>
                             {% endif %}
+                        {%else%}
+                            <div class="col text-end">
+                            </div>
+                        {% endif %}
                         {%else%}
                             <div class="col text-end">
                                 <p class="text-success" style="font-weight:bold">Adoptado</p>

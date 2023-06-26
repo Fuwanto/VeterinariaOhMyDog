@@ -13,6 +13,8 @@ from OhMyDog.modelos.publicaciones import (
     listar_adopciones_no_mias,
     adoptar,
     eliminar_publicacion_adopcion,
+    usuario_tiene_interes_adopcion,
+    agregar_usuario_interesa,
 )
 from django.contrib import messages
 from OhMyDog.views.utils import agregar_mensaje_error
@@ -28,6 +30,11 @@ def mis_adopciones(request):
 def listar_publicaciones_de_adopciones(request):
     if request.user.is_authenticated:
         adopciones = listar_adopciones_no_mias(request.user.cliente.id)
+        for adopcion in adopciones:
+            if usuario_tiene_interes_adopcion(adopcion, request.user.cliente) is None:
+                adopcion.tiene_interes = False
+            else: 
+                adopcion.tiene_interes = True
         return render(
             request,
             "listar_publicaciones_de_adopciones.html",
@@ -103,18 +110,20 @@ def filtrar_listado_adopciones(request):
 
 def marcar_como_me_interesa(request):
     if request.method == "POST":
+        adopcion_id = request.POST.get("adopcion_id")
+        print(adopcion_id)
         email_interesado = request.POST.get("email")
         telefono = request.POST.get("telefono")
         nombre = request.POST.get("nombre")
         nombre_perro = request.POST.get("nombre_perro")
         email_autor = request.POST.get("email_autor")
-
         asunto = "Nuevo interesado en Adoptar"
         mensaje = f"{nombre} esta interesado en adoptar a {nombre_perro}. Contacto:\n\nEmail: {email_interesado}\nTeléfono: {telefono}\nNombre: {nombre}"
         remitente = settings.EMAIL_HOST_USER
         destinatario = [email_autor]
-
         send_mail(asunto, mensaje, remitente, destinatario)
+        if request.user.is_authenticated:
+            agregar_usuario_interesa(adopcion_id, request.user.cliente)
         messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
         return redirect("listar_publicaciones_de_adopciones")
     return redirect("listar_publicaciones_de_adopciones")

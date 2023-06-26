@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from OhMyDog.modelos.publicaciones.adopciones import Adopcion
+from OhMyDog.modelos.publicaciones.adopciones import Adopcion, Usuario_interesa_adopcion
 from OhMyDog.modelos.clientes.clientes import Cliente
 from OhMyDog.modelos.publicaciones.busquedas import Busqueda
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
@@ -58,7 +58,16 @@ def eliminar_publicacion_adopcion(adopcion_id):
     adopcion = get_object_or_404(Adopcion, id=adopcion_id)
     adopcion.delete()
 
-
+def usuario_tiene_interes_adopcion(adopcion, cliente):
+    try:
+        return Usuario_interesa_adopcion.objects.get(adopcion=adopcion, cliente=cliente)
+    except Usuario_interesa_adopcion.DoesNotExist:
+        return None
+    
+def agregar_usuario_interesa(adopcion_id, cliente):
+    adopcion = Adopcion.objects.get(id = adopcion_id)
+    usuario_interesa_adopcion = Usuario_interesa_adopcion (adopcion = adopcion,cliente=cliente)
+    usuario_interesa_adopcion.save()
 """
         BUSQUEDAS
 """
