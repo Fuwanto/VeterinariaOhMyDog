@@ -27,7 +27,7 @@ class Adopcion(models.Model):
     def __str__(self):
         return f"Cliente: {self.cliente_id}, Nombre: {self.nombre}, Descripcion: {self.descripcion}, {self.tamanio_perro.id}, Tamaño del perro: {self.tamanio_perro.id}, Etapa de vida del perro: {self.etapa_vida_perro}, Sexo: {self.sexo}, Castrado: {self.castrado}"
     
-class Usuario_interesa_adopcion(models.Model):
+class UsuarioInteresaAdopcion(models.Model):
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(
         Cliente, null=False, on_delete=models.CASCADE

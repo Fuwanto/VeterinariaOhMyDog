@@ -6,6 +6,8 @@ from OhMyDog.modelos.publicaciones import (
     listar_busquedas_por_zona,
     listar_busquedas_no_mias_y_por_zona,
     se_encontro,
+    agregar_usuario_tiene_informacion_busqueda,
+    usuario_tiene_informacion_busqueda,
 )
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -26,6 +28,11 @@ def listar_publicaciones_de_busquedas(request):
     zona = request.GET.get("zona", "")
     if request.user.is_authenticated:
         busquedas = listar_busquedas_no_mias_y_por_zona(request.user.cliente.id, zona)
+        for busqueda in busquedas:
+            if usuario_tiene_informacion_busqueda(busqueda, request.user.cliente) is None:
+                busqueda.tiene_informacion = False
+            else:
+                busqueda.tiene_informacion = True
         return render(
             request,
             "listar_publicaciones_de_busquedas.html",
@@ -61,18 +68,19 @@ def agregar_publicacion_busqueda(request):
 
 def tengo_informacion(request):
     if request.method == "POST":
+        busqueda_id  = request.POST.get("busqueda_id")
         email_interesado = request.POST.get("email")
         telefono = request.POST.get("telefono")
         nombre = request.POST.get("nombre")
         nombre_perro = request.POST.get("nombre_perro")
         email_autor = request.POST.get("email_autor")
-
         asunto = "Nueva persona con información"
         mensaje = f"{nombre} tiene información sobre el perro perdido {nombre_perro}. Contacto:\n\nEmail: {email_interesado}\nTeléfono: {telefono}\nNombre: {nombre}"
         remitente = settings.EMAIL_HOST_USER
         destinatario = [email_autor]
-
         send_mail(asunto, mensaje, remitente, destinatario)
+        if request.user.is_authenticated:
+            agregar_usuario_tiene_informacion_busqueda(busqueda_id, request.user.cliente)
         messages.success(request, "Tus datos fueron enviados al autor de la publicación. Aguarda su respuesta!")
         return redirect("listar_publicaciones_de_busquedas")
     return redirect("listar_publicaciones_de_busquedas")

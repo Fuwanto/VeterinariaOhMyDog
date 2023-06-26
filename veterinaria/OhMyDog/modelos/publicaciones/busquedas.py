@@ -25,3 +25,8 @@ def borrar_foto(sender, instance, **kwargs):
         path_foto = instance.foto.path
         if os.path.exists(path_foto):
             os.remove(path_foto)
+
+class UsuarioTieneInformacionBusqueda (models.Model):
+    id = models.BigAutoField(primary_key=True)
+    cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
+    busqueda = models.ForeignKey(Busqueda, null=False, on_delete=models.CASCADE)

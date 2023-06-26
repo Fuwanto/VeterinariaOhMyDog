@@ -207,6 +207,7 @@
                             <p class="card-text"><small class="text-muted">Autor: {{ busqueda.cliente.nombre }}</small></p>
                         </div>
                         {%if not busqueda.encontrado%}
+                        {%if not busqueda.tiene_informacion %}
                             {% if cliente %}
                             <div class="col text-end">
                                 <form action="{% url 'tengo_informacion' %}" method="POST">
@@ -214,6 +215,7 @@
                                     <input type="hidden" name="key1" value="{{cliente.email}}">
                                     <input type="hidden" name="key2" value="{{cliente.telefono}}">
                                     <input type="hidden" name="key2" value="{{cliente.nombre}}">
+                                    <input type="hidden" name="busqueda_id" value="{{busqueda.id}}">
                                     <button type="submit" class="btn btn-warning">Tengo información</button>
                                 </form>                                  
                             </div>
@@ -225,6 +227,7 @@
                                 </a>
                             </div>
                             {% endif %}
+                        {% endif %}
                         {%else%}
                             <div class="col text-end">
                                 <p class="text-success" style="font-weight:bold">Encontrado</p>

@@ -14,8 +14,8 @@ from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDe
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
-from OhMyDog.modelos.publicaciones.busquedas import Busqueda
-from OhMyDog.modelos.publicaciones.adopciones import Adopcion, Usuario_interesa_adopcion
+from OhMyDog.modelos.publicaciones.busquedas import Busqueda, UsuarioTieneInformacionBusqueda
+from OhMyDog.modelos.publicaciones.adopciones import Adopcion, UsuarioInteresaAdopcion
 
 admin.site.register(Cliente)
 admin.site.register(EstadoDelTurno)
@@ -33,4 +33,5 @@ admin.site.register(EtapaVidaPerro)
 admin.site.register(PaseadorCuidador)
 admin.site.register(Busqueda)
 admin.site.register(Adopcion)
-admin.site.register(Usuario_interesa_adopcion)
+admin.site.register(UsuarioInteresaAdopcion)
+admin.site.register(UsuarioTieneInformacionBusqueda)
