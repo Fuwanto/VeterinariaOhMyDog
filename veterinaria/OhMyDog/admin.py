@@ -16,6 +16,7 @@ from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
 from OhMyDog.modelos.publicaciones.busquedas import Busqueda, UsuarioTieneInformacionBusqueda
 from OhMyDog.modelos.publicaciones.adopciones import Adopcion, UsuarioInteresaAdopcion
+from OhMyDog.modelos.publicaciones.donaciones import Donacion
 
 admin.site.register(Cliente)
 admin.site.register(EstadoDelTurno)
@@ -35,3 +36,4 @@ admin.site.register(Busqueda)
 admin.site.register(Adopcion)
 admin.site.register(UsuarioInteresaAdopcion)
 admin.site.register(UsuarioTieneInformacionBusqueda)
+admin.site.register(Donacion)

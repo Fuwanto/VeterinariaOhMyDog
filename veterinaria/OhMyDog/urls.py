@@ -65,6 +65,10 @@ from OhMyDog.views.publicaciones_adopciones import (
     eliminar_adopcion,
 )
 
+from OhMyDog.views.campanias_donacion import(
+    agregar_campania_donacion,
+)
+
 
 miscelaneo = [
     path("", home, name="home"),
@@ -108,6 +112,7 @@ formularios = [
     path("registrar_cliente", registrar_cliente, name="registrar_cliente"),
     path("solicitar_turno", solicitar_turnos, name="solicitar_turno"),
     path("clientes/<int:cliente_id>/registrar_perro", registrar_perro, name="registrar_perro"),
+    path("agregar_campania_donacion", agregar_campania_donacion, name= "agregar_campania_donacion")
 ]
 
 listados = [

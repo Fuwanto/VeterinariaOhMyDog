@@ -1,0 +1,44 @@
+{% extends 'layout.html' %} {% block title %}OhMyDog - Clientes{% endblock %} 
+{% block content %}
+
+<div class="container containerPrincipal">
+    <div class="card" style="border-radius: 1rem">
+        <div class="container py-5">
+            <h1 class="text-center mb-4">Registrar campaña de donacion</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                placeholder="Nombre de la campaña"required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="objetivo" class="form-label">Objetivo</label>
+                            <input type="text" class="form-control" id="objetivo" name="objetivo"
+                                placeholder="Objetivo de la campaña" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
+                            <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio"
+                                required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_fin" class="form-label">Fecha de Finalizacion</label>
+                            <input type="date" class="form-control" id="fecha_fin" name="fecha_fin"
+                                required />
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">
+                                Registrar atención
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

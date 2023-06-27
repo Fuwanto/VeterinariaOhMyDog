@@ -5,6 +5,7 @@ from OhMyDog.modelos.publicaciones.busquedas import Busqueda, UsuarioTieneInform
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
+from OhMyDog.modelos.publicaciones.donaciones import Donacion
 
 
 """
@@ -165,3 +166,17 @@ def existe_paseador_cuidador_mail(email):
 def eliminar_paseador_cuidador(paseador_cuidador_id):
     paseador_cuidador = get_object_or_404(PaseadorCuidador, id=paseador_cuidador_id)
     paseador_cuidador.delete()
+
+"""
+        Donaciones
+"""
+
+def buscar_campania_por_nombre (otroNombre):
+    try:
+        return Donacion.objects.get(nombre=otroNombre)
+    except Donacion.DoesNotExist:
+        return None
+    
+def crear_campania (nombre, objetivo, fecha_inicio, fecha_fin):
+    donacion = Donacion(nombre = nombre, objetivo=objetivo, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin)
+    donacion.save()
