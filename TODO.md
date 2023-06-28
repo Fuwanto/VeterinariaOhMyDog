@@ -10,3 +10,4 @@
 
 # Cosas a pensar una solucion:
 -   Se supone que al pasar la fecha de fin de la campaña pasa a estar finalizada, como hacemos eso?
+-   De donde sacamos la cuenta a la que se va a donar? se deberia agregar el cvu/cbu al cargar la campania?

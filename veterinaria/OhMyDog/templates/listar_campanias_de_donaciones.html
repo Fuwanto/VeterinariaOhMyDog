@@ -1,0 +1,163 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Listar campañas de donacion{%endblock %} 
+
+{% block content %}
+
+
+<div class="container bootstrap snippets bootdey">
+    {% if campanias%}
+        {% for campania in campanias%}
+            {% if forloop.counter0|divisibleby:2 %}
+            <div class="row">
+            {% endif %}
+            <div class="col-sm-6" id="adopcionesContainer">
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">{{ campania.nombre }}</h1>
+                        <div class="row">
+                            <div class="col-auto vertical-line">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <th>Objetivo</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Inicio</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Fin</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ campania.objetivo }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="etapa-vida">{{ campania.fecha_inicio }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="tamanio">{{ campania.fecha_fin }}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                    <div class="row">                
+                        <div class="col text-end">
+                            <form action="{% url 'marcar_como_me_interesa' %}" method="POST">
+                                {% csrf_token %}
+                                <button  type="submit" class="btn btn-warning">Donar</button>
+                            </form>                                  
+                        </div>
+                        <div class="col text-end">
+                            <a type="button" class="btn btn-warning" id="me_interesa" 
+                                data-bs-toggle="modal"data-bs-target="#detalleModal" 
+                                data-nombre="{{ campania.nombre }}"
+                                data-recaudado="{{ campania.monto_recaudado }}"
+                                data-objetivo="{{ campania.monto_objetivo}}"
+                                data-cantidad="{{ campania.cantidad_donaciones }}"
+                                data-progreso="{{ campania.progreso }}">Ver Progreso
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 or forloop.last %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p id="mensajeNoAdopciones" style="text-align: center">No se encontraron campañas de donaciones</p>
+    {% endif %}
+</div>
+
+
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="detalleModalLabel">Progreso de la campaña</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body">
+                <div class="row">
+                    <div class="col-auto vertical-line">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Campaña</th>
+                            </tr>
+                            <tr>
+                                <th>Monto objetivo</th>
+                            </tr>
+                            <tr>
+                                <th>Monto recaudado</th>
+                            </tr>
+                            <tr>
+                                <th>Cantidad de donaciones</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="col">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <td id="nombre_campania">Campaña</td>
+                            </tr>
+                            <tr>
+                                <td id="monto_recaudado">Monto objetivo</td>
+                            </tr>
+                            <tr>
+                                <td id="monto_objetivo">Monto recaudado</td>
+                            </tr>
+                            <tr>
+                                <td id="cantidad_donaciones">Cantidad de donaciones</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar" role="progressbar" 
+                    id="progreso" aria-valuenow="50" aria-valuemin="0" 
+                    aria-valuemax="100">0%</div>
+                </div>
+                <div>
+					<button style="float: left; margin-top: 5px;"
+                     type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var detalleModal = document.getElementById('detalleModal');
+	detalleModal.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		var label_nombre_campania = document.getElementById('nombre_campania');
+        var label_monto_recaudado = document.getElementById('monto_recaudado');
+        var label_monto_objetivo = document.getElementById('monto_objetivo');
+        var label_cantidad_donaciones = document.getElementById('cantidad_donaciones');
+        var progress_bar= document.getElementById('progreso');
+        label_nombre_campania.textContent = button.getAttribute('data-nombre');
+        label_monto_recaudado.textContent = button.getAttribute('data-recaudado');
+        label_monto_objetivo.textContent = button.getAttribute('data-objetivo');
+        label_cantidad_donaciones.textContent = button.getAttribute('data-cantidad');
+        var progreso = parseFloat(button.getAttribute('data-progreso'));
+        progress_bar.setAttribute('aria-valuenow', progreso); 
+        progress_bar.style.width = progreso + '%'
+        progress_bar.textContent = progreso + '%';
+	});
+</script>
+{% endblock %}

@@ -67,6 +67,7 @@ from OhMyDog.views.publicaciones_adopciones import (
 
 from OhMyDog.views.campanias_donacion import(
     agregar_campania_donacion,
+    listar_campanias_de_donaciones,
 )
 
 
@@ -173,6 +174,11 @@ publicaciones = [
         "eliminar_publicacion_P/<int:paseador_cuidador_id>",
         eliminar_publicacion_paseador,
         name="eliminar_publicacion_P",
+    ),
+    path(
+        "listar_campanias_de_donaciones",
+        listar_campanias_de_donaciones,
+        name="listar_campanias_de_donaciones",
     ),
 ]
 

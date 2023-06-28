@@ -177,6 +177,11 @@ def buscar_campania_por_nombre (otroNombre):
     except Donacion.DoesNotExist:
         return None
     
-def crear_campania (nombre, objetivo, fecha_inicio, fecha_fin):
-    donacion = Donacion(nombre = nombre, objetivo=objetivo, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin)
+def crear_campania (nombre, objetivo,monto_objetivo, fecha_inicio, fecha_fin):
+    donacion = Donacion(
+        nombre=nombre,objetivo=objetivo,fecha_inicio=fecha_inicio, fecha_fin=fecha_fin,monto_objetivo=monto_objetivo
+        )
     donacion.save()
+
+def listar_campanias_de_donaciones_todas():
+    return Donacion.objects.all()
