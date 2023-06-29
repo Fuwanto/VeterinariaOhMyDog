@@ -1,6 +1,6 @@
 {% extends 'layout.html' %} 
 
-{% block title %}OhMyDog - Listar campañas de donacion{%endblock %} 
+{% block title %}OhMyDog - Publicaciones de donaciones{%endblock %} 
 
 {% block content %}
 
@@ -23,10 +23,10 @@
                                             <th>Objetivo</th>
                                         </tr>
                                         <tr>
-                                            <th>Fecha de Inicio</th>
+                                            <th>Fecha de inicio</th>
                                         </tr>
                                         <tr>
-                                            <th>Fecha de Fin</th>
+                                            <th>Fecha de fin</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -64,7 +64,7 @@
                                 data-recaudado="{{ campania.monto_recaudado }}"
                                 data-objetivo="{{ campania.monto_objetivo}}"
                                 data-cantidad="{{ campania.cantidad_donaciones }}"
-                                data-progreso="{{ campania.progreso }}">Ver Progreso
+                                data-progreso="{{ campania.progreso }}">Ver progreso
                             </a>
                         </div>
                         </div>
@@ -98,10 +98,10 @@
                                 <th>Campaña</th>
                             </tr>
                             <tr>
-                                <th>Monto objetivo</th>
+                                <th>Monto recaudado</th>
                             </tr>
                             <tr>
-                                <th>Monto recaudado</th>
+                                <th>Monto objetivo</th>
                             </tr>
                             <tr>
                                 <th>Cantidad de donaciones</th>
@@ -116,10 +116,10 @@
                                 <td id="nombre_campania">Campaña</td>
                             </tr>
                             <tr>
-                                <td id="monto_recaudado">Monto objetivo</td>
+                                <td id="monto_recaudado">Monto recaudado</td>
                             </tr>
                             <tr>
-                                <td id="monto_objetivo">Monto recaudado</td>
+                                <td id="monto_objetivo">Monto objetivo</td>
                             </tr>
                             <tr>
                                 <td id="cantidad_donaciones">Cantidad de donaciones</td>
@@ -132,10 +132,6 @@
                     <div class="progress-bar" role="progressbar" 
                     id="progreso" aria-valuenow="50" aria-valuemin="0" 
                     aria-valuemax="100">0%</div>
-                </div>
-                <div>
-					<button style="float: left; margin-top: 5px;"
-                     type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
 			</div>
 		</div>
