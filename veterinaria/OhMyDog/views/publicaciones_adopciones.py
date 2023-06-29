@@ -28,12 +28,12 @@ def mis_adopciones(request):
 
 
 def listar_publicaciones_de_adopciones(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.cliente:
         adopciones = listar_adopciones_no_mias(request.user.cliente.id)
         for adopcion in adopciones:
             if usuario_tiene_interes_adopcion(adopcion, request.user.cliente) is None:
                 adopcion.tiene_interes = False
-            else: 
+            else:
                 adopcion.tiene_interes = True
         return render(
             request,

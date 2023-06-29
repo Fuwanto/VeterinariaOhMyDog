@@ -26,7 +26,7 @@ def mis_busquedas(request):
 
 def listar_publicaciones_de_busquedas(request):
     zona = request.GET.get("zona", "")
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.cliente:
         busquedas = listar_busquedas_no_mias_y_por_zona(request.user.cliente.id, zona)
         for busqueda in busquedas:
             if usuario_tiene_informacion_busqueda(busqueda, request.user.cliente) is None:
@@ -68,7 +68,7 @@ def agregar_publicacion_busqueda(request):
 
 def tengo_informacion(request):
     if request.method == "POST":
-        busqueda_id  = request.POST.get("busqueda_id")
+        busqueda_id = request.POST.get("busqueda_id")
         email_interesado = request.POST.get("email")
         telefono = request.POST.get("telefono")
         nombre = request.POST.get("nombre")
