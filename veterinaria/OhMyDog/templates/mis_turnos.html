@@ -1,32 +1,5 @@
 {% extends 'layout.html' %} {% block title %}OhMyDog - Mis turnos{% endblock %}
 {% block content %}
-<style>
-	.popup {
-		position: relative;
-		display: inline-block;
-	  }  
-	  .popup .popuptext {
-		visibility: hidden;
-		width: 200px;
-		background-color: #4B5563;
-		color: #fff;
-		text-align: center;
-		border-radius: 6px;
-		padding: 8px;
-		position: absolute;
-		z-index: 1;
-		bottom: 125%;
-		left: 50%;
-		transform: translateX(-50%);
-		opacity: 0;
-		transition: opacity 0.3s;
-		font-weight: bold;
-	  } 
-	  .popup:hover .popuptext {
-		visibility: visible;
-		opacity: 1;
-	  }
-</style>
 <div class="container containerPrincipal">
 	<p>
 
@@ -59,12 +32,17 @@
 					<td>{{ turno.tipo_atencion.nombre }}</td>
 					<td>{{ turno.estado.nombre }}</td>
 					<td>
-						<div class="popup">
+						{% if turno.estado.nombre != "Pendiente" %}
 						  <button type="button" class="btn btn-secondary rechazar-turno"
-							style="background-color: rgb(157, 209, 59)">Ver observaciones
+						  	data-bs-toggle="modal"data-bs-target="#detalleModal" 
+							style="background-color: rgb(157, 209, 59)"
+							data-fecha="{{ turno.fecha_del_turno }}"
+							data-franja="{{ turno.franja_horaria.nombre}}"
+							data-estado="{{ turno.estado.nombre }}"
+							data-observaciones="{{ turno.observaciones }}"
+							>Ver observaciones
 						  </button>
-						  <span class="popuptext">{{turno.observaciones}}</span>
-						</div>
+					    {% endif %}
 					  </td>
 				</tr>
 				{% endfor %} 
@@ -79,5 +57,69 @@
 			</table>
 	</div>
 </div>
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="detalleModalLabel">Observaciones del turno</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+                <div class="row">
+                    <div class="col-auto vertical-line">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Fecha del turno</th>
+                            </tr>
+                            <tr>
+                                <th>Franja horaria</th>
+                            </tr>
+                            <tr>
+                                <th>Estado del turno</th>
+                            </tr>
+                            <tr>
+                                <th>Observaciones:</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="col">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <td id="fecha_del_turno">Fecha del turno</td>
+                            </tr>
+                            <tr>
+                                <td id="franja_horaria">Franja Horaria</td>
+                            </tr>
+                            <tr>
+                                <td id="estado">Estado del turno</td>
+                            </tr>
+                            <tr>
+                                <td id="observaciones">Observaciones</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var detalleModal = document.getElementById('detalleModal');
+	detalleModal.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		var label_nombre_campania = document.getElementById('fecha_del_turno');
+        var label_monto_recaudado = document.getElementById('franja_horaria');
+        var label_monto_objetivo = document.getElementById('estado');
+        var label_cantidad_donaciones = document.getElementById('observaciones');
+        label_nombre_campania.textContent = button.getAttribute('data-fecha');
+        label_monto_recaudado.textContent = button.getAttribute('data-franja');
+        label_monto_objetivo.textContent = button.getAttribute('data-estado');
+        label_cantidad_donaciones.textContent = button.getAttribute('data-observaciones');
+	});
+</script>
 
 {% endblock %}
