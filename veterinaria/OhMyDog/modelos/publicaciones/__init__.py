@@ -190,3 +190,14 @@ def terminar_campania (campania_id):
     campania = get_object_or_404(Donacion, id=campania_id)
     campania.activa = False
     campania.save()
+
+def obtener_campania_por_id(campania_id):
+    try:
+        return Donacion.objects.get(id= campania_id)
+    except Donacion.DoesNotExist:
+        return None
+    
+def actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin):
+    campania = Donacion.objects.get(id = campania_id)
+    campania.fecha_fin = nueva_fecha_fin
+    campania.save()

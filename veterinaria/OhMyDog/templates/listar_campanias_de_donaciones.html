@@ -123,16 +123,26 @@
                             </form>                                  
                         </div>
                         <div class="col text-end">
-                            <a type="button" class="btn btn-warning d-inline-block" id="ver_progreso" 
+                            <button type="button" class="btn btn-warning d-inline-block" id="ver_progreso" 
                                 data-bs-toggle="modal"data-bs-target="#detalleModal" 
                                 data-nombre="{{ campania.nombre }}"
                                 data-recaudado="{{ campania.monto_recaudado }}"
                                 data-objetivo="{{ campania.monto_objetivo}}"
                                 data-cantidad="{{ campania.cantidad_donaciones }}"
                                 data-progreso="{{ campania.progreso }}">Progreso
-                            </a>
+                        </button>
                         </div>
                          {% if user.is_staff %}
+                        <div class="col text-end">
+                            <button  type="submit" class="btn btn-warning" id="modificar"
+                                data-bs-toggle="modal" data-bs-target="#modificarModal" 
+                                data-id = "{{ campania.id }}"
+                                data-nombre = "{{ campania.nombre }}"
+                                data-fecha_inicio="{{ campania.fecha_inicio }}"
+                                data-fecha_fin="{{ campania.fecha_fin }}"
+                            >Modificar</button> 
+
+                        </div>            
                         <div class="col text-end">
                                 <a  type="submit" class="btn btn-danger"
                                 href="{% url 'terminar_campania_donacion' campania.id %}"
@@ -219,10 +229,74 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="modificarModal" tabindex="-1" aria-labelledby="modificarModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modificarModalLabel">Modificar campaña</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">  
+                <form method="post" action="{% url 'modificar_fecha_fin_campania' %}">
+                {% csrf_token %}  
+                 
+                <div class="row">
+                    <div class="col-auto vertical-line">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Campaña</th>
+                            </tr>
+                            <tr>
+                                <th>Fecha de inicio</th>
+                            </tr>
+                            <tr>
+                                <th>Fecha de fin</th>
+                            </tr>
+                            <tr>
+                                <th>Nueva fecha de fin</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="col">
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <td id="nombre">Campaña</td>
+                            </tr>
+                            <tr>
+                                <td id="fecha_inicio">Fecha de inicio</td>
+                            </tr>
+                            <tr>
+                                <td id="fecha_fin">Fecha de fin</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="date" class="form-control" id="nueva_fecha_fin" name="nueva_fecha_fin"  
+                                        required />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>  
+                </div>                      
+                    <div>
+                        <input type="hidden" name="campania_id" id="campaniaId"> 
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>        
+                    </div>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	var detalleModal = document.getElementById('detalleModal');
 	detalleModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
+
 		var label_nombre_campania = document.getElementById('nombre_campania');
         var label_monto_recaudado = document.getElementById('monto_recaudado');
         var label_monto_objetivo = document.getElementById('monto_objetivo');
@@ -234,8 +308,24 @@
         label_cantidad_donaciones.textContent = button.getAttribute('data-cantidad');
         var progreso = parseFloat(button.getAttribute('data-progreso'));
         progress_bar.setAttribute('aria-valuenow', progreso); 
-        progress_bar.style.width = progreso + '%'
+        progress_bar.style.width = progreso + '%';
         progress_bar.textContent = progreso + '%';
 	});
+
+     var modificarModal = document.getElementById('modificarModal');
+     modificarModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var label_nombre_campania = document.getElementById('nombre');
+        var label_fecha_inicio = document.getElementById('fecha_inicio');
+        var label_fecha_fin = document.getElementById('fecha_fin');
+        label_nombre_campania.textContent = button.getAttribute('data-nombre');
+        label_fecha_inicio.textContent = button.getAttribute('data-fecha_inicio');
+        label_fecha_fin.textContent = button.getAttribute("data-fecha_fin");
+        var campaniaId = button.getAttribute('data-id');
+        var campaniaIdInput = document.getElementById('campaniaId');
+        campaniaIdInput.value = campaniaId;
+
+    });
 </script>
-{% endblock %}
+
+{% endblock %} 

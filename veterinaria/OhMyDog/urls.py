@@ -69,6 +69,7 @@ from OhMyDog.views.campanias_donacion import(
     agregar_campania_donacion,
     listar_campanias_de_donaciones,
     terminar_campania_donacion,
+    modificar_fecha_fin_campania,
 )
 
 
@@ -185,6 +186,11 @@ publicaciones = [
         "terminar_campania_donacion/<int:campania_id>",
         terminar_campania_donacion,
         name="terminar_campania_donacion",
+    ),
+    path(
+        "modificar_fecha_fin_campania",
+        modificar_fecha_fin_campania,
+        name="modificar_fecha_fin_campania",
     )
 ]
 
