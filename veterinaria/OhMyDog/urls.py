@@ -68,6 +68,7 @@ from OhMyDog.views.publicaciones_adopciones import (
 from OhMyDog.views.campanias_donacion import(
     agregar_campania_donacion,
     listar_campanias_de_donaciones,
+    terminar_campania_donacion,
 )
 
 
@@ -180,6 +181,11 @@ publicaciones = [
         listar_campanias_de_donaciones,
         name="listar_campanias_de_donaciones",
     ),
+    path(
+        "terminar_campania_donacion/<int:campania_id>",
+        terminar_campania_donacion,
+        name="terminar_campania_donacion",
+    )
 ]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos

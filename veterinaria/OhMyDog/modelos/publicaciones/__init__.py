@@ -185,3 +185,8 @@ def crear_campania (nombre, objetivo,monto_objetivo, fecha_inicio, fecha_fin):
 
 def listar_campanias_de_donaciones_todas():
     return Donacion.objects.all()
+
+def terminar_campania (campania_id):
+    campania = get_object_or_404(Donacion, id=campania_id)
+    campania.activa = False
+    campania.save()
