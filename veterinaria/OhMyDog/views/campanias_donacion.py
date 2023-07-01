@@ -11,7 +11,7 @@ from OhMyDog.modelos.publicaciones import (
 
 from OhMyDog.views.utils import agregar_mensaje_error
 from datetime import datetime, date, timedelta
-
+import datetime
 
 def agregar_campania_donacion(request):
     if request.method == "POST":
@@ -53,6 +53,7 @@ def terminar_campania_donacion(request, campania_id):
 def modificar_fecha_fin_campania(request):
     campania_id = request.POST.get("campania_id")
     nueva_fecha_fin_str = request.POST.get("nueva_fecha_fin")
+    print(nueva_fecha_fin_str)
     nueva_fecha_fin = datetime.datetime.strptime(nueva_fecha_fin_str, "%Y-%m-%d").date()
     campania = obtener_campania_por_id(campania_id)
     if nueva_fecha_fin <= campania.fecha_inicio:
