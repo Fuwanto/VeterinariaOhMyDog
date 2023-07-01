@@ -16,13 +16,13 @@ from decimal import Decimal
 from OhMyDog.modelos.turnos import solicitar_turno_siguiente_vacunacion
 
 
+def crear_contexto(perro_id):
+    return {"perro": buscar_perro_por_id(perro_id), "hoy": date.today().strftime("%Y-%m-%d")}
+
+
 def agregar_atencion_clinica(request):
     if request.method == "GET":
-        perro_id = request.GET.get("perro")
-        perro = buscar_perro_por_id(perro_id)
-
-        hoy = date.today()
-        context = {"perro": perro, "max": hoy.strftime("%Y-%m-%d")}
+        context = crear_contexto(request.GET.get("perro"))
         return render(request, "agregar_atencion_clinica.html", context)
 
     if request.method == "POST":
@@ -37,10 +37,7 @@ def agregar_atencion_clinica(request):
 
 def agregar_consulta(request):
     if request.method == "GET":
-        perro_id = request.GET.get("perro")
-        perro = buscar_perro_por_id(perro_id)
-        hoy = date.today()
-        context = {"perro": perro, "max": hoy.strftime("%Y-%m-%d")}
+        context = crear_contexto(request.GET.get("perro"))
         return render(request, "agregar_consulta.html", context)
 
     if request.method == "POST":
@@ -55,10 +52,7 @@ def agregar_consulta(request):
 
 def agregar_desparasitacion(request):
     if request.method == "GET":
-        perro_id = request.GET.get("perro")
-        perro = buscar_perro_por_id(perro_id)
-        hoy = date.today()
-        context = {"perro": perro, "max": hoy.strftime("%Y-%m-%d")}
+        context = crear_contexto(request.GET.get("perro"))
         return render(request, "agregar_desparasitacion.html", context)
 
     if request.method == "POST":
@@ -79,10 +73,7 @@ def agregar_desparasitacion(request):
 
 def agregar_castracion(request):
     if request.method == "GET":
-        perro_id = request.GET.get("perro")
-        perro = buscar_perro_por_id(perro_id)
-        hoy = date.today()
-        context = {"perro": perro, "max": hoy.strftime("%Y-%m-%d")}
+        context = crear_contexto(request.GET.get("perro"))
         return render(request, "agregar_castracion.html", context)
 
     if request.method == "POST":
@@ -97,10 +88,7 @@ def agregar_castracion(request):
 
 def agregar_vacunacion(request):
     if request.method == "GET":
-        perro_id = request.GET.get("perro")
-        perro = buscar_perro_por_id(perro_id)
-        hoy = date.today()
-        context = {"perro": perro, "max": hoy.strftime("%Y-%m-%d")}
+        context = crear_contexto(request.GET.get("perro"))
         return render(request, "agregar_vacunacion.html", context)
 
     if request.method == "POST":
@@ -126,7 +114,7 @@ def mostrar_datos_atencion(request):
     atencion = buscar_atencion_por_id(atencion_id)
     vacunacion = buscar_vacunacion_por_atencion_id(atencion_id)
     desparasitacion = buscar_desparasitacion_por_atencion_id(atencion_id)
-    if not observaciones is None:
+    if observaciones is not None:
         atencion.observacion = observaciones
         atencion.save()
     context = {
