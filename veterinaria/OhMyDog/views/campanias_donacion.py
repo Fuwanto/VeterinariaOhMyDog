@@ -48,7 +48,6 @@ def listar_campanias_de_donaciones(request):
         campania.progreso = (campania.monto_recaudado / campania.monto_objetivo) * 100
         if campania.fecha_fin <= hoy:
             campania.activa = False
-            print(campania.fecha_fin)
     context = {
         "campanias": campanias,
         "hoy": hoy,
@@ -57,21 +56,18 @@ def listar_campanias_de_donaciones(request):
 
 
 def terminar_campania_donacion(request, campania_id):
-    print(campania_id)
     terminar_campania(campania_id)
     return redirect("listar_campanias_de_donaciones")
 
 
 def modificar_fecha_fin_campania(request):
     campania_id = request.POST.get("campania_id")
-    print("id", campania_id)
     nueva_fecha_fin_str = request.POST.get("nueva_fecha_fin")
     nueva_fecha_fin = datetime.datetime.strptime(nueva_fecha_fin_str, "%Y-%m-%d").date()
     campania = obtener_campania_por_id(campania_id)
-    print(nueva_fecha_fin)
-    print(campania.fecha_inicio)
     if nueva_fecha_fin <= campania.fecha_inicio:
         agregar_mensaje_error(request, f"La fecha de fin no puede ser anterior o igual a la fecha de inicio.")
-        return render(request, "listar_campanias_de_donaciones.html")
+        return redirect("listar_campanias_de_donaciones")
     actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin)
+    messages.success(request, "Fecha de fin de la campaña modificada con éxito.")
     return redirect("listar_campanias_de_donaciones")

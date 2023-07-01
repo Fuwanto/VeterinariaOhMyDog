@@ -111,7 +111,6 @@ def filtrar_listado_adopciones(request):
 def marcar_como_me_interesa(request):
     if request.method == "POST":
         adopcion_id = request.POST.get("adopcion_id")
-        print(adopcion_id)
         email_interesado = request.POST.get("email")
         telefono = request.POST.get("telefono")
         nombre = request.POST.get("nombre")
