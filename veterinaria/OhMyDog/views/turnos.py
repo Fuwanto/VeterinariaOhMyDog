@@ -10,49 +10,44 @@ from OhMyDog.modelos.turnos import (
     cliente_tiene_turno_en_fecha,
 )
 from OhMyDog.modelos.franjasHorarias.franjasHorarias import FranjaHoraria
-from datetime import datetime, date, timedelta
+from datetime import date, timedelta
 from django.contrib import messages
 from OhMyDog.modelos.perros import buscar_perros_por_dueño_habilitados
 from OhMyDog.views.utils import agregar_mensaje_error
 
 
 def solicitar_turnos(request):
-    atenciones = TipoDeAtencion.objects.all()
-    franjas_horarias = FranjaHoraria.objects.all()
-    perros = buscar_perros_por_dueño_habilitados(request.user.cliente)
-    hoy = date.today()
-    hoy = hoy + timedelta(days=1)
-    context = {
-        "atenciones": atenciones,
-        "franjas_horarias": franjas_horarias,
-        "min": hoy.strftime("%Y-%m-%d"),
-        "perros": perros,
-    }
     if request.method == "GET":
-        render(request, "solicitar_turno.html", context)
+        atenciones = TipoDeAtencion.objects.all()
+        franjas_horarias = FranjaHoraria.objects.all()
+        perros = buscar_perros_por_dueño_habilitados(request.user.cliente)
+        mañana = date.today() + timedelta(days=1)
+        context = {
+            "atenciones": atenciones,
+            "franjas_horarias": franjas_horarias,
+            "mañana": mañana.strftime("%Y-%m-%d"),
+            "perros": perros,
+        }
+        return render(request, "solicitar_turno.html", context)
+
     if request.method == "POST":
         fecha_solicitada = request.POST.get("fecha_solicitada")
-        formato = "%Y-%m-%d"
-        fecha_solicitada = datetime.strptime(fecha_solicitada, formato).date()
-        if cliente_tiene_turno_en_fecha(request.user.cliente, fecha_solicitada) is None:
-            if fecha_solicitada > date.today():
-                franja_horaria = request.POST.get("franja_horaria")
-                tipo_atencion = request.POST.get("tipo_de_atencion")
-                perro_id = request.POST.get("perro_id")
-                solicitar_turno(
-                    request.user.cliente,
-                    fecha_solicitada,
-                    franja_horaria,
-                    perro_id,
-                    tipo_atencion,
-                )
-                messages.success(request, f"Turno solicitado con exito. ")
-                return redirect("home")
-            else:
-                agregar_mensaje_error(request, "La fecha del turno debe ser posterior al día de hoy.")
-        else:
+        if cliente_tiene_turno_en_fecha(request.user.cliente, fecha_solicitada):
             agregar_mensaje_error(request, "Usted ya ha solicitado un turno en esa fecha.")
-    return render(request, "solicitar_turno.html", context)
+            return redirect("solicitar_turno")
+        else:
+            franja_horaria = request.POST.get("franja_horaria")
+            tipo_atencion = request.POST.get("tipo_de_atencion")
+            perro_id = request.POST.get("perro_id")
+            solicitar_turno(
+                request.user.cliente,
+                fecha_solicitada,
+                franja_horaria,
+                perro_id,
+                tipo_atencion,
+            )
+            messages.success(request, f"Turno solicitado con exito. ")
+            return redirect("home")
 
 
 def solicitudes_de_turnos(request):

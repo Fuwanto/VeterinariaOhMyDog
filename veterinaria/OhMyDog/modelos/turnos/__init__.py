@@ -83,9 +83,10 @@ def enviar_mail_rechazo(turno_id, observaciones):
 
 def cliente_tiene_turno_en_fecha(cliente, fecha):
     try:
-        return Turno.objects.get(cliente=cliente, fecha_del_turno=fecha)
+        turno = Turno.objects.get(cliente=cliente, fecha_del_turno=fecha)
+        return True
     except:
-        return None
+        return False
 
 
 def solicitar_turno_siguiente_vacunacion(perro, vacuna, fecha):
