@@ -6,6 +6,7 @@ from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
 from OhMyDog.modelos.publicaciones.donaciones import Donacion
+from datetime import date, timedelta
 
 
 """
@@ -59,16 +60,20 @@ def eliminar_publicacion_adopcion(adopcion_id):
     adopcion = get_object_or_404(Adopcion, id=adopcion_id)
     adopcion.delete()
 
+
 def usuario_tiene_interes_adopcion(adopcion, cliente):
     try:
         return UsuarioInteresaAdopcion.objects.get(adopcion=adopcion, cliente=cliente)
     except UsuarioInteresaAdopcion.DoesNotExist:
         return None
-    
+
+
 def agregar_usuario_interesa(adopcion_id, cliente):
-    adopcion = Adopcion.objects.get(id = adopcion_id)
-    usuario_interesa_adopcion = UsuarioInteresaAdopcion (adopcion = adopcion,cliente=cliente)
+    adopcion = Adopcion.objects.get(id=adopcion_id)
+    usuario_interesa_adopcion = UsuarioInteresaAdopcion(adopcion=adopcion, cliente=cliente)
     usuario_interesa_adopcion.save()
+
+
 """
         BUSQUEDAS
 """
@@ -116,16 +121,19 @@ def buscar_busqueda_por_nombre_archivo_y_cliente(cliente, nombre_archivo):
     except:
         return None
 
-def usuario_tiene_informacion_busqueda (busqueda, cliente):
+
+def usuario_tiene_informacion_busqueda(busqueda, cliente):
     try:
-        return UsuarioTieneInformacionBusqueda.objects.get(busqueda= busqueda, cliente=cliente)
+        return UsuarioTieneInformacionBusqueda.objects.get(busqueda=busqueda, cliente=cliente)
     except UsuarioTieneInformacionBusqueda.DoesNotExist:
         return None
-    
-def agregar_usuario_tiene_informacion_busqueda (busquedaId, cliente):
-    busqueda = Busqueda.objects.get(id = busquedaId)
-    usuario_busqueda = UsuarioTieneInformacionBusqueda(busqueda=busqueda, cliente= cliente)
+
+
+def agregar_usuario_tiene_informacion_busqueda(busquedaId, cliente):
+    busqueda = Busqueda.objects.get(id=busquedaId)
+    usuario_busqueda = UsuarioTieneInformacionBusqueda(busqueda=busqueda, cliente=cliente)
     usuario_busqueda.save()
+
 
 """
         PASEADORES | Cuidadores
@@ -167,37 +175,62 @@ def eliminar_paseador_cuidador(paseador_cuidador_id):
     paseador_cuidador = get_object_or_404(PaseadorCuidador, id=paseador_cuidador_id)
     paseador_cuidador.delete()
 
+
 """
         Donaciones
 """
 
-def buscar_campania_por_nombre (otroNombre):
+
+def buscar_campania_por_nombre(otroNombre):
     try:
         return Donacion.objects.get(nombre=otroNombre)
     except Donacion.DoesNotExist:
         return None
-    
-def crear_campania (nombre, objetivo,monto_objetivo, fecha_inicio, fecha_fin):
+
+
+def existe_donacion_nombre(nombre):
+    try:
+        donacion = Donacion.objects.get(nombre=nombre)
+        return True
+    except:
+        return False
+
+
+def crear_campania(nombre, objetivo, monto_objetivo, fecha_inicio, fecha_fin):
     donacion = Donacion(
-        nombre=nombre,objetivo=objetivo,fecha_inicio=fecha_inicio, fecha_fin=fecha_fin,monto_objetivo=monto_objetivo
-        )
+        nombre=nombre, objetivo=objetivo, fecha_inicio=fecha_inicio, fecha_fin=fecha_fin, monto_objetivo=monto_objetivo
+    )
     donacion.save()
+
 
 def listar_campanias_de_donaciones_todas():
     return Donacion.objects.all()
 
-def terminar_campania (campania_id):
+
+def listar_campanias_de_donaciones_actualizadas():
+    campañas = Donacion.objects.all()
+    mañana = date.today() + timedelta(days=1)
+    for campaña in campañas:
+        campaña.progreso = (campaña.monto_recaudado / campaña.monto_objetivo) * 100
+        if campaña.fecha_fin <= mañana:
+            campaña.activa = False
+    return campañas
+
+
+def terminar_campania(campania_id):
     campania = get_object_or_404(Donacion, id=campania_id)
     campania.activa = False
     campania.save()
 
+
 def obtener_campania_por_id(campania_id):
     try:
-        return Donacion.objects.get(id= campania_id)
+        return Donacion.objects.get(id=campania_id)
     except Donacion.DoesNotExist:
         return None
-    
+
+
 def actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin):
-    campania = Donacion.objects.get(id = campania_id)
+    campania = Donacion.objects.get(id=campania_id)
     campania.fecha_fin = nueva_fecha_fin
     campania.save()
