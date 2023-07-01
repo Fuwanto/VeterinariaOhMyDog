@@ -18,7 +18,7 @@
 					<th scope="col">Franja Horaria</th>
 					<th scope="col">Atención</th>
 					<th scope="col">Estado</th>
-					<th scope="col">Observaciones</th>
+					<th scope="col">Detalle</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,7 +40,7 @@
 							data-franja="{{ turno.franja_horaria.nombre}}"
 							data-estado="{{ turno.estado.nombre }}"
 							data-observaciones="{{ turno.observaciones }}"
-							>Ver observaciones
+							>Ver detalle
 						  </button>
 					    {% endif %}
 					  </td>
@@ -61,7 +61,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="detalleModalLabel">Observaciones del turno</h5>
+				<h5 class="modal-title" id="detalleModalLabel">Detalles del turno</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -79,7 +79,7 @@
                                 <th>Estado del turno</th>
                             </tr>
                             <tr>
-                                <th>Observaciones:</th>
+                                <th>Observaciones</th>
                             </tr>
                         </tbody>
                     </table>
