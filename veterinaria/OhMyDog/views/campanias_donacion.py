@@ -53,7 +53,7 @@ def terminar_campania_donacion(request, campania_id):
 def modificar_fecha_fin_campania(request):
     campania_id = request.POST.get("campania_id")
     nueva_fecha_fin_str = request.POST.get("nueva_fecha_fin")
-    nueva_fecha_fin = datetime.datetime.strptime(nueva_fecha_fin_str, "%Y-%m-%d").date()
+    nueva_fecha_fin = datetime.strptime(nueva_fecha_fin_str, "%Y-%m-%d").date()
     campania = obtener_campania_por_id(campania_id)
     if nueva_fecha_fin <= campania.fecha_inicio:
         agregar_mensaje_error(request, f"La fecha de fin no puede ser anterior o igual a la fecha de inicio.")
