@@ -1,0 +1,175 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Mis Cruzas{%endblock %} 
+
+{% block content %}
+
+<style>
+    .vertical-line {
+        border-right: 1px solid #dee2e6;
+        height: 100%;
+    }
+
+    /* Estilos para el cuadro emergente de confirmar adopcion */
+    #popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 2px solid blue; /* Cambiar el color y el ancho del borde */
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centrar los botones */
+      }
+  
+      #popup button {
+        margin: 10px; /* Agregar un espacio entre los botones */
+        padding: 5px 10px; /* Ajustar el espacio interno de los botones */
+        border-radius: 4px;
+        cursor: pointer;
+      }
+</style>
+
+<script>
+    function confirmarEliminacion(event) {
+      event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+
+      // Crear el cuadro emergente de confirmación
+      var popup = document.createElement("div");
+      popup.id = "popup";
+
+      // Crear el mensaje de confirmación
+      var mensaje = document.createElement("p");
+      mensaje.textContent = "¿Estás seguro de que deseas eliminar esta publicación?";
+
+      // Crear los botones de confirmación
+      var botonAceptar = document.createElement("button");
+      botonAceptar.textContent = "Eliminar";
+      botonAceptar.addEventListener("click", function() {
+        // Si el usuario hace clic en "Eliminar", redireccionar a la URL del enlace
+        window.location.href = event.target.href;
+        document.body.removeChild(popup); // Eliminar el cuadro emergente
+      });
+
+      var botonCancelar = document.createElement("button");
+      botonCancelar.textContent = "Cancelar";
+      botonCancelar.addEventListener("click", function() {
+        // Si el usuario hace clic en "Cancelar", no hacer nada
+        document.body.removeChild(popup); // Eliminar el cuadro emergente
+      });
+
+      // Agregar el mensaje y los botones al cuadro emergente
+      popup.appendChild(mensaje);
+      popup.appendChild(botonAceptar);
+      popup.appendChild(botonCancelar);
+
+      // Agregar el cuadro emergente al cuerpo del documento
+      document.body.appendChild(popup);
+    }
+</script>
+
+<h1 style="text-align:center">Mis Cruzas</h1>
+<div class="container bootstrap snippets bootdey">
+    <a type="button" class="btn btn-primary" href="{% url 'agregar_publicacion_cruza' %}" 
+    style="margin-bottom: 20px;">
+    Agregar cruza
+    </a>
+    {% if cruzas %} 
+        {% for cruza in cruzas %}
+        {% if forloop.counter0|divisibleby:2 %}
+        <div class="row">
+        {% endif %}
+        <div class="col-sm-4">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h1 class="card-title text-center">{{ cruza.nombre }}</h1>
+                    <div class="col-auto text-center">
+                        <img src="{{ cruza.foto.url }}" alt="Foto del perro" 
+                            class="img-thumbnail" style="max-width: 350px; max-height: 350px;">
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-auto vertical-line">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>Sexo</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Raza</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Edad</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Peso</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Color</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Antec. de salud</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        {%if cruza.sexo == "M"%}
+                                            <td class="sexo">Macho</td>
+                                        {%else%}
+                                            <td class="sexo">Hembra</td>
+                                        {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td>{{ cruza.raza }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ cruza.edad_meses }} meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ cruza.peso }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ cruza.color }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ cruza.antecedentes_salud }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text"><small class="text-muted">Autor: {{ cruza.cliente.nombre }}</small></p>
+                        </div>
+                            <div class="col text-end">
+                                <a type="button" class="btn btn-success"
+                                    href="{%url 'listar_candidatos' cruza.id %}">Listar candidatos
+                                </a>
+                            </div>
+                            <div class="col text-end">
+                                <a type="button" class="btn btn-danger" onclick="confirmarEliminacion(event);"
+                                    href="{%url 'eliminar_publicacion_cruza' cruza.id %}">Eliminar
+                                </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 or forloop.last %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No se encontraron cruzas</p>
+    {% endif %}
+</div>
+
+{% endblock %}

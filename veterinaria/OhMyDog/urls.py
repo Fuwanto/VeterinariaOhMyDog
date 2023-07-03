@@ -72,6 +72,13 @@ from OhMyDog.views.campanias_donacion import(
     modificar_fecha_fin_campania,
 )
 
+from OhMyDog.views.publicaciones_de_cruzas import (
+    mis_cruzas,
+    agregar_publicacion_cruza,
+    listar_candidatos,
+    eliminar_publicacion_cruza,
+    seleccionar_candidato
+)
 
 miscelaneo = [
     path("", home, name="home"),
@@ -115,7 +122,9 @@ formularios = [
     path("registrar_cliente", registrar_cliente, name="registrar_cliente"),
     path("solicitar_turno", solicitar_turnos, name="solicitar_turno"),
     path("clientes/<int:cliente_id>/registrar_perro", registrar_perro, name="registrar_perro"),
-    path("agregar_campania_donacion", agregar_campania_donacion, name= "agregar_campania_donacion")
+    path("agregar_campania_donacion", agregar_campania_donacion, name= "agregar_campania_donacion"),
+    path("agregar_publicacion_cruza", agregar_publicacion_cruza, name="agregar_publicacion_cruza"),
+    path("seleccionar_candidato", seleccionar_candidato, name="seleccionar_candidato")
 ]
 
 listados = [
@@ -140,6 +149,7 @@ listados = [
     path("solicitudes_de_turnos", solicitudes_de_turnos, name="solicitudes_de_turnos"),
     path("mis_turnos", mis_turnos, name="mis_turnos"),
     path("mis_perros", mis_perros, name="mis_perros"),
+    path("listar_canditados/<int:cruza_id>", listar_candidatos, name="listar_candidatos"),
 ]
 
 publicaciones = [
@@ -191,7 +201,13 @@ publicaciones = [
         "modificar_fecha_fin_campania",
         modificar_fecha_fin_campania,
         name="modificar_fecha_fin_campania",
-    )
+    ),
+    path("mis_cruzas", mis_cruzas, name="mis_cruzas"),
+    path(
+        "eliminar_publicacion_cruza/<int:cruza_id>",
+        eliminar_publicacion_cruza,
+        name="eliminar_publicacion_cruza",
+    ),
 ]
 
 urlpatterns = formularios + listados + miscelaneo + publicaciones + datos
