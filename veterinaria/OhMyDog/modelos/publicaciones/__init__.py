@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from OhMyDog.modelos.publicaciones.adopciones import Adopcion, UsuarioInteresaAdopcion
 from OhMyDog.modelos.clientes.clientes import Cliente
 from OhMyDog.modelos.publicaciones.busquedas import Busqueda, UsuarioTieneInformacionBusqueda
+from OhMyDog.modelos.publicaciones.cruzas import Cruza
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
@@ -234,3 +235,73 @@ def actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin):
     campania = Donacion.objects.get(id=campania_id)
     campania.fecha_fin = nueva_fecha_fin
     campania.save()
+
+
+
+"""
+        Cruzas
+"""
+
+def buscar_cruza_por_cliente_y_nombre(cliente, nombre):
+    try:
+        return Cruza.objects.get(cliente=cliente, nombre=nombre)
+    except:
+        return None
+    
+def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto):
+    cruza = Cruza(
+        cliente=cliente,
+        nombre=nombre,
+        sexo=sexo,
+        raza=raza,
+        edad_meses=edad_meses,
+        peso=peso,
+        color=color,
+        antecedentes_salud=antecedentes_salud,
+        foto=foto
+    )
+    cruza.save()
+    return cruza
+
+def filtrar_cruzas_por_cliente(cliente):
+    return Cruza.objects.filter(cliente=cliente)
+
+def eliminar_cruza(cruza_id):
+    cruza = get_object_or_404(Cruza, id=cruza_id)
+    cruza.delete()
+    
+def buscar_cruza_por_id(cruza_id):
+    return Cruza.objects.get(id=cruza_id)    
+    
+    
+def hay_compatibilidad_de_razas(raza_1, raza_2):
+    return (raza_1.lower().replace(" ", "") == raza_2.lower().replace(" ", ""))
+
+def me_interesa_cruzar(cruza_seleccionada, cruza_id):
+    intereses = cruza_seleccionada.intereses.filter(id=cruza_id)
+    if intereses.exists():
+        return True
+    else:
+        return False
+    
+def buscar_candidatos(cruza_seleccionada):
+    todas_las_cruzas = Cruza.objects.all()
+    candidatos = []
+    for cruza in todas_las_cruzas:
+        if ((cruza_seleccionada.sexo != cruza.sexo) and 
+            (not me_interesa_cruzar(cruza_seleccionada, cruza.id)) and
+            (hay_compatibilidad_de_razas(cruza_seleccionada.raza, cruza.raza))):
+            candidatos.append(cruza)
+            
+    return sorted(candidatos, key=lambda cruza: abs(cruza.edad_meses - cruza_seleccionada.edad_meses))
+
+def agregar_interes_cruza(cruza_seleccionada, cruza_de_interes):
+    cruza_seleccionada.intereses.add(cruza_de_interes)
+    cruza_seleccionada.save()
+    
+def hay_interes_mutuo(cruza_seleccionada, cruza_de_interes):
+    if ((me_interesa_cruzar(cruza_seleccionada=cruza_seleccionada, cruza_id=cruza_de_interes.id)) and
+        (me_interesa_cruzar(cruza_seleccionada=cruza_de_interes, cruza_id=cruza_seleccionada.id))):
+        return True
+    else:
+        return False

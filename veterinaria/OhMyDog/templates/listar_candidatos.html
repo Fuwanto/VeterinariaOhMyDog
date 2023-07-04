@@ -1,0 +1,131 @@
+{% extends 'layout.html' %} 
+
+{% block title %}OhMyDog - Candidatos{%endblock %} 
+
+{% block content %}
+
+<style>
+    .vertical-line {
+        border-right: 1px solid #dee2e6;
+        height: 100%;
+    }
+
+    /* Estilos para el cuadro emergente de confirmar adopcion */
+    #popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 2px solid blue; /* Cambiar el color y el ancho del borde */
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centrar los botones */
+      }
+  
+      #popup button {
+        margin: 10px; /* Agregar un espacio entre los botones */
+        padding: 5px 10px; /* Ajustar el espacio interno de los botones */
+        border-radius: 4px;
+        cursor: pointer;
+      }
+</style>
+
+<h1 style="text-align:center">Candidatos para {{cruza_seleccionada.nombre}}</h1>
+<div class="container bootstrap snippets bootdey">
+    {% if candidatos %} 
+        {% for candidato in candidatos %}
+        {% if forloop.counter0|divisibleby:2 %}
+        <div class="row">
+        {% endif %}
+        <div class="col-sm-4">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h1 class="card-title text-center">{{ cruza.nombre }}</h1>
+                    <div class="col-auto text-center">
+                        <img src="{{ candidato.foto.url }}" alt="Foto del perro" 
+                            class="img-thumbnail" style="max-width: 350px; max-height: 350px;">
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-auto vertical-line">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <th>Sexo</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Raza</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Edad</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Peso</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Color</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Antec. de salud</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        {%if candidato.sexo == "M"%}
+                                            <td class="sexo">Macho</td>
+                                        {%else%}
+                                            <td class="sexo">Hembra</td>
+                                        {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td>{{ candidato.raza }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ candidato.edad_meses }} meses</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ candidato.peso }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ candidato.color }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ candidato.antecedentes_salud }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text"><small class="text-muted">Autor: {{ candidato.cliente.nombre }}</small></p>
+                        </div>
+                        <div class="col text-end">
+                            <form action="{% url 'seleccionar_candidato' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="cruza_id" value="{{candidato.id}}">
+                                <input type="hidden" name="cruza_seleccionada_id" value="{{cruza_seleccionada.id}}">
+                                <button type="submit" class="btn btn-warning">Seleccionar candidato</button>
+                            </form>                                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:2 or forloop.last %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>No se encontraron candidatos compatibles con {{cruza_seleccionada.nombre}}</p>
+    {% endif %}
+</div>
+
+{% endblock %}
