@@ -284,8 +284,8 @@ def me_interesa_cruzar(cruza_seleccionada, cruza_id):
     else:
         return False
     
-def buscar_candidatos(cruza_seleccionada):
-    todas_las_cruzas = Cruza.objects.all()
+def buscar_candidatos(cruza_seleccionada, cliente):
+    todas_las_cruzas = Cruza.objects.all().exclude(cliente=cliente)
     candidatos = []
     for cruza in todas_las_cruzas:
         if ((cruza_seleccionada.sexo != cruza.sexo) and 
