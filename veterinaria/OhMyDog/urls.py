@@ -70,6 +70,8 @@ from OhMyDog.views.campanias_donacion import(
     listar_campanias_de_donaciones,
     terminar_campania_donacion,
     modificar_fecha_fin_campania,
+    realizar_donacion,
+    cambiar_codigo_qr,
 )
 
 from OhMyDog.views.publicaciones_de_cruzas import (
@@ -89,6 +91,7 @@ miscelaneo = [
     path("borrar_cliente/<int:cliente_id>", borrar_cliente, name="borrar_cliente"),
     path("confirmar_turno", confirmar_turno, name="confirmar_turno"),
     path("rechazar_turno", rechazar_turno, name="rechazar_turno"),
+    path("cambiar_codigo_qr/<int:value>/", cambiar_codigo_qr, name="cambiar_codigo_qr"),
 ]
 
 datos = [
@@ -124,7 +127,8 @@ formularios = [
     path("clientes/<int:cliente_id>/registrar_perro", registrar_perro, name="registrar_perro"),
     path("agregar_campania_donacion", agregar_campania_donacion, name= "agregar_campania_donacion"),
     path("agregar_publicacion_cruza", agregar_publicacion_cruza, name="agregar_publicacion_cruza"),
-    path("seleccionar_candidato", seleccionar_candidato, name="seleccionar_candidato")
+    path("seleccionar_candidato", seleccionar_candidato, name="seleccionar_candidato"),
+    path("realizar_donacion", realizar_donacion, name="realizar_donacion"),
 ]
 
 listados = [

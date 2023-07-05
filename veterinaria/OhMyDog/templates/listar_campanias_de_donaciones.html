@@ -117,8 +117,9 @@
                         {% if campania.activa %}
                         {% if campania.fecha_fin %}                
                         <div class="col text-end">
-                            <form action="{% url 'marcar_como_me_interesa' %}" method="POST">
+                            <form action="{% url 'realizar_donacion' %}" method="POST">
                                 {% csrf_token %}
+                                <input type="hidden" name="campania_id" id="campania_id" value="{{ campania.id }}">
                                 <button  type="submit" class="btn btn-warning">Donar</button>
                             </form>                                  
                         </div>

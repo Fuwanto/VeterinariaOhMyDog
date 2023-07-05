@@ -12,6 +12,13 @@ from OhMyDog.modelos.publicaciones import (
 from OhMyDog.views.utils import agregar_mensaje_error
 from datetime import datetime, date, timedelta
 import datetime
+import mercadopago
+from django.conf import settings
+from django.http import JsonResponse
+import qrcode
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 
 def agregar_campania_donacion(request):
     if request.method == "POST":
@@ -58,7 +65,34 @@ def modificar_fecha_fin_campania(request):
     if nueva_fecha_fin <= campania.fecha_inicio:
         agregar_mensaje_error(request, f"La fecha de fin no puede ser anterior o igual a la fecha de inicio.")
         return redirect("listar_campanias_de_donaciones")
-
     actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin)
     messages.success(request, "Fecha de fin de la campaña modificada con éxito.")
     return redirect("listar_campanias_de_donaciones")
+
+
+def realizar_donacion(request):
+    return render (request, "realizar_donacion.html" )
+
+def cambiar_codigo_qr(request, value):
+    print('a0')
+    mp = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)    
+    preference_data = {
+        "items": [
+            {
+                "title": "Transacción",
+                "quantity": 1,
+                "currency_id": "ARS",  # Puedes cambiar esto según tu moneda
+                "unit_price": value,  # Monto de la transacción
+            }
+        ]
+    }
+    preference_result = mp.preference().create(preference_data)
+    if preference_result["status"] == 201:
+        qr_code_url = preference_result["response"]["init_point"]
+        qr_image = qrcode.make(qr_code_url)
+        response = HttpResponse(content_type='image/png')
+        qr_image.save(response, 'PNG')
+        return response
+
+    else:
+        return JsonResponse({"error": "No se pudo generar el pago QR."}, status=500)
