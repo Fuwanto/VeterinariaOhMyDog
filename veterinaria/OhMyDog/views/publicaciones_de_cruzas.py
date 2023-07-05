@@ -65,7 +65,7 @@ def agregar_publicacion_cruza(request):
 @login_required
 def listar_candidatos(request, cruza_id):
     cruza_seleccionada = buscar_cruza_por_id(cruza_id)
-    candidatos = buscar_candidatos(cruza_seleccionada)
+    candidatos = buscar_candidatos(cruza_seleccionada, request.user.cliente)
     context = {"candidatos": candidatos, "cruza_seleccionada": cruza_seleccionada, "cliente": request.user.cliente}
     return render(request, "listar_candidatos.html", context=context)
 
