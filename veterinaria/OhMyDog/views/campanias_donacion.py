@@ -77,7 +77,7 @@ def realizar_donacion(request):
     campania_id = request.POST.get("campania_id")
     print(request.POST.get("campania_id"))
     campania = obtener_campania_por_id(campania_id)
-    return render (request, "realizar_donacion.html",{"campania": campania})
+    return render (request, "realizar_donacion.html",{"campania": campania, "controlBit": False})
 
 def cambiar_codigo_qr(request, campania_id, value):
     print('a0')
@@ -117,5 +117,8 @@ def notificacion_mercadopago (request):
             value = request.GET.get('monto')
             grabar_transaccion (data_id, value, campania_id)
             actualizar_monto_campania(campania_id, value)
+            campania = obtener_campania_por_id(campania_id) 
+            messages.success(request, 'La transacción se completó exitosamente.')
+            return render (request, "realizar_donacion.html", {"campania": campania, "controlBit": True})
     return redirect("home")
 
