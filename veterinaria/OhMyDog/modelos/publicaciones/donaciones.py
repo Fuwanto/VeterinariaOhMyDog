@@ -11,4 +11,13 @@ class Donacion(models.Model):
     monto_recaudado = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     cantidad_donaciones = models.IntegerField(default=0)
     def __str__ (self):
-        return f"Campaña {self.nombre}, Inicio: {self.fecha_inicio}, Fin: {self.fecha_fin}"
+        return f"{self.id} Campaña {self.nombre}, Inicio: {self.fecha_inicio}, Fin: {self.fecha_fin}"
+    
+
+class Transaccion(models.Model):
+    transaccion_id = models.IntegerField(primary_key=True)
+    monto = models.DecimalField(max_digits=10, decimal_places=2)
+    campania = models.ForeignKey(Donacion,null=False, on_delete=models.CASCADE)
+    finalizada = models.BooleanField(default=False)
+    def __str__ (self):
+        return f"{self.transaccion_id}, {self.monto}, {self.campania.nombre}"

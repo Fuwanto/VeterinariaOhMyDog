@@ -6,8 +6,9 @@ from OhMyDog.modelos.publicaciones.cruzas import Cruza
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
-from OhMyDog.modelos.publicaciones.donaciones import Donacion
+from OhMyDog.modelos.publicaciones.donaciones import Donacion, Transaccion
 from datetime import date, timedelta
+import decimal
 
 
 """
@@ -236,7 +237,23 @@ def actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin):
     campania.fecha_fin = nueva_fecha_fin
     campania.save()
 
+def buscar_transaccion_por_id (transaccion_id):
+    try:
+        return Transaccion.objects.get(transaccion_id=transaccion_id)
+    except Transaccion.DoesNotExist:
+        return None
 
+def grabar_transaccion (transaccion_id, monto, campania_id):
+    campania = Donacion.objects.get(id=campania_id)
+    print(transaccion_id)
+    transaccion = Transaccion (transaccion_id = transaccion_id, monto = monto, campania=campania)
+    transaccion.save()
+
+def actualizar_monto_campania (campania_id, monto):
+    campania = Donacion.objects.get(id=campania_id)
+    campania.monto_recaudado += decimal.Decimal(monto)
+    campania.cantidad_donaciones += 1
+    campania.save()
 
 """
         Cruzas
@@ -247,7 +264,8 @@ def buscar_cruza_por_cliente_y_nombre(cliente, nombre):
         return Cruza.objects.get(cliente=cliente, nombre=nombre)
     except:
         return None
-    
+
+
 def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto):
     cruza = Cruza(
         cliente=cliente,

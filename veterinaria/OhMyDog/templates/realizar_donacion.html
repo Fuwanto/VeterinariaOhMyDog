@@ -3,27 +3,27 @@
 <div class="container containerPrincipal">
     <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-            id="option1" value="500" onclick="selectOption(500)">
+            id="option1" value="500" onclick="selectOption(500, '{{campania.id}}')">
     <label class="form-check-label" for="inlineRadio1">$500</label>
     </div>
     <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-            id="option2" value="1000" onclick="selectOption(1000)">
+            id="option2" value="1000" onclick="selectOption(1000, '{{campania.id}}')">
     <label class="form-check-label" for="inlineRadio2">$1000</label>
     </div>
     <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-            id="option3" value="2000" onclick="selectOption(2000)">
+            id="option3" value="2000" onclick="selectOption(2000, '{{campania.id}}')">
     <label class="form-check-label" for="inlineRadio3">$2000</label>
     </div>
     <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-            id="option4" value="3000" onclick="selectOption(3000)">
+            id="option4" value="3000" onclick="selectOption(3000, '{{campania.id}}')">
     <label class="form-check-label" for="inlineRadio2">$3000</label>
     </div>
     <div class="form-check form-check-inline">
     <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-           id="option5" value="4000" onclick="selectOption(4000)">
+           id="option5" value="4000" onclick="selectOption(4000,'{{campania.id}}')">
     <label class="form-check-label" for="inlineRadio3" >$4000</label>
     </div>
 
@@ -31,11 +31,11 @@
     <div id="qr-container"></div>
 </div>
   <script>
-    function selectOption(value) {
+    function selectOption(value, campania_id) {
         var qrImg = document.getElementById("qr");
         
         // Generar la URL de la vista en Django para obtener la imagen QR
-        var qrUrl = "/cambiar_codigo_qr/" + value + "/";
+        var qrUrl = "/cambiar_codigo_qr/" + campania_id + "/" + value + "/";
         
         // Actualizar el atributo src de la imagen con la nueva URL
         qrImg.src = qrUrl;

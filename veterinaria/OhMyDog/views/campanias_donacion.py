@@ -7,6 +7,9 @@ from OhMyDog.modelos.publicaciones import (
     obtener_campania_por_id,
     actualizar_fecha_fin_campania,
     existe_donacion_nombre,
+    buscar_transaccion_por_id,
+    grabar_transaccion,
+    actualizar_monto_campania,
 )
 
 from OhMyDog.views.utils import agregar_mensaje_error
@@ -71,9 +74,12 @@ def modificar_fecha_fin_campania(request):
 
 
 def realizar_donacion(request):
-    return render (request, "realizar_donacion.html" )
+    campania_id = request.POST.get("campania_id")
+    print(request.POST.get("campania_id"))
+    campania = obtener_campania_por_id(campania_id)
+    return render (request, "realizar_donacion.html",{"campania": campania})
 
-def cambiar_codigo_qr(request, value):
+def cambiar_codigo_qr(request, campania_id, value):
     print('a0')
     mp = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)    
     preference_data = {
@@ -82,9 +88,13 @@ def cambiar_codigo_qr(request, value):
                 "title": "Transacción",
                 "quantity": 1,
                 "currency_id": "ARS",  # Puedes cambiar esto según tu moneda
-                "unit_price": value,  # Monto de la transacción
+                "unit_price": 10,  # Monto de la transacción
             }
-        ]
+        ],
+##        "payer": {
+##            "email": buyer_email
+##        },
+        "notification_url": f"https://8f5c-190-188-17-13.ngrok-free.app/notificacion_mercadopago/?campania_id={campania_id}&monto={value}",
     }
     preference_result = mp.preference().create(preference_data)
     if preference_result["status"] == 201:
@@ -96,3 +106,16 @@ def cambiar_codigo_qr(request, value):
 
     else:
         return JsonResponse({"error": "No se pudo generar el pago QR."}, status=500)
+
+@csrf_exempt
+def notificacion_mercadopago (request):
+    type = request.GET.get('type')
+    data_id = request.GET.get('data.id')
+    if type == 'payment':
+        if buscar_transaccion_por_id (data_id) is None:
+            campania_id = request.GET.get('campania_id')
+            value = request.GET.get('monto')
+            grabar_transaccion (data_id, value, campania_id)
+            actualizar_monto_campania(campania_id, value)
+    return redirect("home")
+

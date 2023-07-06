@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-c!im$w-57y$mxlun303)-8=)3i587yjjrb6(vd6coia)a$gc!i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost', '8f5c-190-188-17-13.ngrok-free.app']
 
 
 # Application definition
@@ -136,5 +136,5 @@ SESSION_COOKIE_SECURE = True
 
 DEFAULT_FILE_STORAGE = "veterinaria.custom_storage.CustomStorage"
 
-MERCADO_PAGO_PUBLIC_KEY = 'TEST-d567099d-5b9e-4f43-9e1e-1949039f33af'
-MERCADO_PAGO_ACCESS_TOKEN = 'TEST-3898924611719456-062916-07145f79e8151c9516e0bf540461253d-580924631'
+MERCADO_PAGO_PUBLIC_KEY = 'TEST-9c3ec39c-0a95-4ab9-bb64-83e8de0635b9'
+MERCADO_PAGO_ACCESS_TOKEN = 'TEST-4550177592172738-070421-ae32505e36f2b5d05c079f5402bcf9f1-1415126650'
