@@ -10,6 +10,7 @@ from OhMyDog.modelos.publicaciones import (
     buscar_transaccion_por_id,
     grabar_transaccion,
     actualizar_monto_campania,
+    grabar_descuento,
 )
 
 from OhMyDog.views.utils import agregar_mensaje_error
@@ -79,9 +80,12 @@ def realizar_donacion(request):
     campania = obtener_campania_por_id(campania_id)
     return render (request, "realizar_donacion.html",{"campania": campania, "controlBit": False})
 
-def cambiar_codigo_qr(request, campania_id, value):
-    print('a0')
+def cambiar_codigo_qr(request, campania_id, value, email):
+    print(email)
     mp = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)    
+    cliente_email = email
+    if request.user.is_authenticated:
+        cliente_email = request.user.mail
     preference_data = {
         "items": [
             {
@@ -91,10 +95,7 @@ def cambiar_codigo_qr(request, campania_id, value):
                 "unit_price": 10,  # Monto de la transacción
             }
         ],
-##        "payer": {
-##            "email": buyer_email
-##        },
-        "notification_url": f"https://8f5c-190-188-17-13.ngrok-free.app/notificacion_mercadopago/?campania_id={campania_id}&monto={value}",
+        "notification_url": f"https://11c9-190-188-17-13.ngrok-free.app/notificacion_mercadopago/?campania_id={campania_id}&monto={value}&email={cliente_email}",
     }
     preference_result = mp.preference().create(preference_data)
     if preference_result["status"] == 201:
@@ -115,10 +116,12 @@ def notificacion_mercadopago (request):
         if buscar_transaccion_por_id (data_id) is None:
             campania_id = request.GET.get('campania_id')
             value = request.GET.get('monto')
+            email =  request.GET.get('email')
             grabar_transaccion (data_id, value, campania_id)
             actualizar_monto_campania(campania_id, value)
-            campania = obtener_campania_por_id(campania_id) 
+            grabar_descuento (email)
             messages.success(request, 'La transacción se completó exitosamente.')
-            return render (request, "realizar_donacion.html", {"campania": campania, "controlBit": True})
-    return redirect("home")
+    response = HttpResponse("Exito")
+    response.status_code = 200
+    return response
 

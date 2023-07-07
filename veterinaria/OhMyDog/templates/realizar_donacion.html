@@ -8,6 +8,13 @@
     justify-content: center;
     align-items: center;
 }
+.label-negrita {
+  font-weight: bold;
+}
+
+.label-grande {
+  font-size: 20px;
+}
 </style>
 {% if controlBit %}
     <div class="alert alert-success mensaje-centrado">
@@ -19,32 +26,61 @@
                 <div class="container py-5">
                 <h1 class="text-center mb-4">Realizar una donacion</h1>
                         {% if not controlBit %}
+                <div>
+                        <div>
+                                <label class="label-negrita label-grande">Campania:</label>
+                                <label class="label-grande">{{campania.nombre}}</label>
+                        </div>
+                        <div>
+                                <label class="label-negrita label-grande">Fecha de inicio:</label>
+                                <label class="label-grande">{{campania.fecha_inicio}}</label>
+                        </div>
+                        <div>
+                                <label class="label-negrita label-grande">Fecha de finalizacion:</label>
+                                <label class="label-grande">{{campania.fecha_fin}}</label>
+                        </div>
+                        <div>
+                                <label class="label-negrita label-grande">Monto Recaudado:</label>
+                                <label class="label-grande">{{campania.monto_recaudado}}</label>
+                        </div>
+                        <div>
+                                <label class="label-negrita label-grande">Monto Objetivo:</label>
+                                <label class="label-grande">{{campania.monto_objetivo}}</label>
+                        </div>
+                </div>
                         <div>
                                 <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-                                                id="option1" value="500" onclick="selectOption(500, '{{campania.id}}')">
+                                                id="option1" value="500" onclick="selectOption(500, '{{campania.id}}', '{{user.is_authenticated}}')">
                                         <label class="form-check-label" for="inlineRadio1">$500</label>
                                 </div>
                                  <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-                                                id="option2" value="1000" onclick="selectOption(1000, '{{campania.id}}')">
+                                                id="option2" value="1000" onclick="selectOption(1000, '{{campania.id}}', '{{user.is_authenticated}}')">
                                         <label class="form-check-label" for="inlineRadio2">$1000</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-                                                id="option3" value="2000" onclick="selectOption(2000, '{{campania.id}}')">
+                                                id="option3" value="2000" onclick="selectOption(2000, '{{campania.id}}', '{{user.is_authenticated}}')">
                                         <label class="form-check-label" for="inlineRadio3">$2000</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-                                                id="option4" value="3000" onclick="selectOption(3000, '{{campania.id}}')">
+                                                id="option4" value="3000" onclick="selectOption(3000, '{{campania.id}}', '{{user.is_authenticated}}')">
                                         <label class="form-check-label" for="inlineRadio2">$3000</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-                                                id="option5" value="4000" onclick="selectOption(4000,'{{campania.id}}')">
+                                                id="option5" value="4000" onclick="selectOption(4000,'{{campania.id}}', '{{user.is_authenticated}}')">
                                         <label class="form-check-label" for="inlineRadio3" >$4000</label>
                                 </div>
+                        </div>
+                        <div>
+                                <input type="text" id="email" name="email" value="" {% if user.is_authenticated %}hidden{% endif %}>
+                                
+                        </div>
+                        <div>
+                                <label style="color: red;" id="email_alert" ></label>
                         </div>
                         <div>
                                 <img id="qr"src="http://imgfz.com/i/BSV5ULg.png" alt="Código QR" width="300" height="300" >
@@ -55,15 +91,27 @@
         </div>
 </div>
   <script>
-    function selectOption(value, campania_id) {
+    function selectOption(value, campania_id, is_authenticated) {
         var qrImg = document.getElementById("qr");
         qrImg.hidden = false
-        qrImg.src="{{ qr_img.url }}"
-        // Generar la URL de la vista en Django para obtener la imagen QR
-        var qrUrl = "/cambiar_codigo_qr/" + campania_id + "/" + value + "/";
-        
-        // Actualizar el atributo src de la imagen con la nueva URL
-        qrImg.src = qrUrl;
+        var auth = is_authenticated.toString()
+        var emailInput = document.getElementById("email").value
+        if (auth== "True" || (auth == "False" && emailInput != ""))
+        {
+                qrImg.src="{{ qr_img.url }}";
+                if (auth == "True")
+                {
+                        emailInput="email"
+                }
+                var qrUrl = "/cambiar_codigo_qr/" + campania_id + "/" + value + "/" + emailInput+"/";
+                qrImg.src = qrUrl;
+                document.getElementById("email_alert").hidden=true;
+        }
+        else 
+        {
+                document.getElementById("email_alert").hidden=false;
+                document.getElementById("email_alert").textContent="Por favor, ingrese un mail y vuelva a seleccionar un monto";
+        }
     }
   </script>
 {% endblock %}

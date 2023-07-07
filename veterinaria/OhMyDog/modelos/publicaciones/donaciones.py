@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Donacion(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=30)
@@ -21,3 +22,6 @@ class Transaccion(models.Model):
     finalizada = models.BooleanField(default=False)
     def __str__ (self):
         return f"{self.transaccion_id}, {self.monto}, {self.campania.nombre}"
+
+class Descuento(models.Model):
+    mail = models.EmailField(unique=True)

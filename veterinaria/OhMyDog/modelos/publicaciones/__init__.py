@@ -6,7 +6,7 @@ from OhMyDog.modelos.publicaciones.cruzas import Cruza
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
-from OhMyDog.modelos.publicaciones.donaciones import Donacion, Transaccion
+from OhMyDog.modelos.publicaciones.donaciones import Donacion, Transaccion, Descuento
 from datetime import date, timedelta
 import decimal
 
@@ -213,7 +213,9 @@ def listar_campanias_de_donaciones_actualizadas():
     campañas = Donacion.objects.all()
     mañana = date.today() + timedelta(days=1)
     for campaña in campañas:
-        campaña.progreso = (campaña.monto_recaudado / campaña.monto_objetivo) * 100
+        progreso = (campaña.monto_recaudado / campaña.monto_objetivo) * 100
+        campaña.progreso = round(progreso,1)
+
         if campaña.fecha_fin <= mañana:
             campaña.activa = False
     return campañas
@@ -255,6 +257,17 @@ def actualizar_monto_campania (campania_id, monto):
     campania.cantidad_donaciones += 1
     campania.save()
 
+def buscar_descuento_por_email (email):
+    try:
+        return Descuento.objects.get(mail=email)
+    except Descuento.DoesNotExist:
+        return None
+
+def grabar_descuento (email):
+    if buscar_descuento_por_email (email) is None:
+        descuento = Descuento (mail = email)
+        descuento.save()
+        
 """
         Cruzas
 """

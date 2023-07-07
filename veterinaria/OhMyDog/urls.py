@@ -92,7 +92,7 @@ miscelaneo = [
     path("borrar_cliente/<int:cliente_id>", borrar_cliente, name="borrar_cliente"),
     path("confirmar_turno", confirmar_turno, name="confirmar_turno"),
     path("rechazar_turno", rechazar_turno, name="rechazar_turno"),
-    path('cambiar_codigo_qr/<int:campania_id>/<int:value>/', cambiar_codigo_qr, name='cambiar_codigo_qr'),
+    path('cambiar_codigo_qr/<int:campania_id>/<int:value>/<str:email>/', cambiar_codigo_qr, name='cambiar_codigo_qr'),
     path("notificacion_mercadopago/", notificacion_mercadopago, name="notificacion_mercadopago")
 ]
 
