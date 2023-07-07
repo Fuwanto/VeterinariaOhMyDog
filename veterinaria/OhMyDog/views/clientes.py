@@ -23,17 +23,28 @@ from datetime import date
 from decimal import Decimal
 from OhMyDog.models import modificar_mail
 from OhMyDog.views.utils import agregar_mensaje_error
-
+from OhMyDog.modelos.publicaciones import buscar_descuento_por_email
 
 def listar_clientes(request):
     email = request.GET.get("email", "")
     clientes = buscar_clientes_contienen_mail(email)
+    for cliente in clientes:
+        if (buscar_descuento_por_email(cliente.email)) is None:
+            cliente.descuento = False
+        else:
+            cliente.descuento = True
+    
     return render(request, "listado_clientes.html", {"clientes": clientes, "email": email})
 
 
 @login_required
 def mis_datos(request):
     cliente = request.user.cliente
+    if request.method == "GET":
+        if buscar_descuento_por_email (cliente.email) is None:
+            cliente.descuento = False
+        else:
+            cliente.descuento = True
     if request.method == "POST":
         email = request.POST.get("email")
         nombre = request.POST.get("nombre")

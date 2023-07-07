@@ -267,7 +267,11 @@ def grabar_descuento (email):
     if buscar_descuento_por_email (email) is None:
         descuento = Descuento (mail = email)
         descuento.save()
-        
+
+def utilizar_descuento(email):
+    descuento = buscar_descuento_por_email(email)
+    if  not descuento is None:
+        descuento = descuento.delete()
 """
         Cruzas
 """

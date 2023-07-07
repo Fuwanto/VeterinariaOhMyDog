@@ -27,6 +27,7 @@
 				<th scope="col">Nombre</th>
 				<th scope="col">Email</th>
 				<th scope="col">Teléfono</th>
+				<th scope="col">Descuento</th>
 				<th scope="col">Acciones</th>
 			</tr>
 			</thead>
@@ -38,6 +39,11 @@
 					<td>{{ cliente.nombre }}</td>
 					<td>{{ cliente.email }}</td>
 					<td>{{ cliente.telefono }}</td>
+					{% if cliente.descuento %}
+						<td>Si</td>
+					{% else %}
+						<td>No</td>
+					{% endif %}
 					<td>
 						{% if cliente.habilitado %}
 						<div class="dropdown">

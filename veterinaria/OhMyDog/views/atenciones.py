@@ -14,6 +14,7 @@ from django.contrib import messages
 from datetime import date
 from decimal import Decimal
 from OhMyDog.modelos.turnos import solicitar_turno_siguiente_vacunacion
+from OhMyDog.modelos.publicaciones import utilizar_descuento
 
 
 def crear_contexto(perro_id):
@@ -31,6 +32,7 @@ def agregar_atencion_clinica(request):
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
         crear_atencion_clinica(perro, fecha, observacion)
+        utilizar_descuento(perro.dueño.email)
         messages.success(request, f"Atencion clinica registrada con exito. ")
         return redirect("home")
 
@@ -46,6 +48,7 @@ def agregar_consulta(request):
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
         crear_consulta(perro, fecha, observacion)
+        utilizar_descuento(perro.dueño.email)
         messages.success(request, f"Consulta registrada con exito. ")
         return redirect("home")
 
@@ -67,6 +70,7 @@ def agregar_desparasitacion(request):
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
         crear_desparasitacion(perro, fecha, diagnostico, farmaco, fabricante, num_serie, num_lote, dosis, observacion)
+        utilizar_descuento(perro.dueño.email)
         messages.success(request, f"Desparasitación registrada con exito. ")
         return redirect("home")
 
@@ -82,6 +86,7 @@ def agregar_castracion(request):
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
         crear_castracion(perro, fecha, observacion)
+        utilizar_descuento(perro.dueño.email)
         messages.success(request, f"Castracion registrada con exito. ")
         return redirect("home")
 
@@ -103,6 +108,7 @@ def agregar_vacunacion(request):
         perro_id = request.POST.get("perro")
         perro = buscar_perro_por_id(perro_id)
         solicitar_turno_siguiente_vacunacion(perro, vacuna, fecha)
+        utilizar_descuento(perro.dueño.email)
         crear_vacunacion(perro, fecha, vacuna, fabricante, num_serie, num_lote, dosis, observaciones)
         messages.success(request, f"Vacunacion registrada con exito. ")
         return redirect("home")
