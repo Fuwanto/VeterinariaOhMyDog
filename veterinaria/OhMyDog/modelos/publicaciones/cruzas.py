@@ -14,6 +14,7 @@ class Cruza(models.Model):
     antecedentes_salud = models.TextField(null=True)
     foto = foto = models.ImageField(upload_to="fotos/")
     intereses = models.ManyToManyField('self', blank=True,  symmetrical=False)
+    ultimo_celo = models.DateField(blank=True, null=True) 
     
 
 def __str__(self):

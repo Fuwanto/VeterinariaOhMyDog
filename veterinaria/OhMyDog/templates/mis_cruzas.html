@@ -102,6 +102,11 @@
                                     <tr>
                                         <th>Edad</th>
                                     </tr>
+                                    {% if cruza.sexo == "H"%}
+                                    <tr>
+                                        <th>Último celo</th>
+                                    </tr>
+                                    {%endif%}
                                     <tr>
                                         <th>Peso</th>
                                     </tr>
@@ -130,6 +135,11 @@
                                     <tr>
                                         <td>{{ cruza.edad_meses }} meses</td>
                                     </tr>
+                                    {%if cruza.sexo == "H"%}
+                                    <tr>
+                                        <td>{{ cruza.ultimo_celo }}</td>
+                                    </tr>
+                                    {%endif%}
                                     <tr>
                                         <td>{{ cruza.peso }}</td>
                                     </tr>

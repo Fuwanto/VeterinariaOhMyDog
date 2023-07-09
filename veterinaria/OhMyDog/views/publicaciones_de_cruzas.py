@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from OhMyDog.modelos.publicaciones import (
     buscar_cruza_por_cliente_y_nombre, 
     agregar_cruza, 
@@ -48,11 +48,17 @@ def agregar_publicacion_cruza(request):
         color = request.POST.get("color")
         antecedentes_salud = request.POST.get("antecedentes_salud")
         foto = request.FILES["foto"]
+        ultimo_celo = request.POST.get("ultimo_celo")
+        
+        if sexo == "H":
+            if calcular_cantidad_meses(ultimo_celo) > edad_meses:
+                messages.error(request, f"La fecha del ultimo celo no puede ser mayor a la edad!")
+                return redirect("agregar_publicacion_cruza")
         
         publicacion = buscar_cruza_por_cliente_y_nombre(cliente, nombre)
         
         if publicacion is None:
-            cruza = agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto)
+            agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto, ultimo_celo)
             messages.success(request, "Publicacion agregada con exito!.")
             return redirect("mis_cruzas")
         else:
@@ -60,7 +66,8 @@ def agregar_publicacion_cruza(request):
             return redirect("agregar_publicacion_cruza")
     else:
         edad_minima = datetime.now() - timedelta(days=180)  # 180 días equivalen a 6 meses
-        return render(request, "agregar_publicacion_cruza.html", {"edad_minima": edad_minima.strftime('%Y-%m')})
+        return render(request, "agregar_publicacion_cruza.html", {"edad_minima_meses": edad_minima.strftime('%Y-%m'), 
+                                                                  "hoy": date.today().isoformat()})
     
 @login_required
 def listar_candidatos(request, cruza_id):
@@ -97,7 +104,6 @@ def seleccionar_candidato(request):
             """
             remitente = settings.EMAIL_HOST_USER
             asunto = f"Ha habido match entre {cruza_seleccionada.nombre} y {cruza_de_interes.nombre}"
-            print("envio mailssss")
             send_mail(asunto, mensaje_para_el_interesado, remitente, [cliente_interesado.email])
             send_mail(asunto, mensaje_para_el_de_interes, remitente, [cliente_de_interes.email])
             messages.success(request, "Candidato seleccionado con exito!.Si hay interes mutuo te avisaremos!")

@@ -283,7 +283,9 @@ def buscar_cruza_por_cliente_y_nombre(cliente, nombre):
         return None
 
 
-def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto):
+def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto, ultimo_celo):
+    if ultimo_celo == "":
+        ultimo_celo = None
     cruza = Cruza(
         cliente=cliente,
         nombre=nombre,
@@ -293,7 +295,8 @@ def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecede
         peso=peso,
         color=color,
         antecedentes_salud=antecedentes_salud,
-        foto=foto
+        foto=foto,
+        ultimo_celo=ultimo_celo
     )
     cruza.save()
     return cruza
