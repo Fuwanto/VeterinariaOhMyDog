@@ -25,7 +25,7 @@
 						</div>
                         <div class="mb-3">
                             <label for="sexo" class="form-label">Sexo</label>
-                            <select class="form-select" id="sexo" name="sexo">
+                            <select class="form-select" id="sexo" name="sexo" onchange="mostrarUltimoCelo(this)">
                                 <option selected value="M">Macho</option>
                                 <option value="H">Hembra</option>
                             </select>
@@ -42,15 +42,27 @@
                             />
                         </div>
                         <div class="mb-3">
-                            <label for="edad_meses" class="form-label">Fecha de nacimiento aproximada:</label>
+                            <label for="edad_meses" class="form-label" >Fecha de nacimiento aproximada:</label>
                             <input 
                                 type="month" 
                                 class="form-control" 
                                 id="edad_meses" 
                                 name="edad_meses"
-                                max="{{ edad_minima }}" 
+                                max="{{ edad_minima_meses }}" 
                                 required />
                         </div>
+
+						<div class="mb-3" id="ultimo-celo-container" style="display: none;">
+                            <label for="ultimo_celo" class="form-label">Fecha del último celo:</label>
+                            <input 
+                                type="date" 
+                                class="form-control" 
+                                id="ultimo_celo" 
+                                name="ultimo_celo"
+								max="{{ hoy }}" 
+                                 />
+                        </div>
+
                         <div class="mb-3">
                             <label for="peso" class="form-label">Peso</label>
                             <input
@@ -99,4 +111,10 @@
 		</div>
 	</div>
 </div>
+<script>
+	function mostrarUltimoCelo(selectElement) {
+	  var ultimoCeloContainer = document.getElementById("ultimo-celo-container");
+	  ultimoCeloContainer.style.display = selectElement.value === "H" ? "block" : "none";
+	}
+</script>
 {% endblock%}
