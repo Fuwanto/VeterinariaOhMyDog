@@ -5,8 +5,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from datetime import datetime, timedelta
 from OhMyDog.modelos.publicaciones import (
-    buscar_cruza_por_cliente_y_nombre, 
-    agregar_cruza, 
+    buscar_cruza_por_cliente_y_nombre,
+    agregar_cruza,
     filtrar_cruzas_por_cliente,
     eliminar_cruza,
     buscar_candidatos,
@@ -14,6 +14,8 @@ from OhMyDog.modelos.publicaciones import (
     hay_interes_mutuo,
     agregar_interes_cruza,
 )
+from OhMyDog.views.utils import agregar_mensaje_error
+
 
 @login_required
 def mis_cruzas(request):
@@ -25,7 +27,7 @@ def mis_cruzas(request):
 def calcular_cantidad_meses(fecha_seleccionada):
     fecha_actual = datetime.now()
 
-    partes = fecha_seleccionada.split('-')
+    partes = fecha_seleccionada.split("-")
     anio_seleccionado = int(partes[0])
     mes_seleccionado = int(partes[1])
 
@@ -48,26 +50,28 @@ def agregar_publicacion_cruza(request):
         color = request.POST.get("color")
         antecedentes_salud = request.POST.get("antecedentes_salud")
         foto = request.FILES["foto"]
-        
+
         publicacion = buscar_cruza_por_cliente_y_nombre(cliente, nombre)
-        
+
         if publicacion is None:
             cruza = agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto)
             messages.success(request, "Publicacion agregada con exito!.")
             return redirect("mis_cruzas")
         else:
-            messages.error(request, f"El nombre {nombre} ya se encuentra asociado a otra publicacion!")
+            agregar_mensaje_error(request, f"El nombre {nombre} ya se encuentra asociado a otra publicación!")
             return redirect("agregar_publicacion_cruza")
     else:
         edad_minima = datetime.now() - timedelta(days=180)  # 180 días equivalen a 6 meses
-        return render(request, "agregar_publicacion_cruza.html", {"edad_minima": edad_minima.strftime('%Y-%m')})
-    
+        return render(request, "agregar_publicacion_cruza.html", {"edad_minima": edad_minima.strftime("%Y-%m")})
+
+
 @login_required
 def listar_candidatos(request, cruza_id):
     cruza_seleccionada = buscar_cruza_por_id(cruza_id)
     candidatos = buscar_candidatos(cruza_seleccionada, request.user.cliente)
     context = {"candidatos": candidatos, "cruza_seleccionada": cruza_seleccionada, "cliente": request.user.cliente}
     return render(request, "listar_candidatos.html", context=context)
+
 
 @login_required
 def eliminar_publicacion_cruza(request, cruza_id):
@@ -83,7 +87,7 @@ def seleccionar_candidato(request):
         cruza_seleccionada = buscar_cruza_por_id(request.POST.get("cruza_seleccionada_id"))
         agregar_interes_cruza(cruza_seleccionada, cruza_de_interes)
         if hay_interes_mutuo(cruza_seleccionada, cruza_de_interes):
-            cliente_de_interes = cruza_de_interes.cliente  
+            cliente_de_interes = cruza_de_interes.cliente
             mensaje_para_el_interesado = f"""{cliente_de_interes.nombre} y tú tienen interes mutuo en 
                 cruzar a {cruza_seleccionada.nombre} con {cruza_de_interes.nombre}. 
                 Contacto de {cliente_de_interes.nombre}:\n\nEmail: 
