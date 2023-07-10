@@ -54,7 +54,7 @@ def agregar_publicacion_cruza(request):
 
         if sexo == "H":
             if calcular_cantidad_meses(ultimo_celo) > edad_meses:
-                messages.error(request, f"La fecha del ultimo celo no puede ser mayor a la edad!")
+                agregar_mensaje_error(request, f"La fecha del ultimo celo no puede ser mayor a la edad!")
                 return redirect("agregar_publicacion_cruza")
 
         publicacion = buscar_cruza_por_cliente_y_nombre(cliente, nombre)
