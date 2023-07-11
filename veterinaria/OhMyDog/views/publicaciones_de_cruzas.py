@@ -113,6 +113,7 @@ def seleccionar_candidato(request):
             asunto = f"Ha habido match entre {cruza_seleccionada.nombre} y {cruza_de_interes.nombre}"
             send_mail(asunto, mensaje_para_el_interesado, remitente, [cliente_interesado.email])
             send_mail(asunto, mensaje_para_el_de_interes, remitente, [cliente_de_interes.email])
-            messages.success(request, "Candidato seleccionado con exito!.Si hay interes mutuo te avisaremos!")
-            return redirect(seleccionar_candidato)
+            messages.success(request, "Ha habido interés mutuo! Te hemos enviado un email.")
+        else:
+            messages.success(request, "Candidato seleccionado con exito! Si hay interés mutuo te avisaremos por email!")
     return redirect("mis_cruzas")
