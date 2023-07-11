@@ -65,7 +65,7 @@ from OhMyDog.views.publicaciones_adopciones import (
     eliminar_adopcion,
 )
 
-from OhMyDog.views.campanias_donacion import(
+from OhMyDog.views.campanias_donacion import (
     agregar_campania_donacion,
     listar_campanias_de_donaciones,
     terminar_campania_donacion,
@@ -80,7 +80,7 @@ from OhMyDog.views.publicaciones_de_cruzas import (
     agregar_publicacion_cruza,
     listar_candidatos,
     eliminar_publicacion_cruza,
-    seleccionar_candidato
+    seleccionar_candidato,
 )
 
 miscelaneo = [
@@ -92,8 +92,8 @@ miscelaneo = [
     path("borrar_cliente/<int:cliente_id>", borrar_cliente, name="borrar_cliente"),
     path("confirmar_turno", confirmar_turno, name="confirmar_turno"),
     path("rechazar_turno", rechazar_turno, name="rechazar_turno"),
-    path('cambiar_codigo_qr/<int:campania_id>/<int:value>/<str:email>/', cambiar_codigo_qr, name='cambiar_codigo_qr'),
-    path("notificacion_mercadopago/", notificacion_mercadopago, name="notificacion_mercadopago")
+    path("cambiar_codigo_qr/<int:campania_id>/<int:value>/<str:email>/", cambiar_codigo_qr, name="cambiar_codigo_qr"),
+    path("notificacion_mercadopago/", notificacion_mercadopago, name="notificacion_mercadopago"),
 ]
 
 datos = [
@@ -127,7 +127,7 @@ formularios = [
     path("registrar_cliente", registrar_cliente, name="registrar_cliente"),
     path("solicitar_turno", solicitar_turnos, name="solicitar_turno"),
     path("clientes/<int:cliente_id>/registrar_perro", registrar_perro, name="registrar_perro"),
-    path("agregar_campania_donacion", agregar_campania_donacion, name= "agregar_campania_donacion"),
+    path("agregar_campania_donacion", agregar_campania_donacion, name="agregar_campania_donacion"),
     path("agregar_publicacion_cruza", agregar_publicacion_cruza, name="agregar_publicacion_cruza"),
     path("seleccionar_candidato", seleccionar_candidato, name="seleccionar_candidato"),
     path("realizar_donacion", realizar_donacion, name="realizar_donacion"),
@@ -155,7 +155,7 @@ listados = [
     path("solicitudes_de_turnos", solicitudes_de_turnos, name="solicitudes_de_turnos"),
     path("mis_turnos", mis_turnos, name="mis_turnos"),
     path("mis_perros", mis_perros, name="mis_perros"),
-    path("listar_canditados/<int:cruza_id>", listar_candidatos, name="listar_candidatos"),
+    path("listar_candidatos/<int:cruza_id>", listar_candidatos, name="listar_candidatos"),
 ]
 
 publicaciones = [
