@@ -5,67 +5,51 @@ from django.conf import settings
 from django.core.mail import send_mail
 from datetime import datetime, timedelta, date
 from OhMyDog.modelos.publicaciones import (
-    buscar_cruza_por_cliente_y_nombre,
+    cliente_tiene_cruza_nombre,
     agregar_cruza,
-    filtrar_cruzas_por_cliente,
+    cruzas_del_cliente,
     eliminar_cruza,
     buscar_candidatos,
     buscar_cruza_por_id,
     hay_interes_mutuo,
     agregar_interes_cruza,
 )
-from OhMyDog.views.utils import agregar_mensaje_error
+from OhMyDog.views.utils import agregar_mensaje_error, calcular_cantidad_meses
 
 
 @login_required
 def mis_cruzas(request):
     cliente = request.user.cliente
-    cruzas = filtrar_cruzas_por_cliente(cliente)
+    cruzas = cruzas_del_cliente(cliente)
     return render(request, "mis_cruzas.html", {"cruzas": cruzas})
-
-
-def calcular_cantidad_meses(fecha_seleccionada):
-    fecha_actual = datetime.now()
-
-    partes = fecha_seleccionada.split("-")
-    anio_seleccionado = int(partes[0])
-    mes_seleccionado = int(partes[1])
-
-    anio_actual = fecha_actual.year
-    mes_actual = fecha_actual.month
-    cantidad_meses = ((anio_actual - anio_seleccionado) * 12) + (mes_actual - mes_seleccionado)
-
-    return cantidad_meses
 
 
 @login_required
 def agregar_publicacion_cruza(request):
     if request.method == "POST":
-        cliente = request.user.cliente
         nombre = request.POST.get("nombre")
         sexo = request.POST.get("sexo")
         raza = request.POST.get("raza")
         edad_meses = calcular_cantidad_meses(request.POST.get("edad_meses"))
+        ultimo_celo = request.POST.get("ultimo_celo")
         peso = request.POST.get("peso")
         color = request.POST.get("color")
         antecedentes_salud = request.POST.get("antecedentes_salud")
         foto = request.FILES["foto"]
-        ultimo_celo = request.POST.get("ultimo_celo")
+        cliente = request.user.cliente
 
         if sexo == "H":
             if calcular_cantidad_meses(ultimo_celo) > edad_meses:
                 agregar_mensaje_error(request, f"La fecha del ultimo celo no puede ser mayor a la edad!")
                 return redirect("agregar_publicacion_cruza")
 
-        publicacion = buscar_cruza_por_cliente_y_nombre(cliente, nombre)
-
-        if publicacion is None:
-            agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto, ultimo_celo)
-            messages.success(request, "Publicacion agregada con exito!.")
-            return redirect("mis_cruzas")
-        else:
+        if cliente_tiene_cruza_nombre(cliente, nombre):
             agregar_mensaje_error(request, f"El nombre {nombre} ya se encuentra asociado a otra publicación!")
             return redirect("agregar_publicacion_cruza")
+        else:
+            agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto, ultimo_celo)
+            messages.success(request, "Publicación agregada con exito!")
+            return redirect("mis_cruzas")
     else:
         edad_minima = datetime.now() - timedelta(days=180)  # 180 días equivalen a 6 meses
         return render(
