@@ -20,11 +20,8 @@ def filtrar_adopciones_por_cliente(cliente):
     return cliente.adopciones.all()
 
 
-def buscar_adopcion_por_nombre_y_cliente(cliente, nombre):
-    try:
-        return Adopcion.objects.get(cliente=cliente, nombre=nombre)
-    except:
-        return None
+def cliente_tiene_adopcion_nombre(cliente, nombre):
+    return cliente.adopciones.all().filter(nombre=nombre).exists()
 
 
 def agregar_adopcion(cliente, nombre, descripcion, tamanio_perro_id, etapa_vida_perro_id, sexo, castrado):
@@ -117,11 +114,8 @@ def se_encontro(busqueda_id):
     busqueda.save()
 
 
-def buscar_busqueda_por_nombre_archivo_y_cliente(cliente, nombre_archivo):
-    try:
-        return Busqueda.objects.get(cliente=cliente, foto__contains=nombre_archivo)
-    except:
-        return None
+def cliente_tiene_busqueda_nombre_archivo(cliente, nombre_archivo):
+    return cliente.busquedas.all().filter(foto__contains=nombre_archivo).exists()
 
 
 def usuario_tiene_informacion_busqueda(busqueda, cliente):
@@ -275,7 +269,7 @@ def utilizar_descuento(email):
 
 
 def cliente_tiene_cruza_nombre(cliente, nombre):
-    return cliente.cruzas.all().filter(nombre=nombre)
+    return cliente.cruzas.all().filter(nombre=nombre).exists()
 
 
 def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto, ultimo_celo):

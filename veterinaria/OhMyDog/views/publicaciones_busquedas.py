@@ -1,6 +1,6 @@
 from OhMyDog.modelos.publicaciones import (
     agregar_busqueda,
-    buscar_busqueda_por_nombre_archivo_y_cliente,
+    cliente_tiene_busqueda_nombre_archivo,
     filtrar_busquedas_por_cliente,
     eliminar_publicacion_busqueda,
     listar_busquedas_por_zona,
@@ -53,15 +53,14 @@ def agregar_publicacion_busqueda(request):
         descripcion = request.POST.get("descripcion")
         zona = request.POST.get("zona")
         foto = request.FILES["foto"]
-        publicacion = buscar_busqueda_por_nombre_archivo_y_cliente(cliente, foto.name)
 
-        if publicacion is None:
+        if cliente_tiene_busqueda_nombre_archivo(cliente, foto.name):
+            agregar_mensaje_error(request, f"Publicacion con archivo: {foto.name}, ya publicada.")
+            return redirect("agregar_publicacion_busqueda")
+        else:
             agregar_busqueda(cliente, nombre, descripcion, zona, foto)
             messages.success(request, "Publicacion agregada con exito.")
             return redirect("mis_busquedas")
-        else:
-            agregar_mensaje_error(request, f"Publicacion con archivo: {foto.name}, ya publicada.")
-            return redirect("agregar_publicacion_busqueda")
     else:
         return render(request, "agregar_publicacion_busqueda.html")
 
