@@ -8,7 +8,7 @@ import os
 
 class Busqueda(models.Model):
     id = models.BigAutoField(primary_key=True)
-    cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE, related_name="busquedas")
     nombre = models.CharField(max_length=30)
     descripcion = models.TextField(null=True)
     zona = models.TextField()
@@ -26,7 +26,8 @@ def borrar_foto(sender, instance, **kwargs):
         if os.path.exists(path_foto):
             os.remove(path_foto)
 
-class UsuarioTieneInformacionBusqueda (models.Model):
+
+class UsuarioTieneInformacionBusqueda(models.Model):
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
     busqueda = models.ForeignKey(Busqueda, null=False, on_delete=models.CASCADE)

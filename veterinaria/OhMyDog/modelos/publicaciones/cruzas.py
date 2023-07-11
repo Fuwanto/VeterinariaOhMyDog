@@ -7,7 +7,7 @@ import os
 
 class Cruza(models.Model):
     id = models.BigAutoField(primary_key=True)
-    cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE, related_name="cruzas")
     nombre = models.CharField(max_length=30)
     sexos = [("M", "Macho"), ("H", "Hembra")]
     sexo = models.CharField(max_length=1, choices=sexos, blank=False)
