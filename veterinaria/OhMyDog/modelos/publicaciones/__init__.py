@@ -17,7 +17,7 @@ import decimal
 
 
 def filtrar_adopciones_por_cliente(cliente):
-    return Adopcion.objects.filter(cliente=cliente)
+    return cliente.adopciones.all()
 
 
 def buscar_adopcion_por_nombre_y_cliente(cliente, nombre):
@@ -94,7 +94,7 @@ def agregar_busqueda(cliente, nombre, descripcion, zona, foto):
 
 
 def filtrar_busquedas_por_cliente(cliente):
-    return Busqueda.objects.filter(cliente=cliente)
+    return cliente.busquedas.all()
 
 
 def listar_busquedas_por_zona(zona):
@@ -183,19 +183,8 @@ def eliminar_paseador_cuidador(paseador_cuidador_id):
 """
 
 
-def buscar_campania_por_nombre(otroNombre):
-    try:
-        return Donacion.objects.get(nombre=otroNombre)
-    except Donacion.DoesNotExist:
-        return None
-
-
 def existe_donacion_nombre(nombre):
-    try:
-        donacion = Donacion.objects.get(nombre=nombre)
-        return True
-    except:
-        return False
+    return Donacion.objects.filter(nombre=nombre).exists()
 
 
 def crear_campania(nombre, objetivo, monto_objetivo, fecha_inicio, fecha_fin):
@@ -214,7 +203,7 @@ def listar_campanias_de_donaciones_actualizadas():
     mañana = date.today() + timedelta(days=1)
     for campaña in campañas:
         progreso = (campaña.monto_recaudado / campaña.monto_objetivo) * 100
-        campaña.progreso = round(progreso,1)
+        campaña.progreso = round(progreso, 1)
 
         if campaña.fecha_fin <= mañana:
             campaña.activa = False
@@ -239,48 +228,54 @@ def actualizar_fecha_fin_campania(campania_id, nueva_fecha_fin):
     campania.fecha_fin = nueva_fecha_fin
     campania.save()
 
-def buscar_transaccion_por_id (transaccion_id):
+
+def buscar_transaccion_por_id(transaccion_id):
     try:
         return Transaccion.objects.get(transaccion_id=transaccion_id)
     except Transaccion.DoesNotExist:
         return None
 
-def grabar_transaccion (transaccion_id, monto, campania_id):
+
+def grabar_transaccion(transaccion_id, monto, campania_id):
     campania = Donacion.objects.get(id=campania_id)
     print(transaccion_id)
-    transaccion = Transaccion (transaccion_id = transaccion_id, monto = monto, campania=campania)
+    transaccion = Transaccion(transaccion_id=transaccion_id, monto=monto, campania=campania)
     transaccion.save()
 
-def actualizar_monto_campania (campania_id, monto):
+
+def actualizar_monto_campania(campania_id, monto):
     campania = Donacion.objects.get(id=campania_id)
     campania.monto_recaudado += decimal.Decimal(monto)
     campania.cantidad_donaciones += 1
     campania.save()
 
-def buscar_descuento_por_email (email):
+
+def buscar_descuento_por_email(email):
     try:
         return Descuento.objects.get(mail=email)
     except Descuento.DoesNotExist:
         return None
 
-def grabar_descuento (email):
-    if buscar_descuento_por_email (email) is None:
-        descuento = Descuento (mail = email)
+
+def grabar_descuento(email):
+    if buscar_descuento_por_email(email) is None:
+        descuento = Descuento(mail=email)
         descuento.save()
+
 
 def utilizar_descuento(email):
     descuento = buscar_descuento_por_email(email)
-    if  not descuento is None:
+    if not descuento is None:
         descuento = descuento.delete()
+
+
 """
         Cruzas
 """
 
-def buscar_cruza_por_cliente_y_nombre(cliente, nombre):
-    try:
-        return Cruza.objects.get(cliente=cliente, nombre=nombre)
-    except:
-        return None
+
+def cliente_tiene_cruza_nombre(cliente, nombre):
+    return cliente.cruzas.all().filter(nombre=nombre)
 
 
 def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecedentes_salud, foto, ultimo_celo):
@@ -296,50 +291,57 @@ def agregar_cruza(cliente, nombre, sexo, raza, edad_meses, peso, color, antecede
         color=color,
         antecedentes_salud=antecedentes_salud,
         foto=foto,
-        ultimo_celo=ultimo_celo
+        ultimo_celo=ultimo_celo,
     )
     cruza.save()
     return cruza
 
-def filtrar_cruzas_por_cliente(cliente):
-    return Cruza.objects.filter(cliente=cliente)
+
+def cruzas_del_cliente(cliente):
+    return cliente.cruzas.all()
+
 
 def eliminar_cruza(cruza_id):
     cruza = get_object_or_404(Cruza, id=cruza_id)
     cruza.delete()
-    
+
+
 def buscar_cruza_por_id(cruza_id):
-    return Cruza.objects.get(id=cruza_id)    
-    
-    
+    return Cruza.objects.get(id=cruza_id)
+
+
 def hay_compatibilidad_de_razas(raza_1, raza_2):
-    return (raza_1.lower().replace(" ", "") == raza_2.lower().replace(" ", ""))
+    return raza_1.lower().replace(" ", "") == raza_2.lower().replace(" ", "")
+
 
 def me_interesa_cruzar(cruza_seleccionada, cruza_id):
     intereses = cruza_seleccionada.intereses.filter(id=cruza_id)
-    if intereses.exists():
-        return True
-    else:
-        return False
-    
+    return intereses.exists()
+
+
 def buscar_candidatos(cruza_seleccionada, cliente):
     todas_las_cruzas = Cruza.objects.all().exclude(cliente=cliente)
     candidatos = []
     for cruza in todas_las_cruzas:
-        if ((cruza_seleccionada.sexo != cruza.sexo) and 
-            (not me_interesa_cruzar(cruza_seleccionada, cruza.id)) and
-            (hay_compatibilidad_de_razas(cruza_seleccionada.raza, cruza.raza))):
+        if (
+            (cruza_seleccionada.sexo != cruza.sexo)
+            and (not me_interesa_cruzar(cruza_seleccionada, cruza.id))
+            and (hay_compatibilidad_de_razas(cruza_seleccionada.raza, cruza.raza))
+        ):
             candidatos.append(cruza)
-            
+
     return sorted(candidatos, key=lambda cruza: abs(cruza.edad_meses - cruza_seleccionada.edad_meses))
+
 
 def agregar_interes_cruza(cruza_seleccionada, cruza_de_interes):
     cruza_seleccionada.intereses.add(cruza_de_interes)
     cruza_seleccionada.save()
-    
+
+
 def hay_interes_mutuo(cruza_seleccionada, cruza_de_interes):
-    if ((me_interesa_cruzar(cruza_seleccionada=cruza_seleccionada, cruza_id=cruza_de_interes.id)) and
-        (me_interesa_cruzar(cruza_seleccionada=cruza_de_interes, cruza_id=cruza_seleccionada.id))):
+    if (me_interesa_cruzar(cruza_seleccionada=cruza_seleccionada, cruza_id=cruza_de_interes.id)) and (
+        me_interesa_cruzar(cruza_seleccionada=cruza_de_interes, cruza_id=cruza_seleccionada.id)
+    ):
         return True
     else:
         return False
