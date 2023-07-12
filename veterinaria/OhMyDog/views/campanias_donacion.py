@@ -81,7 +81,6 @@ def realizar_donacion(request):
     return render (request, "realizar_donacion.html",{"campania": campania, "controlBit": False})
 
 def cambiar_codigo_qr(request, campania_id, value, email):
-    print(email)
     mp = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)    
     cliente_email = email
     if request.user.is_authenticated:
@@ -112,9 +111,6 @@ def cambiar_codigo_qr(request, campania_id, value, email):
 def notificacion_mercadopago (request):
     type = request.GET.get('type')
     data_id = request.GET.get('data.id')
-    payment_id = request.GET.get('data.id')  # O donde se encuentre el ID del pago QR en tu caso
-    estado = obtener_estado_pago_qr(payment_id)
-    print(estado)
     if type == 'payment':
         if buscar_transaccion_por_id (data_id) is None:
             campania_id = request.GET.get('campania_id')
