@@ -12,7 +12,7 @@ from OhMyDog.modelos.publicaciones import (
     actualizar_monto_campania,
     grabar_descuento,
 )
-
+import requests
 from OhMyDog.views.utils import agregar_mensaje_error
 from datetime import datetime, date, timedelta
 import datetime
@@ -92,10 +92,10 @@ def cambiar_codigo_qr(request, campania_id, value, email):
                 "title": "Transacción",
                 "quantity": 1,
                 "currency_id": "ARS",  # Puedes cambiar esto según tu moneda
-                "unit_price": 10,  # Monto de la transacción
+                "unit_price": value,  # Monto de la transacción
             }
         ],
-        "notification_url": f"https://11c9-190-188-17-13.ngrok-free.app/notificacion_mercadopago/?campania_id={campania_id}&monto={value}&email={cliente_email}",
+        "notification_url": f"https://7c8f-190-188-17-13.ngrok-free.app/notificacion_mercadopago/?campania_id={campania_id}&monto={value}&email={cliente_email}",
     }
     preference_result = mp.preference().create(preference_data)
     if preference_result["status"] == 201:
@@ -112,6 +112,9 @@ def cambiar_codigo_qr(request, campania_id, value, email):
 def notificacion_mercadopago (request):
     type = request.GET.get('type')
     data_id = request.GET.get('data.id')
+    payment_id = request.GET.get('data.id')  # O donde se encuentre el ID del pago QR en tu caso
+    estado = obtener_estado_pago_qr(payment_id)
+    print(estado)
     if type == 'payment':
         if buscar_transaccion_por_id (data_id) is None:
             campania_id = request.GET.get('campania_id')

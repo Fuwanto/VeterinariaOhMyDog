@@ -91,7 +91,7 @@
         </div>
 </div>
   <script>
-    function selectOption(value, campania_id, is_authenticated) {
+    function selectOption(value, campania_id, is_authenticated, ulr_ejemplo) {
         var qrImg = document.getElementById("qr");
         qrImg.hidden = false
         var auth = is_authenticated.toString()
@@ -111,6 +111,7 @@
         {
                 document.getElementById("email_alert").hidden=false;
                 document.getElementById("email_alert").textContent="Por favor, ingrese un mail y vuelva a seleccionar un monto";
+                qrImg.src = "http://imgfz.com/i/BSV5ULg.png";
         }
     }
   </script>
