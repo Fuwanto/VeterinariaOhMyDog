@@ -35,7 +35,7 @@ Mostrar la creación efectiva de una publicación de búsqueda con la cuenta de 
     Blanca
     Hembra de gran tamaño
     Berisso
-    Búsqueda3.jpg
+    Blanca.jpg
 
 Mostrar que si intento crear otra publicación con datos distintos pero misma foto (mismo nombre de archivo) no me deja.
 Mostrar que "Mis búsquedas" ahora tiene la nueva búsqueda.
@@ -84,46 +84,46 @@ CRUZAS
 
 Mostrar que "Mis cruzas" para antonella está vacío.
 Mostrar creación efectiva de una cruza en la cuenta de antonella.
-    Bianca
+    Lola
     Hembra
     Labrador
     2020-05
     10/05/2023
     60
     Dorado
-    Bianca.jpg
+    Lola.jpg
 
 Mostrar que no me deja crear otra publicacion con mismo nombre de perro.
-    Bianca
+    Lola
     Hembra
     Labrador
     2020-05
     10/05/2023
     60
     Dorado
-    Bianca.jpg    
+    Lola.jpg    
 
 Mostrar que no me deja crear una publicacion de hembra con fecha ultimo celo mayor a la edad.
-    Bianca
+    Lola
     Hembra
     Labrador
     2020-05
     10/05/2019
     60
     Dorado
-    Bianca.jpg
+    Lola.jpg
 
 Mostrar que "Mis cruzas" ahora tiene la nueva cruza.
 Eliminar la cruza y mostrar que ya no aparece.
 Volver a crear la cruza.
-    Bianca
+    Lola
     Hembra
     Labrador
     2020-05
     10/05/2023
     60
     Dorado
-    Bianca.jpg
+    Lola.jpg
 
 Mostrar que los candidatos están vacíos.
 
