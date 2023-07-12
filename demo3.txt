@@ -20,7 +20,6 @@ Mostrar que en ninguna de las atenciones se puede cargar una fecha futura, solo 
 
 ADOPCIONES
 
-Tener una adopción ya cargada en la cuenta de antonella y una adopción ya cargada en la cuenta de nahuel.
 Mostrar el listado de adopciones siendo persona no logueada (se muestran todas las publicaciones) vs cliente con publicaciones (no se muestran las publicaciones de ese cliente)
 Mostrar que el boton "Me interesa" no requiere ingresar datos si el cliente esta logueado (se envian automaticamente) y que se elimina el boton me interesa. Mostrar que se envió correctamente el email a la persona autora de la publicación.
 Mostrar que el boton me interesa requiere ingresar los datos si la persona no está logueada
