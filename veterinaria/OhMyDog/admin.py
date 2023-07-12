@@ -10,7 +10,6 @@ from OhMyDog.models import Usuario
 from OhMyDog.modelos.atenciones.atenciones import Atencion
 from OhMyDog.modelos.atenciones.desparacitacion import Desparacitacion
 from OhMyDog.modelos.atenciones.vacunacion import Vacunacion
-from OhMyDog.modelos.tiposDeDosisVacunacion.tiposDeDosisVacunacion import TipoDeDosisVacunacion
 from OhMyDog.modelos.tamaniosPerros.tamaniosPerros import TamanioPerro
 from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 from OhMyDog.modelos.publicaciones.paseadores_cuidadores import PaseadorCuidador
@@ -29,7 +28,6 @@ admin.site.register(Usuario)
 admin.site.register(Atencion)
 admin.site.register(Desparacitacion)
 admin.site.register(Vacunacion)
-admin.site.register(TipoDeDosisVacunacion)
 admin.site.register(TamanioPerro)
 admin.site.register(EtapaVidaPerro)
 admin.site.register(PaseadorCuidador)
