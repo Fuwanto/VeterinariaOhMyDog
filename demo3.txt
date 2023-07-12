@@ -1,0 +1,95 @@
+Datos administrador: ohMyDog@hotmail.com | @ohmydog2023
+
+Datos cliente 1: cuencadenisse10@hotmail.com | @Antonella123
+
+Datos cliente 2: nahucapara@hotmail.com | StephenCurry
+
+-------------------------------
+
+TURNOS
+
+Tener un turno pendiente en el listado ya cargado y rechazarlo, mostrar que se ve el mensaje de rechazo en "Mis turnos" del cliente.
+
+--------------------------------
+
+ATENCIONES
+
+Mostrar que en ninguna de las atenciones se puede cargar una fecha futura, solo presente o pasada.
+
+--------------------------------
+
+ADOPCIONES
+
+Tener una adopción ya cargada en la cuenta de antonella y una adopción ya cargada en la cuenta de nahuel.
+Mostrar el listado de adopciones siendo persona no logueada (se muestran todas las publicaciones) vs cliente con publicaciones (no se muestran las publicaciones de ese cliente)
+Mostrar que el boton "Me interesa" no requiere ingresar datos si el cliente esta logueado (se envian automaticamente) y que se elimina el boton me interesa. Mostrar que se envió correctamente el email a la persona autora de la publicación.
+Mostrar que el boton me interesa requiere ingresar los datos si la persona no está logueada
+
+--------------------------------
+
+BUSQUEDAS
+
+Tener precargadas dos búsquedas en la cuenta de Nahuel.
+
+Mostrar que "Mis búsquedas" para antonella está vacío.
+Mostrar la creación efectiva de una publicación de búsqueda con la cuenta de antonella.
+Mostrar que si intento crear otra publicación con datos distintos pero misma foto (mismo nombre de archivo) no me deja.
+Mostrar que "Mis búsquedas" ahora tiene la nueva búsqueda.
+Eliminar la búsqueda y mostrar que ya no aparece.
+Volver a crear la búsqueda.
+
+
+Mostrar el listado de búsquedas siendo persona no logueada (se muestran todas las publicaciones) vs cliente con publicaciones (no se muestran las publicaciones de ese cliente)
+Mostrar que el boton "Tengo información" no requiere ingresar datos si el cliente esta logueado (se envian automaticamente) y que se elimina el boton "Tengo información". Mostrar que se envió correctamente el email a la persona autora de la publicación.
+Mostrar que el boton "Tengo información" requiere ingresar los datos si la persona no está logueada
+
+Mostrar que al presionar "Encontrado" en "Mis búsquedas" el botón desaparece de "Mis búsquedas" y de la lista de publicaciones de búsqueda (desde la perspectiva del admin por ejemplo, o alguien no logueado)
+
+Mostrar el filtro por zona en listado de búsquedas, caso éxito y vacío.
+
+--------------------------------
+
+PASEADORES Y CUIDADORES
+
+Mostrar mapas vacíos.
+Crear cuidador.
+Crear paseador con el mismo email que antes y mostrar que no se puede.
+Crear paseador.
+Mostrar el mapa actualizado de cuidadores.
+Mostrar el mapa actualizado de paseadores.
+Eliminar un cuidador y paseador y mostrar que ya no aparecen en el mapa.
+
+--------------------------------
+
+CRUZAS
+
+Mostrar que "Mis cruzas" para antonella está vacío.
+Mostrar creación efectiva de una cruza en la cuenta de antonella.
+Mostrar que no me deja crear otra publicacion con mismo nombre de perro.
+Mostrar que no me deja crear una publicacion de hembra con fecha ultimo celo mayor a la edad.
+Mostrar que "Mis cruzas" ahora tiene la nueva cruza.
+Eliminar la cruza y mostrar que ya no aparece.
+Volver a crear la cruza.
+Mostrar que los candidatos están vacíos.
+
+Crear cruza con la cuenta de Nahuel que sea compatible con el perro de la cruza que cargó antonella.
+Mostrar que este si tiene candidato y ahora la de antonella también tiene a este candidato.
+Seleccionar el perro de antonella como candidato. Mostrar que aun no se envia el mail.
+Seleccionar el perro de nahuel desde antonella. Mostrar que ahora si se envia el mail por haber interés mutuo.
+
+--------------------------------
+
+DONACIONES
+
+Mostrar el listado de donaciones vacío.
+Mostrar la creación efectiva de una campaña de donación con la cuenta de admin.
+Intentar crear otra con fecha inicio mayor a fecha fin y mostrar el error.
+Intentar crear otra con mismo nombre que la existente y mostrar el error.
+Mostrar el listado de donaciones siendo veterinario.
+Mostrar el listado de donaciones siendo cliente.
+Modificar la fecha de fin.
+Intentar modificar fecha de fin poniendola antes de la fecha de inicio y mostrar el error.
+Realizar una donación y mostrar el nuevo monto actualizado en esa campaña.
+Finalizar la campaña de donación.
+
+--------------------------------
