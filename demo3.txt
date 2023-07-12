@@ -32,16 +32,18 @@ Tener precargadas dos búsquedas en la cuenta de Nahuel.
 
 Mostrar que "Mis búsquedas" para antonella está vacío.
 Mostrar la creación efectiva de una publicación de búsqueda con la cuenta de antonella.
+    Blanca
+    Hembra de gran tamaño
+    Berisso
+    Búsqueda3.jpg
+
 Mostrar que si intento crear otra publicación con datos distintos pero misma foto (mismo nombre de archivo) no me deja.
 Mostrar que "Mis búsquedas" ahora tiene la nueva búsqueda.
+Mostrar que en "Búsquedas" no se ve la de antonella, pero si las de nahuel. Si vuelvo a chequear "Búsquedas" deslogueado se ven todas.
 Eliminar la búsqueda y mostrar que ya no aparece.
-Volver a crear la búsqueda.
 
-
-Mostrar el listado de búsquedas siendo persona no logueada (se muestran todas las publicaciones) vs cliente con publicaciones (no se muestran las publicaciones de ese cliente)
 Mostrar que el boton "Tengo información" no requiere ingresar datos si el cliente esta logueado (se envian automaticamente) y que se elimina el boton "Tengo información". Mostrar que se envió correctamente el email a la persona autora de la publicación.
 Mostrar que el boton "Tengo información" requiere ingresar los datos si la persona no está logueada
-
 Mostrar que al presionar "Encontrado" en "Mis búsquedas" el botón desaparece de "Mis búsquedas" y de la lista de publicaciones de búsqueda (desde la perspectiva del admin por ejemplo, o alguien no logueado)
 
 Mostrar el filtro por zona en listado de búsquedas, caso éxito y vacío.
@@ -52,8 +54,26 @@ PASEADORES Y CUIDADORES
 
 Mostrar mapas vacíos.
 Crear cuidador.
-Crear paseador con el mismo email que antes y mostrar que no se puede.
+    Pablo
+    pablo@gmail.com
+    Jueves de 9 AM a 3 PM
+    Cuidador
+    Centro de La Plata
+
+Crear paseador con el mismo email que antes y mostrar que no se puede. (error por email repetido)
+    Lucas
+    pablo@gmail.com
+    Martes de 5 PM a 8 PM
+    Paseador
+    Tolosa
+
 Crear paseador.
+    Lucas
+    lucas@gmail.com
+    Martes de 5 PM a 8 PM
+    Paseador
+    Tolosa    
+
 Mostrar el mapa actualizado de cuidadores.
 Mostrar el mapa actualizado de paseadores.
 Eliminar un cuidador y paseador y mostrar que ya no aparecen en el mapa.
@@ -64,14 +84,49 @@ CRUZAS
 
 Mostrar que "Mis cruzas" para antonella está vacío.
 Mostrar creación efectiva de una cruza en la cuenta de antonella.
+    Bianca
+    Hembra
+    Labrador
+    2020-05
+    10/05/2023
+    60
+    Dorado
+    Bianca.jpg
+
 Mostrar que no me deja crear otra publicacion con mismo nombre de perro.
+    Bianca
+    Hembra
+    Labrador
+    2020-05
+    10/05/2023
+    60
+    Dorado
+    Bianca.jpg    
+
 Mostrar que no me deja crear una publicacion de hembra con fecha ultimo celo mayor a la edad.
+    Bianca
+    Hembra
+    Labrador
+    2020-05
+    10/05/2019
+    60
+    Dorado
+    Bianca.jpg
+
 Mostrar que "Mis cruzas" ahora tiene la nueva cruza.
 Eliminar la cruza y mostrar que ya no aparece.
 Volver a crear la cruza.
+    Bianca
+    Hembra
+    Labrador
+    2020-05
+    10/05/2023
+    60
+    Dorado
+    Bianca.jpg
+
 Mostrar que los candidatos están vacíos.
 
-Crear cruza con la cuenta de Nahuel que sea compatible con el perro de la cruza que cargó antonella.
 Mostrar que este si tiene candidato y ahora la de antonella también tiene a este candidato.
 Seleccionar el perro de antonella como candidato. Mostrar que aun no se envia el mail.
 Seleccionar el perro de nahuel desde antonella. Mostrar que ahora si se envia el mail por haber interés mutuo.
@@ -82,13 +137,37 @@ DONACIONES
 
 Mostrar el listado de donaciones vacío.
 Mostrar la creación efectiva de una campaña de donación con la cuenta de admin.
-Intentar crear otra con fecha inicio mayor a fecha fin y mostrar el error.
+    Campaña
+    Recaudar dinero para medicinas para los perros locales
+    20000
+    20/7/2023
+    31/7/2023
+
 Intentar crear otra con mismo nombre que la existente y mostrar el error.
+    Campaña
+    Recaudar dinero para alimento para los perros locales
+    15000
+    18/7/2023
+    31/7/2023
+
+Intentar crear otra con fecha inicio mayor a fecha fin y mostrar el error.
+    Otra campaña
+    Recaudar dinero para alimento para los perros locales
+    25000
+    18/7/2023
+    10/7/2023
+
 Mostrar el listado de donaciones siendo veterinario.
 Mostrar el listado de donaciones siendo cliente.
-Modificar la fecha de fin.
 Intentar modificar fecha de fin poniendola antes de la fecha de inicio y mostrar el error.
+    5/7/2023
+
+Modificar la fecha de fin exitosamente.
+    5/8/2023
+
 Realizar una donación y mostrar el nuevo monto actualizado en esa campaña.
+    ???
+
 Finalizar la campaña de donación.
 
 --------------------------------
