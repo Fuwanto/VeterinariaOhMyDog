@@ -3,6 +3,9 @@ from OhMyDog.modelos.atenciones.atenciones import Atencion
 
 
 class Desparacitacion(models.Model):
+    class Meta:
+        verbose_name_plural = "Desparasitaciones"
+
     id = models.BigAutoField(primary_key=True)
     atencion = models.OneToOneField(Atencion, null=False, on_delete=models.CASCADE)
     farmaco = models.CharField(max_length=255)

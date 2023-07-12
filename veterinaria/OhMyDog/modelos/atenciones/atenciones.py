@@ -2,7 +2,11 @@ from django.db import models
 from OhMyDog.modelos.perros.perros import Perro
 from OhMyDog.modelos.tiposDeAtenciones.tiposDeAtenciones import TipoDeAtencion
 
+
 class Atencion(models.Model):
+    class Meta:
+        verbose_name_plural = "Atenciones"
+
     id = models.BigAutoField(primary_key=True)
     perro = models.ForeignKey(Perro, null=False, on_delete=models.CASCADE)
     fecha = models.DateField(null=False)

@@ -28,6 +28,9 @@ def borrar_foto(sender, instance, **kwargs):
 
 
 class UsuarioTieneInformacionBusqueda(models.Model):
+    class Meta:
+        verbose_name_plural = "Usuario_tiene_informacion"
+
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
     busqueda = models.ForeignKey(Busqueda, null=False, on_delete=models.CASCADE)

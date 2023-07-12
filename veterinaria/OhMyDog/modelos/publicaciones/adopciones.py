@@ -6,6 +6,9 @@ from OhMyDog.modelos.etapaVidaPerro.etapaVidaPerro import EtapaVidaPerro
 
 
 class Adopcion(models.Model):
+    class Meta:
+        verbose_name_plural = "Adopciones"
+
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE, related_name="adopciones")
     descripcion = models.TextField(null=True)
@@ -22,6 +25,9 @@ class Adopcion(models.Model):
 
 
 class UsuarioInteresaAdopcion(models.Model):
+    class Meta:
+        verbose_name_plural = "Usuario_interesa_adopcion"
+
     id = models.BigAutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, null=False, on_delete=models.CASCADE)
     adopcion = models.ForeignKey(Adopcion, null=False, on_delete=models.CASCADE)

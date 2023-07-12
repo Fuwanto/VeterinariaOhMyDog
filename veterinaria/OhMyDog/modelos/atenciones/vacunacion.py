@@ -3,6 +3,9 @@ from OhMyDog.modelos.atenciones.atenciones import Atencion
 
 
 class Vacunacion(models.Model):
+    class Meta:
+        verbose_name_plural = "Vacunaciones"
+
     id = models.BigAutoField(primary_key=True)
     atencion = models.OneToOneField(Atencion, null=False, on_delete=models.CASCADE)
     vacunas = [("Antiviral", "Antiviral"), ("Antirrabica", "Antirrabica")]

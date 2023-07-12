@@ -1,6 +1,10 @@
 from django.db import models
 
+
 class PaseadorCuidador(models.Model):
+    class Meta:
+        verbose_name_plural = "Paseadores_cuidadores"
+
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=30)
     email = models.EmailField(max_length=30)
