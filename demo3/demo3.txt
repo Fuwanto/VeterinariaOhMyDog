@@ -8,7 +8,7 @@ Datos cliente 2: nahucapara@hotmail.com | StephenCurry
 
 TURNOS
 
-Tener un turno pendiente en el listado ya cargado y rechazarlo, mostrar que se ve el mensaje de rechazo en "Mis turnos" del cliente.
+Tener un turno pendiente en el listado ya cargado y rechazarlo con motivo "Los turnos no están disponibles en este momento", mostrar que se ve el mensaje de rechazo en "Mis turnos" del cliente.
 
 --------------------------------
 
