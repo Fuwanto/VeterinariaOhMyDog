@@ -23,16 +23,17 @@ Mostrar que en ninguna de las atenciones se puede cargar una fecha futura, solo 
 ADOPCIONES
 
 Mostrar el listado de adopciones siendo persona no logueada (se muestran todas las publicaciones) vs cliente con publicaciones (no se muestran las publicaciones de ese cliente)
+
 Mostrar que el boton "Me interesa" no requiere ingresar datos si el cliente esta logueado (se envian automaticamente) y que se elimina el boton me interesa. Mostrar que se envió correctamente el email a la persona autora de la publicación.
+
 Mostrar que el boton me interesa requiere ingresar los datos si la persona no está logueada
 
 --------------------------------
 
 BUSQUEDAS
 
-Tener precargadas dos búsquedas en la cuenta de Nahuel.
-
 Mostrar que "Mis búsquedas" para antonella está vacío.
+
 Mostrar la creación efectiva de una publicación de búsqueda con la cuenta de antonella.
     Blanca
     Hembra de gran tamaño
@@ -40,13 +41,16 @@ Mostrar la creación efectiva de una publicación de búsqueda con la cuenta de 
     Blanca.jpg
 
 Mostrar que si intento crear otra publicación con datos distintos pero misma foto (mismo nombre de archivo) no me deja.
-Mostrar que "Mis búsquedas" ahora tiene la nueva búsqueda.
+
 Mostrar que en "Búsquedas" no se ve la de antonella, pero si las de nahuel. Si vuelvo a chequear "Búsquedas" deslogueado se ven todas.
+
 Eliminar la búsqueda y mostrar que ya no aparece.
 
 Mostrar que el boton "Tengo información" no requiere ingresar datos si el cliente esta logueado (se envian automaticamente) y que se elimina el boton "Tengo información". Mostrar que se envió correctamente el email a la persona autora de la publicación.
+
 Mostrar que el boton "Tengo información" requiere ingresar los datos si la persona no está logueada
-Mostrar que al presionar "Encontrado" en "Mis búsquedas" el botón desaparece de "Mis búsquedas" y de la lista de publicaciones de búsqueda (desde la perspectiva del admin por ejemplo, o alguien no logueado)
+
+Mostrar que al presionar "Encontrado" en "Mis búsquedas" el botón desaparece de "Mis búsquedas" y en la lista de publicaciones de búsqueda (desde la perspectiva del admin por ejemplo, o alguien no logueado) aparece como "Encontrado" y desaparece el botón de "Tengo información".
 
 Mostrar el filtro por zona en listado de búsquedas, caso éxito y vacío.
 
@@ -105,8 +109,8 @@ Mostrar que no me deja crear otra publicacion con mismo nombre de perro.
     Dorado
     Lola.jpg    
 
-Mostrar que no me deja crear una publicacion de hembra con fecha ultimo celo mayor a la edad.
-    Lola
+Mostrar que no me deja crear una publicacion de hembra con fecha de último celo anterior a fecha de nacimiento.
+    Pachu
     Hembra
     Labrador
     2020-05
@@ -115,23 +119,24 @@ Mostrar que no me deja crear una publicacion de hembra con fecha ultimo celo may
     Dorado
     Lola.jpg
 
-Mostrar que "Mis cruzas" ahora tiene la nueva cruza.
-Eliminar la cruza y mostrar que ya no aparece.
-Volver a crear la cruza.
-    Lola
-    Hembra
-    Labrador
-    2020-05
-    10/05/2023
-    60
-    Dorado
-    Lola.jpg
+Crear otra cruza para mostrar que los candidatos están vacíos.
+    Tucu
+    Macho
+    Rottweiler
+    2021-07
+    70
+    Negro
+    Tucu.jpg
 
 Mostrar que los candidatos están vacíos.
 
-Mostrar que este si tiene candidato y ahora la de antonella también tiene a este candidato.
+Mostrar que Lola si tiene candidato y ahora la de nahuel también tiene a este candidato.
+
 Seleccionar el perro de antonella como candidato. Mostrar que aun no se envia el mail.
+
 Seleccionar el perro de nahuel desde antonella. Mostrar que ahora si se envia el mail por haber interés mutuo.
+
+Eliminar la cruza y mostrar que ya no aparece.
 
 --------------------------------
 
@@ -160,7 +165,9 @@ Intentar crear otra con fecha inicio mayor a fecha fin y mostrar el error.
     10/7/2023
 
 Mostrar el listado de donaciones siendo veterinario.
+
 Mostrar el listado de donaciones siendo cliente.
+
 Intentar modificar fecha de fin poniendola antes de la fecha de inicio y mostrar el error.
     5/7/2023
 
