@@ -12,17 +12,15 @@ from OhMyDog.modelos.publicaciones import (
     actualizar_monto_campania,
     grabar_descuento,
 )
-import requests
 from OhMyDog.views.utils import agregar_mensaje_error
 from datetime import datetime, date, timedelta
-import datetime
 import mercadopago
 from django.conf import settings
 from django.http import JsonResponse
 import qrcode
 from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
+
 
 def agregar_campania_donacion(request):
     if request.method == "POST":
@@ -78,10 +76,11 @@ def realizar_donacion(request):
     campania_id = request.POST.get("campania_id")
     print(request.POST.get("campania_id"))
     campania = obtener_campania_por_id(campania_id)
-    return render (request, "realizar_donacion.html",{"campania": campania, "controlBit": False})
+    return render(request, "realizar_donacion.html", {"campania": campania, "controlBit": False})
+
 
 def cambiar_codigo_qr(request, campania_id, value, email):
-    mp = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)    
+    mp = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)
     cliente_email = email
     if request.user.is_authenticated:
         cliente_email = request.user.mail
@@ -100,27 +99,27 @@ def cambiar_codigo_qr(request, campania_id, value, email):
     if preference_result["status"] == 201:
         qr_code_url = preference_result["response"]["init_point"]
         qr_image = qrcode.make(qr_code_url)
-        response = HttpResponse(content_type='image/png')
-        qr_image.save(response, 'PNG')
+        response = HttpResponse(content_type="image/png")
+        qr_image.save(response, "PNG")
         return response
 
     else:
         return JsonResponse({"error": "No se pudo generar el pago QR."}, status=500)
 
+
 @csrf_exempt
-def notificacion_mercadopago (request):
-    type = request.GET.get('type')
-    data_id = request.GET.get('data.id')
-    if type == 'payment':
-        if buscar_transaccion_por_id (data_id) is None:
-            campania_id = request.GET.get('campania_id')
-            value = request.GET.get('monto')
-            email =  request.GET.get('email')
-            grabar_transaccion (data_id, value, campania_id)
+def notificacion_mercadopago(request):
+    type = request.GET.get("type")
+    data_id = request.GET.get("data.id")
+    if type == "payment":
+        if buscar_transaccion_por_id(data_id) is None:
+            campania_id = request.GET.get("campania_id")
+            value = request.GET.get("monto")
+            email = request.GET.get("email")
+            grabar_transaccion(data_id, value, campania_id)
             actualizar_monto_campania(campania_id, value)
-            grabar_descuento (email)
-            messages.success(request, 'La transacción se completó exitosamente.')
+            grabar_descuento(email)
+            messages.success(request, "La transacción se completó exitosamente.")
     response = HttpResponse("Exito")
     response.status_code = 200
     return response
-
