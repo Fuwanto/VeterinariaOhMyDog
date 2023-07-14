@@ -175,7 +175,11 @@ Modificar la fecha de fin exitosamente.
     5/8/2023
 
 Realizar una donación y mostrar el nuevo monto actualizado en esa campaña.
-    ???
+    Mostrar que no me deja si no ingreso email
+    500 con email juancasserab@outlook.com.ar
+    Hacer otra donación siendo cliente y mostrar que ahora tengo 10% de descuento
+    Mostrar el monto actualizado
+    Mostrar que cancela el pago
 
 Finalizar la campaña de donación.
 
